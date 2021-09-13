@@ -1,5 +1,5 @@
 # Excelerate (Code will get checked in within the hour)
-Excelerate using EPPPlus version 4.5.3.3 (last free version), and it makes it easy to load Workbooks or Worksheets.
+Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it easy to load Workbooks or Worksheets.
 
 I have a couple of clients that I build programs that automate combining columns from multiple Worksheets to form reports.
 
