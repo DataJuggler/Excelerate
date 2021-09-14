@@ -9,7 +9,7 @@ Rather than continue to write custom loaders, I really only need custom Exporter
 
 This short code snippet will load all the rows from a worksheet:
 
-// (Sample is a Windows Form .Net 5 project)
+Snippet is from a Windows Form .Net 5 project, located in the Sample folder of this project. Very simple for now:
 
     using DataJuggler.UltimateHelper;
     using DataJuggler.Excelerate;
