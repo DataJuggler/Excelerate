@@ -19,9 +19,9 @@ This short code snippet will load all the rows from a worksheet named Export:
 
     // Create a new instance of a 'LoadWorksheetInfo' object.
     LoadWorksheetInfo loadWorksheetInfo = new LoadWorksheetInfo();
-
+    
     // Set the SheetName
-    loadWorksheetInfo.SheetName = "Tristate Low Voltage Supply";
+    loadWorksheetInfo.SheetName = SheetNameControl.Text;
 
     // Only load the first 12 columns for this test
     loadWorksheetInfo.ColumnsToLoad = 12;
