@@ -1,4 +1,4 @@
-# Excelerate (Code will get checked in within the hour)
+# Excelerate
 Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it easy to load Workbooks or Worksheets.
 
 I have a couple of clients that I build programs that automate combining columns from multiple Worksheets to form reports.
@@ -7,9 +7,6 @@ Rather than contine to use write custom loaders, I really only need custom Expor
 
 This short code snippet will load all the rows from a worksheet named Export:
 
-// Release name of Nuget package will be DataJuggler.Excelerate, not Excelerate.Objects. I haven't made that switch yet.
-// I will update this code snippet once I do (hopefully. Let me know if I forget. I have a bracelet with my address on it if
-// tells you anything about my memory (Bob Newhart).
 // (Sample is a Windows Form .Net 5 project)
 
     using DataJuggler.UltimateHelper;
