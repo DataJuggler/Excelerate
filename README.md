@@ -46,7 +46,7 @@ This short code snippet will load all the rows from a worksheet named Export:
         if (index >= 0)
         {
             // set the worksheet
-            Worksheet worksheet = workbook.Worksheets[0];
+            Worksheet worksheet = workbook.Worksheets[index];
 
             // if the rows collection was found
             if (worksheet.HasRows)
