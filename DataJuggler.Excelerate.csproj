@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>DataJuggler</Authors>
+    <Description>Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it easy to load Workbooks or Worksheets.
+
+I have a couple of clients that I build programs that automate combining columns from multiple Worksheets to form reports.
+
+Rather than contine to use write custom loaders, I really only need custom Exporters in most cases.</Description>
+    <Copyright>2021 - Use for whatever you want, give me credit if you like it.</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Sample\**" />
+    <EmbeddedResource Remove="Sample\**" />
+    <None Remove="Sample\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="ExcelerateEnumerations.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DataJuggler.UltimateHelper" Version="1.6.7" />
+    <PackageReference Include="EPPlus" Version="4.5.3.3" />
+  </ItemGroup>
+
+</Project>
