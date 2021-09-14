@@ -64,16 +64,16 @@ This short code snippet will load all the rows from a worksheet named Export:
                 
                 // get values, code to verify rowNumbers and columnNumber are omitted for brevity. Always test for Rows.Count and Columns.Count in a real project.
                 
-                // Get the ColumnValue cast a Decimal
+                // Get the ColumnValue cast as a Decimal
                 Decimal columnValue = worksheet.Rows[1125].Columns[4].DecimalValue;
                 
-                // Get a string value at a given cell
+                // Cast the column value as a string
                 string temp = worksheet.Rows[x].Columns[y].StringValue;
                 
-                // Get a boolean value                
+                // Cast the ColumnValue as a bool value                
                 bool active = worksheet.Rows[x].Columns[y].BoolValue;
                 
-                // Get a nullable date
+                // Cast the column value as a nullable date
                 DateTime? expirationDate = worksheet.Rows[x].Columns[y].DateValue;
             }
         }
