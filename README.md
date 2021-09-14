@@ -82,6 +82,20 @@ This short code snippet will load all the rows from a worksheet:
         }
     }
     
+    There is another override to load multiple sheets at once. I will build a sample project when I get some time to build a sample spreadsheet I can give away.
+    
+    To load multiple sheets:
+    
+    List<LoadWorksheetInfo> loadWorkSheetsInfo = new List<LoadWorksheetInfo>();
+    
+    // Add each LoadWorksheetInfo
+    workbook= ExcellDataLoader.LoadWorkbook(path, loadWorkSheetsInfo)
+    
+    I will build some helper methods to save writing as much code once I use this a little to know what is needed.
+    
+    
+    
+    
 I am just starting testing now. My first test loaded a 12 column spreadsheet with 3,376 rows in just a few seconds.
 
 More helper methods and features will be added. I will release a Nuget package once I finish my project I built this for.
