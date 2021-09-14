@@ -62,7 +62,8 @@ This short code snippet will load all the rows from a worksheet:
                 // Show a message if it works
                 MessageBox.Show("There were " + String.Format("{0:n0}",  cols) + " columns found in the row index 1125.");
                 
-                // get values, code to verify rowNumbers and columnNumber are omitted for brevity. Always test for Rows.Count and Columns.Count in a real project.
+                // get values, code to verify rowNumbers and columnNumber are omitted for brevity. 
+                // Always test for Rows.Count and Columns.Count in a real project.
                 
                 // Get the ColumnValue cast as a Decimal
                 Decimal columnValue = worksheet.Rows[1125].Columns[4].DecimalValue;
