@@ -43,7 +43,7 @@ This short code snippet will load all the rows from a worksheet named Export:
     if ((NullHelper.Exists(workbook)) && (ListHelper.HasOneOrMoreItems(workbook.Worksheets)))
     {
         // get the index
-        int index = workbook.GetWorksheetIndex("Tristate Low Voltage Supply");
+        int index = workbook.GetWorksheetIndex(worksheetName);
 
         // if the index was found
         if (index >= 0)
