@@ -5,7 +5,7 @@ I have a couple of clients that I build programs that automate combining columns
 
 Rather than continue to write custom loaders, I really only need custom Exporters in most cases.
 
-This short code snippet will load all the rows from a worksheet named Export:
+This short code snippet will load all the rows from a worksheet:
 
 // (Sample is a Windows Form .Net 5 project)
 
