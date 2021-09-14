@@ -12,7 +12,7 @@ This short code snippet will load all the rows from a worksheet:
 // (Sample is a Windows Form .Net 5 project)
 
     using DataJuggler.UltimateHelper;
-    using Excelerate.Objects;
+    using DataJuggler.Excelerate;
     using System;
     using System.Windows.Forms;
 
