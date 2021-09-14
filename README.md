@@ -3,7 +3,7 @@ Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it eas
 
 I have a couple of clients that I build programs that automate combining columns from multiple Worksheets to form reports.
 
-Rather than contineu to use write custom loaders, I really only need custom Exporters in most cases.
+Rather than continue to use write custom loaders, I really only need custom Exporters in most cases.
 
 This short code snippet will load all the rows from a worksheet named Export:
 
