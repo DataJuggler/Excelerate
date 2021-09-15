@@ -1,7 +1,7 @@
 # DataJuggler.Excelerate
 Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it easy to load Workbooks or Worksheets.
 
-Nuget package coming soon.
+Nuget package version 1.0.2 was just published: DataJuggler.Excelerate
 
 I have a couple of clients that I build programs that automate combining columns from multiple Worksheets to form reports.
 
@@ -9,10 +9,10 @@ Rather than continue to write custom loaders, I really only need custom Exporter
 
 This short code snippet will load all the rows from a worksheet:
 
-// (Sample is a Windows Form .Net 5 project)
+Snippet is from a Windows Form .Net 5 project, located in the Sample folder of this project. Very simple for now:
 
     using DataJuggler.UltimateHelper;
-    using Excelerate.Objects;
+    using DataJuggler.Excelerate;
     using System;
     using System.Windows.Forms;
 
