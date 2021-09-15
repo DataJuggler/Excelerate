@@ -129,13 +129,13 @@ namespace DataJuggler.Excelerate
                         foreach (LoadWorksheetInfo loadWorksheetInfo in sheetsToLoad)
                         {
                             // Create a workSheet object
-                            Worksheet workSheet = LoadWorksheet(excelWorkbook, loadWorksheetInfo);
+                            Worksheet worksheet = LoadWorksheet(excelWorkbook, loadWorksheetInfo);
 
-                           // If the workSheet object exists
-                           if (NullHelper.Exists(workSheet))
+                           // If the worksheet object exists
+                           if (NullHelper.Exists(worksheet))
                            {
                                 // Add this worksheet
-                                workbook.Worksheets.Add(workSheet);
+                                workbook.Worksheets.Add(worksheet);
                            }
                         }
                     }
@@ -334,6 +334,30 @@ namespace DataJuggler.Excelerate
                         // Use this to attach logging or other centralized error handling
                         DebugHelper.WriteDebugError("LoadWorksheet", "ExcelDataLoader", error);
                     }
+                }
+                
+                // return value
+                return worksheet;
+            }
+            #endregion
+
+            #region LoadWorksheet(string path, LoadWorksheetInfo loadWorksheetInfo)
+            /// <summary>
+            /// This method returns a single Worksheet
+            /// </summary>
+            public static Worksheet LoadWorksheet(string path, LoadWorksheetInfo loadWorksheetInfo)
+            {
+                // initial value
+                Worksheet worksheet = null;
+
+                // load the workbook
+                Workbook workbook = LoadWorkbook(path, loadWorksheetInfo);
+
+                // if the workbook
+                if ((NullHelper.Exists(workbook)) && (ListHelper.HasOneOrMoreItems(workbook.Worksheets)))
+                {
+                    // set the return value
+                    worksheet = workbook.Worksheets[0];
                 }
                 
                 // return value
