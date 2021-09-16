@@ -91,7 +91,7 @@ namespace DataJuggler.Excelerate.Sample
                 LoadWorksheetInfo loadWorksheetInfo = new LoadWorksheetInfo();
 
                 // Set the SheetName
-                loadWorksheetInfo.SheetName = SheetnameControl.SelectedObject.ToString();;
+                loadWorksheetInfo.SheetName = SheetnameControl.SelectedObject.ToString();
 
                 // Only load the first 12 columns for this test
                 loadWorksheetInfo.ColumnsToLoad = 12;
