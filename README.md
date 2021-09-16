@@ -29,7 +29,7 @@ Snippet is from a Windows Form .Net 5 project, located in the Sample folder of t
     LoadWorksheetInfo loadWorksheetInfo = new LoadWorksheetInfo();
 
     // Set the SheetName
-    oadWorksheetInfo.SheetName = SheetnameControl.SelectedObject.ToString();;
+    oadWorksheetInfo.SheetName = SheetnameControl.SelectedObject.ToString();
 
     // Only load the first 12 columns for this test
     loadWorksheetInfo.ColumnsToLoad = 12;
