@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <ApplicationIcon>Accelerate.ico</ApplicationIcon>
+    <ApplicationIcon>Excelerate.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

@@ -101,50 +101,40 @@ namespace DataJuggler.Excelerate.Sample
                 // loadWorksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadAllColumnsExceptExcluded;
                 // loadWorksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadSpecifiedColumns;
 
-                // load the workbook
-                Workbook workbook = ExcelDataLoader.LoadWorkbook(path, loadWorksheetInfo);
+                // load the worksheet
+                Worksheet worksheet = ExcelDataLoader.LoadWorksheet(path, loadWorksheetInfo);
 
                 // if the workbook exists
-                if ((NullHelper.Exists(workbook)) && (ListHelper.HasOneOrMoreItems(workbook.Worksheets)) && (SheetnameControl.HasSelectedObject))
+                if ((NullHelper.Exists(worksheet)) && (SheetnameControl.HasSelectedObject))
                 {
-                    // get the index
-                    int index = workbook.GetWorksheetIndex(SheetnameControl.SelectedObject.ToString());
+                    // Store the property on this form
+                    this.Worksheet = worksheet;
 
-                    // if the index was found
-                    if (index >= 0)
+                    // If the Worksheet exists, the Code Generate Button exists
+                    CodeGenerateButton.Enabled = (HasWorksheet && (OutputFolderControl.HasText));
+
+                    // if the rows collection was found
+                    if (worksheet.HasRows)
                     {
-                        // set the worksheet
-                        Worksheet worksheet = workbook.Worksheets[index];
+                        // Show a message as a test
+                        MessageBox.Show("Worksheet Loaded", "Finished");
 
-                        // Set the property
-                        Worksheet = worksheet;
+                        //// test only
+                        //int rows = worksheet.Rows.Count;
 
-                        // If the Worksheet exists, the Code Generate Button exists
-                        CodeGenerateButton.Enabled = (HasWorksheet && (OutputFolderControl.HasText));
+                        //// Show a message as a test
+                        //MessageBox.Show("There were " + String.Format("{0:n0}",  rows) + " rows found in the worksheet");
 
-                        // if the rows collection was found
-                        if (worksheet.HasRows)
-                        {
-                            // Show a message as a test
-                            MessageBox.Show("Worksheet Loaded", "Finished");
+                        //int cols = worksheet.Rows[1124].Columns.Count;
 
-                            //// test only
-                            //int rows = worksheet.Rows.Count;
+                        //// Show a message as a test
+                        //MessageBox.Show("There were " + String.Format("{0:n0}",  cols) + " columns found in the row index 1125.");
 
-                            //// Show a message if it works
-                            //MessageBox.Show("There were " + String.Format("{0:n0}",  rows) + " rows found in the worksheet");
+                        //// Get a nullable date
+                        //string columnValue = worksheet.Rows[1124].Columns[3].StringValue;
 
-                            //int cols = worksheet.Rows[1124].Columns.Count;
-
-                            //// Show a message if it works
-                            //MessageBox.Show("There were " + String.Format("{0:n0}",  cols) + " columns found in the row index 1125.");
-
-                            //// Get a nullable date
-                            //string columnValue = worksheet.Rows[1124].Columns[3].StringValue;
-
-                            //// Show a message of the columnValue
-                            //MessageBox.Show("Column Value: " + columnValue);
-                        }
+                        //// Show a message with the columnValue
+                        //MessageBox.Show("Column Value: " + columnValue);
                     }
                 }
             }
