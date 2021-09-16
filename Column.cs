@@ -26,7 +26,8 @@ namespace DataJuggler.Excelerate
         private int columnNumber;
         private bool columnContainsData;
         private object columnValue;
-        private string columnName;        
+        private string columnName;
+        private string columnText;
         #endregion
 
         #region Properties
@@ -95,6 +96,17 @@ namespace DataJuggler.Excelerate
             {
                 get { return columnNumber; }
                 set { columnNumber = value; }
+            }
+            #endregion
+            
+            #region ColumnText
+            /// <summary>
+            /// This property gets or sets the value for 'ColumnText'.
+            /// </summary>
+            public string ColumnText
+            {
+                get { return columnText; }
+                set { columnText = value; }
             }
             #endregion
             

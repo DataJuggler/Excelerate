@@ -7,6 +7,7 @@ using System;
 using System.Windows.Forms;
 using DataJuggler.Win.Controls.Interfaces;
 using OfficeOpenXml;
+using System.IO;
 
 #endregion
 
@@ -21,6 +22,7 @@ namespace DataJuggler.Excelerate.Sample
     {
         
         #region Private Variables
+        private Worksheet worksheet;
         #endregion
         
         #region Constructor
@@ -39,6 +41,39 @@ namespace DataJuggler.Excelerate.Sample
 
         #region Events
 
+            #region CodeGenerateButton_Click(object sender, EventArgs e)
+            /// <summary>
+            /// event is fired when the 'CodeGenerateButton' is clicked.
+            /// </summary>
+            private void CodeGenerateButton_Click(object sender, EventArgs e)
+            {
+                // Remove focus from the button just clicked
+                OffScreenButton.Focus();
+
+                // if the value for HasWorksheet is true
+                if ((HasWorksheet) && (ListHelper.HasOneOrMoreItems(Worksheet.Rows)))
+                {
+                    // The file I am using to test has 3 rows at the top. Take this out if I accidently check this in
+                    worksheet.Rows.RemoveRange(0, 3);
+
+                    // Set the outputFolder
+                    string outputFolder = OutputFolderControl.Text;
+
+                    // Set the className (as a test)
+                    string className = "SalesTaxEntry";
+
+                    // Create a new instance of a CodeGenerator
+                    CodeGenerator codeGenerator = new CodeGenerator(worksheet, outputFolder, className);
+
+                    // Generate a class
+                    bool success = codeGenerator.GenerateClassFromWorksheet("STATS.Objects");
+
+                    // Show the results
+                    MessageBox.Show("Success: " + success);
+                }
+            }
+            #endregion
+            
             #region OnTextChanged(Control sender, string text)
             /// <summary>
             /// event is fired when On Text Changed
@@ -75,6 +110,9 @@ namespace DataJuggler.Excelerate.Sample
             /// </summary>
             private void TestButton_Click(object sender, EventArgs e)
             {
+                // Remove focus from the button just clicked
+                OffScreenButton.Focus();
+
                 // Set the text
                 string path = WorksheetControl.Text;
 
@@ -107,30 +145,36 @@ namespace DataJuggler.Excelerate.Sample
                         // set the worksheet
                         Worksheet worksheet = workbook.Worksheets[index];
 
+                        // Set the property
+                        Worksheet = worksheet;
+
                         // if the rows collection was found
                         if (worksheet.HasRows)
                         {
-                            // test only
-                            int rows = worksheet.Rows.Count;
+                            // Show a message as a test
+                            MessageBox.Show("Worksheet Loaded", "Finished");
 
-                            // Show a message if it works
-                            MessageBox.Show("There were " + String.Format("{0:n0}",  rows) + " rows found in the worksheet");
+                            //// test only
+                            //int rows = worksheet.Rows.Count;
 
-                            int cols = worksheet.Rows[1124].Columns.Count;
+                            //// Show a message if it works
+                            //MessageBox.Show("There were " + String.Format("{0:n0}",  rows) + " rows found in the worksheet");
 
-                            // Show a message if it works
-                            MessageBox.Show("There were " + String.Format("{0:n0}",  cols) + " columns found in the row index 1125.");
+                            //int cols = worksheet.Rows[1124].Columns.Count;
 
-                            // Get a nullable date
-                            string columnValue = worksheet.Rows[1124].Columns[3].StringValue;
+                            //// Show a message if it works
+                            //MessageBox.Show("There were " + String.Format("{0:n0}",  cols) + " columns found in the row index 1125.");
 
-                            // Show a message of the columnValue
-                            MessageBox.Show("Column Value: " + columnValue);
+                            //// Get a nullable date
+                            //string columnValue = worksheet.Rows[1124].Columns[3].StringValue;
+
+                            //// Show a message of the columnValue
+                            //MessageBox.Show("Column Value: " + columnValue);
                         }
                     }
                 }
             }
-        #endregion
+            #endregion
 
         #endregion
 
@@ -144,6 +188,38 @@ namespace DataJuggler.Excelerate.Sample
             {
                 // Setup the listener
                 this.WorksheetControl.OnTextChangedListener = this;
+            }
+        #endregion
+
+        #endregion
+
+        #region Properties
+            
+            #region HasWorksheet
+            /// <summary>
+            /// This property returns true if this object has a 'Worksheet'.
+            /// </summary>
+            public bool HasWorksheet
+            {
+                get
+                {
+                    // initial value
+                    bool hasWorksheet = (this.Worksheet != null);
+                    
+                    // return value
+                    return hasWorksheet;
+                }
+            }
+            #endregion
+            
+            #region Worksheet
+            /// <summary>
+            /// This property gets or sets the value for 'Worksheet'.
+            /// </summary>
+            public Worksheet Worksheet
+            {
+                get { return worksheet; }
+                set { worksheet = value; }
             }
             #endregion
             

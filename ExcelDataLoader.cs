@@ -26,6 +26,31 @@ namespace DataJuggler.Excelerate
         
         #region Methods
 
+            #region GetCellText()
+            /// <summary>
+            /// This method returns the Cell Text (what you see, including formatting)
+            /// </summary>
+            public static string GetCellText(ExcelWorksheet sheet, int row, int col)
+            {
+                // initial value
+                string cellText = "";
+
+                // If the sheet object exists
+                if (NullHelper.Exists(sheet))                
+                {
+                    // if the value of this cell exists
+                    if (NullHelper.Exists(sheet.Cells[row, col].Value))
+                    {
+                        // Setg retue
+                        cellText = sheet.Cells[row, col].Text;
+                    }
+                }
+
+                // return value
+                return cellText;
+            }           
+            #endregion
+
             #region GetCellValue()
             /// <summary>
             /// This method returns the Cell Value
@@ -72,6 +97,30 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region GetSheetNames(ExcelWorkbook excelWorkbook)
+            /// <summary>
+            /// method returns the Sheet Names for the workbook given
+            /// </summary>
+            public static List<string> GetSheetNames(ExcelWorkbook excelWorkbook)
+            {
+                // initial value
+                List<string> sheetNames = new List<string>();
+
+                // If the excelWorkbook object exists
+                if (NullHelper.Exists(excelWorkbook))
+                {
+                    for (int x = 0; x < excelWorkbook.Worksheets.Count; x++)
+                    {
+                        // Add this name
+                        sheetNames.Add(excelWorkbook.Worksheets[x].Name);
+                    }
+                }
+
+                // return value
+                return sheetNames;
+            }
+            #endregion
+            
             #region LoadExcelWorkbook(string path)
             /// <summary>
             /// This method returns the Excel Workbook
@@ -98,7 +147,7 @@ namespace DataJuggler.Excelerate
                 return excelWorkbook;
             }
             #endregion
-            
+
             #region LoadWorkbook(string path, List<LoadWorksheetInfo> sheetsToLoad)
             /// <summary>
             /// This method loads a Workbook for the path given
@@ -297,6 +346,9 @@ namespace DataJuggler.Excelerate
                                                 // Get the ColumnValue
                                                 column.ColumnValue = GetCellValue(excelWorksheet, rowNumber, colNumber);
 
+                                                // Get the CellText
+                                                column.ColumnText = GetCellText(excelWorksheet, rowNumber, colNumber);
+
                                                 // Add this column
                                                 row.Columns.Add(column);
                                             }
@@ -316,6 +368,9 @@ namespace DataJuggler.Excelerate
 
                                             // Get the ColumnValue
                                             column.ColumnValue = GetCellValue(excelWorksheet, rowNumber, x);
+
+                                            // Get the CellText
+                                            column.ColumnText = GetCellText(excelWorksheet, rowNumber, x);
 
                                             // Add this column
                                             row.Columns.Add(column);

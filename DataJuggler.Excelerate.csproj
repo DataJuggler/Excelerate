@@ -5,7 +5,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>DataJuggler</Authors>
-    <Description>Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it easy to load Workbooks or Worksheets.
+    <Description>Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it easy to load Workbooks or Worksheets. Excelerate now has a code generation feature, you can create a C# class from a header row.
 
 I have a couple of clients that I build programs that automate combining columns from multiple Worksheets to form reports.
 
@@ -21,7 +21,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>1.0.3</Version>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -39,6 +39,7 @@ This is the first release. I have just begun adding classes and helper methods t
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DataJuggler.Net5" Version="3.0.5" />
     <PackageReference Include="DataJuggler.UltimateHelper" Version="1.6.7" />
     <PackageReference Include="EPPlus" Version="4.5.3.3" />
   </ItemGroup>
