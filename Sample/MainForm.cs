@@ -98,6 +98,8 @@ namespace DataJuggler.Excelerate.Sample
 
                 // Set the LoadColumnOptions
                 loadWorksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadFirstXColumns;
+
+                // other options. ExcludedColumns is a coming soon feature.
                 // loadWorksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadAllColumnsExceptExcluded;
                 // loadWorksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadSpecifiedColumns;
 
