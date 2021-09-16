@@ -11,7 +11,7 @@ namespace DataJuggler.Excelerate.Sample
         
         #region Private Variables
         private System.ComponentModel.IContainer components = null;
-        private DataJuggler.Win.Controls.Button TestButton;
+        private DataJuggler.Win.Controls.Button LoadWorksheetButton;
         private DataJuggler.Win.Controls.LabelTextBoxBrowserControl WorksheetControl;
         #endregion
         
@@ -40,7 +40,7 @@ namespace DataJuggler.Excelerate.Sample
             private void InitializeComponent()
             {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.TestButton = new DataJuggler.Win.Controls.Button();
+            this.LoadWorksheetButton = new DataJuggler.Win.Controls.Button();
             this.WorksheetControl = new DataJuggler.Win.Controls.LabelTextBoxBrowserControl();
             this.CodeGenerateButton = new DataJuggler.Win.Controls.Button();
             this.OffScreenButton = new DataJuggler.Win.Controls.Button();
@@ -48,18 +48,18 @@ namespace DataJuggler.Excelerate.Sample
             this.SheetnameControl = new DataJuggler.Win.Controls.LabelComboBoxControl();
             this.SuspendLayout();
             // 
-            // TestButton
+            // LoadWorksheetButton
             // 
-            this.TestButton.BackColor = System.Drawing.Color.Transparent;
-            this.TestButton.ButtonText = "Test";
-            this.TestButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TestButton.ForeColor = System.Drawing.Color.LemonChiffon;
-            this.TestButton.Location = new System.Drawing.Point(592, 327);
-            this.TestButton.Name = "TestButton";
-            this.TestButton.Size = new System.Drawing.Size(144, 48);
-            this.TestButton.TabIndex = 1;
-            this.TestButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
-            this.TestButton.Click += new System.EventHandler(this.TestButton_Click);
+            this.LoadWorksheetButton.BackColor = System.Drawing.Color.Transparent;
+            this.LoadWorksheetButton.ButtonText = "Load Worksheet";
+            this.LoadWorksheetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LoadWorksheetButton.ForeColor = System.Drawing.Color.LemonChiffon;
+            this.LoadWorksheetButton.Location = new System.Drawing.Point(548, 339);
+            this.LoadWorksheetButton.Name = "LoadWorksheetButton";
+            this.LoadWorksheetButton.Size = new System.Drawing.Size(196, 48);
+            this.LoadWorksheetButton.TabIndex = 1;
+            this.LoadWorksheetButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            this.LoadWorksheetButton.Click += new System.EventHandler(this.LoadWorksheetButton_Click);
             // 
             // WorksheetControl
             // 
@@ -104,9 +104,9 @@ namespace DataJuggler.Excelerate.Sample
             this.CodeGenerateButton.Enabled = false;
             this.CodeGenerateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CodeGenerateButton.ForeColor = System.Drawing.Color.LemonChiffon;
-            this.CodeGenerateButton.Location = new System.Drawing.Point(397, 327);
+            this.CodeGenerateButton.Location = new System.Drawing.Point(344, 339);
             this.CodeGenerateButton.Name = "CodeGenerateButton";
-            this.CodeGenerateButton.Size = new System.Drawing.Size(189, 48);
+            this.CodeGenerateButton.Size = new System.Drawing.Size(196, 48);
             this.CodeGenerateButton.TabIndex = 4;
             this.CodeGenerateButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
             this.CodeGenerateButton.Click += new System.EventHandler(this.CodeGenerateButton_Click);
@@ -195,7 +195,7 @@ namespace DataJuggler.Excelerate.Sample
             this.Controls.Add(this.OffScreenButton);
             this.Controls.Add(this.CodeGenerateButton);
             this.Controls.Add(this.WorksheetControl);
-            this.Controls.Add(this.TestButton);
+            this.Controls.Add(this.LoadWorksheetButton);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";

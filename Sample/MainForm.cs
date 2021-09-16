@@ -74,58 +74,12 @@ namespace DataJuggler.Excelerate.Sample
                 }
             }
             #endregion
-            
-            #region OnTextChanged(Control sender, string text)
-            /// <summary>
-            /// event is fired when On Text Changed
-            /// </summary>
-            public void OnTextChanged(Control sender, string text)
-            {
-                // here we must lookup the first sheet name, so I don't put my clients name
-                // in this Git Hub repo.
 
-                LoadWorksheetInfo loadWorksheetInfo = new LoadWorksheetInfo();
-
-                // Load all columns
-                loadWorksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadAllColumnsExceptExcluded;
-
-                // local
-                string firstSheetName = "";
-
-                // create a workbook from the path to look up the first sheet name
-                using (ExcelWorkbook workbook = ExcelDataLoader.LoadExcelWorkbook(text))
-                {
-                    // if the workbook exists
-                    if ((NullHelper.Exists(workbook)) && (workbook.Worksheets.Count > 0))
-                    {
-                        // Create a new collection of 'string' objects.
-                        List<string> worksheetNames = new List<string>();
-
-                        // Set the firstSheetName
-                        firstSheetName = workbook.Worksheets[0].Name;
-
-                        // iterate worksheets
-                        for (int x = 0; x < workbook.Worksheets.Count; x++)
-                        {
-                            // Add this string
-                            worksheetNames.Add(workbook.Worksheets[x].Name);
-                        }
-
-                        // Load the list
-                        SheetnameControl.LoadItems(worksheetNames);
-
-                        // Select the first item
-                        SheetnameControl.SelectedIndex = SheetnameControl.FindItemIndexByValue(firstSheetName);
-                    }
-                }
-            }
-            #endregion
-            
-            #region TestButton_Click(object sender, EventArgs e)
+            #region LoadWorksheetButton_Click(object sender, EventArgs e)
             /// <summary>
             /// event is fired when the 'TestButton' is clicked.
             /// </summary>
-            private void TestButton_Click(object sender, EventArgs e)
+            private void LoadWorksheetButton_Click(object sender, EventArgs e)
             {
                 // Remove focus from the button just clicked
                 OffScreenButton.Focus();
@@ -191,6 +145,52 @@ namespace DataJuggler.Excelerate.Sample
                             //// Show a message of the columnValue
                             //MessageBox.Show("Column Value: " + columnValue);
                         }
+                    }
+                }
+            }
+            #endregion
+            
+            #region OnTextChanged(Control sender, string text)
+            /// <summary>
+            /// event is fired when On Text Changed
+            /// </summary>
+            public void OnTextChanged(Control sender, string text)
+            {
+                // here we must lookup the first sheet name, so I don't put my clients name
+                // in this Git Hub repo.
+
+                LoadWorksheetInfo loadWorksheetInfo = new LoadWorksheetInfo();
+
+                // Load all columns
+                loadWorksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadAllColumnsExceptExcluded;
+
+                // local
+                string firstSheetName = "";
+
+                // create a workbook from the path to look up the first sheet name
+                using (ExcelWorkbook workbook = ExcelDataLoader.LoadExcelWorkbook(text))
+                {
+                    // if the workbook exists
+                    if ((NullHelper.Exists(workbook)) && (workbook.Worksheets.Count > 0))
+                    {
+                        // Create a new collection of 'string' objects.
+                        List<string> worksheetNames = new List<string>();
+
+                        // Set the firstSheetName
+                        firstSheetName = workbook.Worksheets[0].Name;
+
+                        // iterate worksheets
+                        for (int x = 0; x < workbook.Worksheets.Count; x++)
+                        {
+                            // Add this string
+                            worksheetNames.Add(workbook.Worksheets[x].Name);
+                        }
+
+                        // Load the list
+                        SheetnameControl.LoadItems(worksheetNames);
+
+                        // Select the first item
+                        SheetnameControl.SelectedIndex = SheetnameControl.FindItemIndexByValue(firstSheetName);
                     }
                 }
             }
