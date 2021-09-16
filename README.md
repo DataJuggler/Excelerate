@@ -65,7 +65,7 @@ Snippet is from a Windows Form .Net 5 project, located in the Sample folder of t
             // MessageBox.Show("There were " + String.Format("{0:n0}",  cols) + " columns found in the row index 1125.");
 
             // Get a nullable date
-            // string columnValue = worksheet.Rows[1124].Columns[3].StringValue;
+            // string columnValue = worksheet.Rows[1124].Columns[3].DateValue;
 
             // Show a message of the columnValue
             // MessageBox.Show("Column Value: " + columnValue);
