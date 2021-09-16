@@ -10,6 +10,9 @@ I have a couple of clients that I build programs that automate combining columns
 
 Rather than continue to write custom loaders, I really only need custom Exporters in most cases.
 
+Here is a short video:
+https://youtu.be/Sa-xroxPw_I
+
 This short code snippet will load all the rows from a worksheet:
 
 Snippet is from a Windows Form .Net 5 project, located in the Sample folder of this project. Very simple for now:
