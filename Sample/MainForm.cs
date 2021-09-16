@@ -5,6 +5,7 @@
 using DataJuggler.UltimateHelper;
 using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 using DataJuggler.Win.Controls.Interfaces;
 using OfficeOpenXml;
 using System.IO;
@@ -88,17 +89,33 @@ namespace DataJuggler.Excelerate.Sample
                 // Load all columns
                 loadWorksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadAllColumnsExceptExcluded;
 
+                // local
+                string firstSheetName = "";
+
                 // create a workbook from the path to look up the first sheet name
                 using (ExcelWorkbook workbook = ExcelDataLoader.LoadExcelWorkbook(text))
                 {
                     // if the workbook exists
                     if ((NullHelper.Exists(workbook)) && (workbook.Worksheets.Count > 0))
                     {
-                        // Get the worksheetName
-                        string workSheetName = workbook.Worksheets[0].Name;
+                        // Create a new collection of 'string' objects.
+                        List<string> worksheetNames = new List<string>();
 
-                        // Display the name
-                        SheetNameControl.Text = workSheetName;
+                        // Set the firstSheetName
+                        firstSheetName = workbook.Worksheets[0].Name;
+
+                        // iterate worksheets
+                        for (int x = 0; x < workbook.Worksheets.Count; x++)
+                        {
+                            // Add this string
+                            worksheetNames.Add(workbook.Worksheets[x].Name);
+                        }
+
+                        // Load the list
+                        SheetnameControl.LoadItems(worksheetNames);
+
+                        // Select the first item
+                        SheetnameControl.SelectedIndex = SheetnameControl.FindItemIndexByValue(firstSheetName);
                     }
                 }
             }
@@ -120,7 +137,7 @@ namespace DataJuggler.Excelerate.Sample
                 LoadWorksheetInfo loadWorksheetInfo = new LoadWorksheetInfo();
 
                 // Set the SheetName
-                loadWorksheetInfo.SheetName = SheetNameControl.Text;
+                loadWorksheetInfo.SheetName = SheetnameControl.SelectedObject.ToString();;
 
                 // Only load the first 12 columns for this test
                 loadWorksheetInfo.ColumnsToLoad = 12;
@@ -134,10 +151,10 @@ namespace DataJuggler.Excelerate.Sample
                 Workbook workbook = ExcelDataLoader.LoadWorkbook(path, loadWorksheetInfo);
 
                 // if the workbook exists
-                if ((NullHelper.Exists(workbook)) && (ListHelper.HasOneOrMoreItems(workbook.Worksheets)))
+                if ((NullHelper.Exists(workbook)) && (ListHelper.HasOneOrMoreItems(workbook.Worksheets)) && (SheetnameControl.HasSelectedObject))
                 {
                     // get the index
-                    int index = workbook.GetWorksheetIndex(SheetNameControl.Text);
+                    int index = workbook.GetWorksheetIndex(SheetnameControl.SelectedObject.ToString());
 
                     // if the index was found
                     if (index >= 0)
@@ -147,6 +164,9 @@ namespace DataJuggler.Excelerate.Sample
 
                         // Set the property
                         Worksheet = worksheet;
+
+                        // If the Worksheet exists, the Code Generate Button exists
+                        CodeGenerateButton.Enabled = (HasWorksheet && (OutputFolderControl.HasText));
 
                         // if the rows collection was found
                         if (worksheet.HasRows)

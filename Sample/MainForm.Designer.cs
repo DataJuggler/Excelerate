@@ -42,10 +42,10 @@ namespace DataJuggler.Excelerate.Sample
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.TestButton = new DataJuggler.Win.Controls.Button();
             this.WorksheetControl = new DataJuggler.Win.Controls.LabelTextBoxBrowserControl();
-            this.SheetNameControl = new DataJuggler.Win.Controls.LabelTextBoxControl();
             this.CodeGenerateButton = new DataJuggler.Win.Controls.Button();
             this.OffScreenButton = new DataJuggler.Win.Controls.Button();
             this.OutputFolderControl = new DataJuggler.Win.Controls.LabelTextBoxBrowserControl();
+            this.SheetnameControl = new DataJuggler.Win.Controls.LabelComboBoxControl();
             this.SuspendLayout();
             // 
             // TestButton
@@ -97,38 +97,11 @@ namespace DataJuggler.Excelerate.Sample
             this.WorksheetControl.TextBoxTopMargin = 0;
             this.WorksheetControl.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
             // 
-            // SheetNameControl
-            // 
-            this.SheetNameControl.BackColor = System.Drawing.Color.Transparent;
-            this.SheetNameControl.BottomMargin = 0;
-            this.SheetNameControl.Editable = true;
-            this.SheetNameControl.Encrypted = false;
-            this.SheetNameControl.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.SheetNameControl.LabelBottomMargin = 0;
-            this.SheetNameControl.LabelColor = System.Drawing.Color.LemonChiffon;
-            this.SheetNameControl.LabelFont = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.SheetNameControl.LabelText = "Sheetname:";
-            this.SheetNameControl.LabelTopMargin = 0;
-            this.SheetNameControl.LabelWidth = 144;
-            this.SheetNameControl.Location = new System.Drawing.Point(60, 100);
-            this.SheetNameControl.MultiLine = false;
-            this.SheetNameControl.Name = "SheetNameControl";
-            this.SheetNameControl.OnTextChangedListener = null;
-            this.SheetNameControl.PasswordMode = false;
-            this.SheetNameControl.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.SheetNameControl.Size = new System.Drawing.Size(360, 32);
-            this.SheetNameControl.TabIndex = 3;
-            this.SheetNameControl.TextBoxBottomMargin = 0;
-            this.SheetNameControl.TextBoxDisabledColor = System.Drawing.Color.LightGray;
-            this.SheetNameControl.TextBoxEditableColor = System.Drawing.Color.White;
-            this.SheetNameControl.TextBoxFont = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.SheetNameControl.TextBoxTopMargin = 0;
-            this.SheetNameControl.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
-            // 
             // CodeGenerateButton
             // 
             this.CodeGenerateButton.BackColor = System.Drawing.Color.Transparent;
             this.CodeGenerateButton.ButtonText = "Code Generate";
+            this.CodeGenerateButton.Enabled = false;
             this.CodeGenerateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CodeGenerateButton.ForeColor = System.Drawing.Color.LemonChiffon;
             this.CodeGenerateButton.Location = new System.Drawing.Point(397, 327);
@@ -186,16 +159,41 @@ namespace DataJuggler.Excelerate.Sample
             this.OutputFolderControl.TextBoxTopMargin = 0;
             this.OutputFolderControl.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
             // 
+            // SheetnameControl
+            // 
+            this.SheetnameControl.BackColor = System.Drawing.Color.Transparent;
+            this.SheetnameControl.ComboBoxLeftMargin = 1;
+            this.SheetnameControl.ComboBoxText = "";
+            this.SheetnameControl.ComoboBoxFont = null;
+            this.SheetnameControl.Editable = true;
+            this.SheetnameControl.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.SheetnameControl.HideLabel = false;
+            this.SheetnameControl.LabelBottomMargin = 0;
+            this.SheetnameControl.LabelColor = System.Drawing.Color.LemonChiffon;
+            this.SheetnameControl.LabelFont = null;
+            this.SheetnameControl.LabelText = "Worksheet:";
+            this.SheetnameControl.LabelTopMargin = 0;
+            this.SheetnameControl.LabelWidth = 144;
+            this.SheetnameControl.List = null;
+            this.SheetnameControl.Location = new System.Drawing.Point(60, 100);
+            this.SheetnameControl.Name = "SheetnameControl";
+            this.SheetnameControl.SelectedIndex = -1;
+            this.SheetnameControl.SelectedIndexListener = null;
+            this.SheetnameControl.Size = new System.Drawing.Size(360, 28);
+            this.SheetnameControl.Sorted = true;
+            this.SheetnameControl.Source = null;
+            this.SheetnameControl.TabIndex = 7;
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.SheetnameControl);
             this.Controls.Add(this.OutputFolderControl);
             this.Controls.Add(this.OffScreenButton);
             this.Controls.Add(this.CodeGenerateButton);
-            this.Controls.Add(this.SheetNameControl);
             this.Controls.Add(this.WorksheetControl);
             this.Controls.Add(this.TestButton);
             this.DoubleBuffered = true;
@@ -209,11 +207,10 @@ namespace DataJuggler.Excelerate.Sample
         #endregion
 
         #endregion
-
-        private Win.Controls.LabelTextBoxControl SheetNameControl;
         private Win.Controls.Button CodeGenerateButton;
         private Win.Controls.Button OffScreenButton;
         private Win.Controls.LabelTextBoxBrowserControl OutputFolderControl;
+        private Win.Controls.LabelComboBoxControl SheetnameControl;
     }
     #endregion
 
