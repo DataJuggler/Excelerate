@@ -3,12 +3,15 @@ Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it eas
 
 Nuget package version 1.1.0 was just published: DataJuggler.Excelerate
 
-A class named CodeGenerator was just assed, and now using the same CSharpClassWriter that code generates for DataTier.Net, I code generate
+A class named CodeGenerator was just created, and now using the same CSharpClassWriter that code generates for DataTier.Net, I code generate
 classes based on your header row.
 
 I have a couple of clients that I build programs that automate combining columns from multiple Worksheets to form reports.
 
 Rather than continue to write custom loaders, I really only need custom Exporters in most cases.
+
+Here is a short video:
+https://youtu.be/Sa-xroxPw_I
 
 This short code snippet will load all the rows from a worksheet:
 
@@ -19,14 +22,14 @@ Snippet is from a Windows Form .Net 5 project, located in the Sample folder of t
     using System;
     using System.Windows.Forms;
 
-    // get the path
+    // Set the text
     string path = WorksheetControl.Text;
 
     // Create a new instance of a 'LoadWorksheetInfo' object.
     LoadWorksheetInfo loadWorksheetInfo = new LoadWorksheetInfo();
-    
+
     // Set the SheetName
-    loadWorksheetInfo.SheetName = SheetNameControl.Text;
+    oadWorksheetInfo.SheetName = SheetnameControl.SelectedObject.ToString();
 
     // Only load the first 12 columns for this test
     loadWorksheetInfo.ColumnsToLoad = 12;
@@ -34,56 +37,41 @@ Snippet is from a Windows Form .Net 5 project, located in the Sample folder of t
     // Set the LoadColumnOptions
     loadWorksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadFirstXColumns;
     
-    // Other options
+    // other options
     // loadWorksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadAllColumnsExceptExcluded;
     // loadWorksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadSpecifiedColumns;
 
-    // load the workbook
-    Workbook workbook = ExcelDataLoader.LoadWorkbook(path, loadWorksheetInfo);
+    // load the worksheet
+    Worksheet worksheet = ExcelDataLoader.LoadWorksheet(path, loadWorksheetInfo);
 
-    // if the workbook exists
-    if ((NullHelper.Exists(workbook)) && (ListHelper.HasOneOrMoreItems(workbook.Worksheets)))
+    // if the worksheet exists
+    if ((NullHelper.Exists(worksheet)) && (SheetnameControl.HasSelectedObject))
     {
-        // get the index
-        int index = workbook.GetWorksheetIndex(worksheetName);
-
-        // if the index was found
-        if (index >= 0)
+        // if the rows collection was found
+        if (worksheet.HasRows)
         {
-            // set the worksheet
-            Worksheet worksheet = workbook.Worksheets[index];
+            // Show a message as a test
+            // MessageBox.Show("Worksheet Loaded", "Finished");
 
-            // if the rows collection was found
-            if (worksheet.HasRows)
-            {
-                // test only
-                int rows = worksheet.Rows.Count;
- 
-                // Show a message if it works
-                MessageBox.Show("There were " + String.Format("{0:n0}",  rows) + " rows found in the worksheet");
+            // test only
+            // int rows = worksheet.Rows.Count;
 
-                int cols = worksheet.Rows[1125].Columns.Count;]
-    
-                // Show a message if it works
-                MessageBox.Show("There were " + String.Format("{0:n0}",  cols) + " columns found in the row index 1125.");
-                
-                // get values, code to verify rowNumbers and columnNumber are omitted for brevity. 
-                // Always test for Rows.Count and Columns.Count in a real project.
-                
-                // Get the ColumnValue cast as a Decimal
-                Decimal columnValue = worksheet.Rows[1125].Columns[4].DecimalValue;
-                
-                // Cast the column value as a string
-                string temp = worksheet.Rows[x].Columns[y].StringValue;
-                
-                // Cast the ColumnValue as a bool value                
-                bool active = worksheet.Rows[x].Columns[y].BoolValue;
-                
-                // Cast the column value as a nullable date
-                DateTime? expirationDate = worksheet.Rows[x].Columns[y].DateValue;
-            }
+            // Show a message as a test
+            // MessageBox.Show("There were " + String.Format("{0:n0}",  rows) + " rows found in the worksheet");
+
+            // int cols = worksheet.Rows[1124].Columns.Count;
+
+            // Show a message as a test
+            // MessageBox.Show("There were " + String.Format("{0:n0}",  cols) + " columns found in the row index 1125.");
+
+            // Get a nullable date
+            // string columnValue = worksheet.Rows[1124].Columns[3].DateValue;
+
+            // Show a message of the columnValue
+            // MessageBox.Show("Column Value: " + columnValue);
         }
     }
+    
     
     There is another override to load multiple sheets at once. I will build a sample project when I get some time to build a sample spreadsheet I can give away.
     
@@ -107,4 +95,8 @@ Give me a day or two and the Nuget should be released as DataJuggler.Excelerate.
 Feel free to mention any new features you think would be useful. I can't promise to do them all, but if it is a good fit for this project I will add it.
 
 This code is all brand new, so use with caution until more testing has been done. First tests were promising.
+
+I am now working on building a loader for the code generated classes to convert the data.
+
+** I am available for hire if you need with any size C# project **
 
