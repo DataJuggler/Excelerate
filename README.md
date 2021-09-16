@@ -1,7 +1,10 @@
 # DataJuggler.Excelerate
 Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it easy to load Workbooks or Worksheets.
 
-Nuget package version 1.0.2 was just published: DataJuggler.Excelerate
+Nuget package version 1.1.0 was just published: DataJuggler.Excelerate
+
+A class named CodeGenerator was just assed, and now using the same CSharpClassWriter that code generates for DataTier.Net, I code generate
+classes based on your header row.
 
 I have a couple of clients that I build programs that automate combining columns from multiple Worksheets to form reports.
 
