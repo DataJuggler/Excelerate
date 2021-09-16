@@ -3,7 +3,7 @@ Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it eas
 
 Nuget package version 1.1.0 was just published: DataJuggler.Excelerate
 
-A class named CodeGenerator was just created, and now using the same CSharpClassWriter that code generates for DataTier.Net, I code generate
+A class named CodeGenerator was just created, and now by inheriting from the same CSharpClassWriter that code generates for DataTier.Net, I code generate
 classes based on your header row.
 
 I have a couple of clients that I build programs that automate combining columns from multiple Worksheets to form reports.
