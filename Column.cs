@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataJuggler.UltimateHelper;
+using DataJuggler.Net5;
 
 #endregion
 
@@ -28,6 +29,7 @@ namespace DataJuggler.Excelerate
         private object columnValue;
         private string columnName;
         private string columnText;
+        private DataManager.DataTypeEnum dataType;
         #endregion
 
         #region Properties
@@ -118,6 +120,17 @@ namespace DataJuggler.Excelerate
             {
                 get { return columnValue; }
                 set { columnValue = value; }
+            }
+            #endregion
+            
+            #region DataType
+            /// <summary>
+            /// This property gets or sets the value for 'DataType'.
+            /// </summary>
+            public DataManager.DataTypeEnum DataType
+            {
+                get { return dataType; }
+                set { dataType = value; }
             }
             #endregion
             

@@ -39,7 +39,7 @@ This is the first release. I have just begun adding classes and helper methods t
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DataJuggler.Net5" Version="3.0.5" />
+    <PackageReference Include="DataJuggler.Net5" Version="3.0.6" />
     <PackageReference Include="DataJuggler.UltimateHelper" Version="1.6.7" />
     <PackageReference Include="EPPlus" Version="4.5.3.3" />
   </ItemGroup>

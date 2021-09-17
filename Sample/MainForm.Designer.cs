@@ -104,7 +104,7 @@ namespace DataJuggler.Excelerate.Sample
             this.CodeGenerateButton.Enabled = false;
             this.CodeGenerateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CodeGenerateButton.ForeColor = System.Drawing.Color.LemonChiffon;
-            this.CodeGenerateButton.Location = new System.Drawing.Point(344, 339);
+            this.CodeGenerateButton.Location = new System.Drawing.Point(343, 339);
             this.CodeGenerateButton.Name = "CodeGenerateButton";
             this.CodeGenerateButton.Size = new System.Drawing.Size(196, 48);
             this.CodeGenerateButton.TabIndex = 4;

@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DataJuggler.Net5;
 using DataJuggler.UltimateHelper;
+using DataJuggler.UltimateHelper.Objects;
+using System.IO;
 
 #endregion
 
@@ -49,6 +51,170 @@ namespace DataJuggler.Excelerate
 
         #region Methods
 
+            #region AddLoadMethod(Row row, ref StringBuilder sb)
+            /// <summary>
+            /// This method Add Load Method
+            /// </summary>
+            public void AddLoadMethod(Row row, ref StringBuilder sb)
+            {
+                 // locals
+                int columnIndex = -1;
+                string indent = "            ";
+                string indent2 = "                ";
+                string indent3 = "                    ";
+
+                 // Add a blank line
+                sb.Append(Environment.NewLine);
+
+                // Add a region
+                sb.Append(indent);
+                sb.Append("#region Load(Row row)");
+                sb.Append(Environment.NewLine);
+
+                // Now add the indent
+                sb.Append(indent);
+
+                // Set the methodDeclarationLine
+                string methodDeclarationLine = "public void Load(Row row)";
+
+                // Add this line
+                sb.Append(methodDeclarationLine);
+
+                // Add a new line
+                sb.Append(Environment.NewLine);
+
+                // Now add the method
+                sb.Append(indent);
+
+                // Add an open bracket
+                sb.Append('{');
+
+                // Add a new line
+                sb.Append(Environment.NewLine);
+
+                // Add a comment
+                sb.Append(indent2);
+
+                // Add this
+                sb.Append("// If the row exists and the row.HasColumns");
+                sb.Append(Environment.NewLine);
+
+                // Add a check for the column
+                sb.Append(indent2);
+
+                // create the ifLine
+                sb.Append("if ((NullHelper.Exists(row)) && (row.HasColumns))");
+
+                // Add an open paren
+                sb.Append('{');
+
+                // Add a new line
+                sb.Append(Environment.NewLine);
+
+                // reset
+                columnIndex = -1;
+
+                    // Create DataFields for each column
+                foreach (Column column in row.Columns)
+                {
+                    // if the ColumnName Exists
+                    if (column.HasColumnName)
+                    {
+                        // Increment the value for columnIndex
+                        columnIndex++;
+
+                        // Now add the indent3 (8 spaces extra)
+                        sb.Append(indent3);
+
+                        // Set the Column Name (Property Name)
+                        sb.Append(column.ColumnName);
+
+                        // Set Equals
+                        sb.Append(" = ");
+
+                        // if Decimal, must cast as a double
+                        if (column.DataType == DataManager.DataTypeEnum.Decimal)
+                        {
+                            // Cast as a double
+                            sb.Append("(double) ");
+                        }
+
+                        // add the start of this column
+                        sb.Append("row.Columns[");
+                                                        
+                        // add the index
+                        sb.Append(columnIndex);
+
+                        // determine the action by the DataType
+                        switch (column.DataType)
+                        {
+                            case DataManager.DataTypeEnum.Integer:
+
+                                // Set the value
+                                sb.Append("].IntValue;");
+
+                                // required
+                                break;
+
+                            case DataManager.DataTypeEnum.Decimal:
+
+                                // Set the value
+                                sb.Append("].DecimalValue;");
+
+                                // required
+                                break;
+
+                            case DataManager.DataTypeEnum.DateTime:
+
+                                // Set the value
+                                sb.Append("].DateValue;");
+
+                                // required
+                                break;
+
+                            case DataManager.DataTypeEnum.String:
+
+                                // Set the value
+                                sb.Append("].StringValue;");
+
+                                // required
+                                break;
+
+                            default:
+
+                                // Set the value
+                                sb.Append("].ColumnValue;");
+
+                                // required
+                                break;
+                        }
+
+                        // Add a new line
+                        sb.Append(Environment.NewLine);
+                    }
+                }
+
+                // Add a closing bracket
+                sb.Append(indent2);
+                sb.Append('}');
+                sb.Append(Environment.NewLine);
+
+                // Add indent
+                sb.Append(indent);
+
+                // Add a closing bracket
+                sb.Append('}');
+
+                // Add a new line
+                sb.Append(Environment.NewLine);
+
+                // Add the endregion
+                sb.Append(indent);
+                sb.Append("#endregion");
+                sb.Append(Environment.NewLine);
+            }
+            #endregion
+            
             #region AttemptToDetermineDataType(int columnIndex)
             /// <summary>
             /// This method returns the To Determine Data Type
@@ -161,9 +327,11 @@ namespace DataJuggler.Excelerate
                 // initial value
                 bool success  = false;
 
-                // local
+                // locals
                 int columnIndex = -1;
-
+                string indent = "            ";
+                string indent2 = "                ";
+                
                 // if the value for IsValid is true (means there is a worksheet and it has at least one row)
                 if (IsValid)
                 {
@@ -203,11 +371,17 @@ namespace DataJuggler.Excelerate
                                 // Set the name, but replace out things that make it an illegal field name like spaces or dashes
                                 field.FieldName = TextHelper.CapitalizeFirstChar(ReplaceInvalidCharacters(column.StringValue));
 
+                                // Set the ColumnName in the Column
+                                column.ColumnName = field.FieldName;
+
                                 // Set the FieldOrdinal
                                 field.FieldOrdinal = columnIndex;
 
                                 // DetermineDataType
                                 field.DataType = AttemptToDetermineDataType(field.FieldName, columnIndex);
+
+                                // Store the DataType in the column, so the Loader knows how to handle this column
+                                column.DataType = field.DataType;
 
                                 // Add this field
                                 dataTable.Fields.Add(field);
@@ -226,8 +400,74 @@ namespace DataJuggler.Excelerate
                         // Add this database
                         dataManager.Databases.Add(database);
 
+                        // Create a referencesSet
+                        ReferencesSet referencesSet = new ReferencesSet("References");
+
+                        // Create a couple references
+                        Reference reference = new Reference("DataJuggler.Excelerate", 1);
+                        Reference reference2 = new Reference("DataJuggler.UltimateHelper", 2);
+
+                        // Add the references to the ReferencesSet
+                        referencesSet.Add(reference);
+                        referencesSet.Add(reference2);
+
+                        // Set the references
+                        dataManager.References = referencesSet;
+
                         // Write out the class
                         success = WriteDataClasses(dataManager);
+
+                        // if the success = true, and one or more files were created during the build
+                        if ((success) && (ListHelper.HasOneOrMoreItems(CreatedFilePaths)))
+                        {
+                            // if exactly one file was created (should be, since the build here is done one at a time for now)
+                            if (CreatedFilePaths.Count == 1)
+                            {
+                                // Get the filePath of the class just created
+                                string filePath = CreatedFilePaths[0];
+
+                                // Get the text of the file
+                                string content = File.ReadAllText(filePath);
+
+                                // create a stringbuilder to rebuild this file
+                                StringBuilder sb = new StringBuilder();
+
+                                // If the content string exists
+                                if (TextHelper.Exists(content))
+                                {
+                                    // parse the fileText
+                                    List<TextLine> lines = TextHelper.GetTextLines(content);
+
+                                    // if the lines exist
+                                    if (ListHelper.HasOneOrMoreItems(lines))
+                                    {
+                                        // Iterate the collection of TextLine objects
+                                        foreach (TextLine line in lines)
+                                        {
+                                            // Add this line
+                                            sb.Append(line.Text);
+                                            sb.Append(Environment.NewLine);
+
+                                            // if this is the Methods line
+                                            if (TextHelper.IsEqual(line.Text.Trim(), "#region Methods"))
+                                            {
+                                                // Pass in the string builder here, saves a bunch of code in this method
+                                               AddLoadMethod(row, ref sb);
+                                            }
+                                        }
+
+                                        // Now the fileContent has been rebuilt in the string builder
+                                        string newFileText = sb.ToString().TrimEnd();
+
+                                        // Delete the existing file
+                                        File.Delete(filePath);
+
+                                        // Now write the new file text
+                                        File.WriteAllText(filePath, newFileText);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 

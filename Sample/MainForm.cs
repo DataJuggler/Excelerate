@@ -66,7 +66,7 @@ namespace DataJuggler.Excelerate.Sample
                     // Create a new instance of a CodeGenerator
                     CodeGenerator codeGenerator = new CodeGenerator(worksheet, outputFolder, className);
 
-                    // Generate a class
+                    // Generate a class and set the Namespace
                     bool success = codeGenerator.GenerateClassFromWorksheet("STATS.Objects");
 
                     // Show the results
@@ -75,6 +75,16 @@ namespace DataJuggler.Excelerate.Sample
             }
             #endregion
 
+            #region CreateLoaderButton_Click(object sender, EventArgs e)
+            /// <summary>
+            /// event is fired when the 'CreateLoaderButton' is clicked.
+            /// </summary>
+            private void CreateLoaderButton_Click(object sender, EventArgs e)
+            {
+                
+            }
+            #endregion
+            
             #region LoadWorksheetButton_Click(object sender, EventArgs e)
             /// <summary>
             /// event is fired when the 'TestButton' is clicked.
@@ -233,8 +243,8 @@ namespace DataJuggler.Excelerate.Sample
                 get { return worksheet; }
                 set { worksheet = value; }
             }
-            #endregion
-            
+        #endregion
+
         #endregion
 
     }
