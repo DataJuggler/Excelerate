@@ -54,7 +54,7 @@ namespace DataJuggler.Excelerate
             #region AddLoadMethod(Row row, ref StringBuilder sb)
             /// <summary>
             /// This method Add Load Method
-            /// </summary>
+            /// </summary>            
             public void AddLoadMethod(Row row, ref StringBuilder sb)
             {
                  // locals
@@ -62,13 +62,35 @@ namespace DataJuggler.Excelerate
                 string indent = "            ";
                 string indent2 = "                ";
                 string indent3 = "                    ";
-
+                
                  // Add a blank line
                 sb.Append(Environment.NewLine);
 
                 // Add a region
                 sb.Append(indent);
                 sb.Append("#region Load(Row row)");
+                sb.Append(Environment.NewLine);
+
+                // Now add the method summary
+
+                // Summary Line 1
+                sb.Append(indent);
+                sb.Append("/// <summary>");
+                sb.Append(Environment.NewLine);
+
+                // Summary Line 2
+                sb.Append(indent);
+                sb.Append("/// This method loads a " + ClassName + " object from a Row.");
+                sb.Append(Environment.NewLine);
+
+                // Summary Line 3
+                sb.Append(indent);
+                sb.Append("/// </Summary>");
+                sb.Append(Environment.NewLine);
+
+                // Add the param comment
+                sb.Append(indent);
+                sb.Append("/// <param name=\"row\">The row which the row.Columns[x].ColumnValue will be used to load this object.</param>");
                 sb.Append(Environment.NewLine);
 
                 // Now add the indent
@@ -96,7 +118,7 @@ namespace DataJuggler.Excelerate
                 sb.Append(indent2);
 
                 // Add this
-                sb.Append("// If the row exists and the row.HasColumns");
+                sb.Append("// If the row exists and the row's column collection exists");
                 sb.Append(Environment.NewLine);
 
                 // Add a check for the column
@@ -105,7 +127,11 @@ namespace DataJuggler.Excelerate
                 // create the ifLine
                 sb.Append("if ((NullHelper.Exists(row)) && (row.HasColumns))");
 
+                // Add a new line here before the paren
+                sb.Append(Environment.NewLine);
+
                 // Add an open paren
+                sb.Append(indent2);
                 sb.Append('{');
 
                 // Add a new line
@@ -113,8 +139,8 @@ namespace DataJuggler.Excelerate
 
                 // reset
                 columnIndex = -1;
-
-                    // Create DataFields for each column
+               
+                // Create DataFields for each column
                 foreach (Column column in row.Columns)
                 {
                     // if the ColumnName Exists
@@ -331,6 +357,7 @@ namespace DataJuggler.Excelerate
                 int columnIndex = -1;
                 string indent = "            ";
                 string indent2 = "                ";
+                int lineNumber = 0;
                 
                 // if the value for IsValid is true (means there is a worksheet and it has at least one row)
                 if (IsValid)
@@ -441,18 +468,60 @@ namespace DataJuggler.Excelerate
                                     // if the lines exist
                                     if (ListHelper.HasOneOrMoreItems(lines))
                                     {
+                                        // need to skip one line after the method is created
+                                        bool skipNextLine = false;
+                                        bool skipNextLineIfBlank = false;
+    
                                         // Iterate the collection of TextLine objects
                                         foreach (TextLine line in lines)
                                         {
-                                            // Add this line
-                                            sb.Append(line.Text);
-                                            sb.Append(Environment.NewLine);
+                                            // increment lineNumber
+                                            lineNumber++;
+
+                                            // if skipNextLineIfBlank
+                                            if ((skipNextLineIfBlank) && (!TextHelper.Exists(line.Text)) && (lineNumber > 2))
+                                            {
+                                                // skip this line
+                                                skipNextLine = true;
+                                            }
+
+                                            // if the value for skipNextLine is false
+                                            if (!skipNextLine)
+                                            {
+                                                // Add this line
+                                                sb.Append(line.Text);
+                                                sb.Append(Environment.NewLine);
+
+                                                // reset
+                                                skipNextLineIfBlank = false;
+                                            }
+                                            else if (!TextHelper.Exists(line.Text))
+                                            {
+                                                // if currently true
+                                                if (skipNextLine)
+                                                {
+                                                    // skip thius line
+                                                    skipNextLine = false;
+                                                }
+                                                else
+                                                {
+                                                    // Set to true
+                                                    skipNextLineIfBlank = true;
+                                                }
+                                            }
 
                                             // if this is the Methods line
                                             if (TextHelper.IsEqual(line.Text.Trim(), "#region Methods"))
                                             {
                                                 // Pass in the string builder here, saves a bunch of code in this method
                                                AddLoadMethod(row, ref sb);
+                                            }
+
+                                            // if this line is blank
+                                            if (!TextHelper.Exists(line.Text))
+                                            {
+                                                // Skip this line
+                                                skipNextLineIfBlank = true;
                                             }
                                         }
 
