@@ -48,6 +48,23 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region HasColumns
+            /// <summary>
+            /// This property returns true if this object has a 'Columns'.
+            /// </summary>
+            public bool HasColumns
+            {
+                get
+                {
+                    // initial value
+                    bool hasColumns = (this.Columns != null);
+                    
+                    // return value
+                    return hasColumns;
+                }
+            }
+            #endregion
+            
         #endregion
         
     }
