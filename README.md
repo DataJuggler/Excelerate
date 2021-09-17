@@ -3,7 +3,7 @@ Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it eas
 
 Nuget package version 1.1.0 was just published: DataJuggler.Excelerate
 
-A class named CodeGenerator was just created, and now using the same CSharpClassWriter that code generates for DataTier.Net, I code generate
+A class named CodeGenerator was just created, and now by inheriting from the same CSharpClassWriter that code generates for DataTier.Net, I code generate
 classes based on your header row.
 
 I have a couple of clients that I build programs that automate combining columns from multiple Worksheets to form reports.
@@ -89,14 +89,13 @@ Snippet is from a Windows Form .Net 5 project, located in the Sample folder of t
     
 I am just starting testing now. My first test loaded a 12 column spreadsheet with 3,376 rows in just a few seconds.
 
-More helper methods and features will be added. I will release a Nuget package once I finish my project I built this for.
-Give me a day or two and the Nuget should be released as DataJuggler.Excelerate.
+More helper methods and features will be added. The Nuget package has been released: DataJuggler.Excelerate.
 
 Feel free to mention any new features you think would be useful. I can't promise to do them all, but if it is a good fit for this project I will add it.
 
-This code is all brand new, so use with caution until more testing has been done. First tests were promising.
+This code is all brand new, so use with caution until more testing has been done. First tests have been promising.
 
-I am now working on building a loader for the code generated classes to convert the data.
+I am now working on building a loader for the code generated classes to convert Worksheet.Rows to List<YourClass>;
 
-** I am available for hire if you need with any size C# project **
+** I am available for hire if you need help with any size C# / SQL Server project **
 
