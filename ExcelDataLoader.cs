@@ -121,6 +121,30 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region LoadExcelPackage(string path)
+            /// <summary>
+            /// returns the Excel Package
+            /// </summary>
+            public static ExcelPackage LoadExcelPackage(string path)
+            {
+                // initial value
+                ExcelPackage excelPackage = null;
+
+                 // If the path string exists
+                if (TextHelper.Exists(path))
+                {
+                    // Create a new instance of a 'FileInfo' object.
+                    FileInfo fileInfo = new FileInfo(path);
+
+                    // Create the package
+                    excelPackage = new ExcelPackage(fileInfo);
+                }
+                
+                // return value
+                return excelPackage;
+            }
+            #endregion
+            
             #region LoadExcelWorkbook(string path)
             /// <summary>
             /// This method returns the Excel Workbook
@@ -130,7 +154,7 @@ namespace DataJuggler.Excelerate
                 // initial value
                 ExcelWorkbook excelWorkbook = null;
 
-                // If the path string exists and there is one or more sheetsToLoad
+                // If the path string exists
                 if (TextHelper.Exists(path))
                 {
                     // Create a new instance of a 'FileInfo' object.
