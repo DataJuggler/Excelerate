@@ -17,6 +17,8 @@ This short code snippet will load all the rows from a worksheet:
 
 Snippet is from a Windows Form .Net 5 project, located in the Sample folder of this project. Very simple for now:
 
+# Load Worksheet Sample
+
     using DataJuggler.UltimateHelper;
     using DataJuggler.Excelerate;
     using System;
@@ -72,6 +74,37 @@ Snippet is from a Windows Form .Net 5 project, located in the Sample folder of t
         }
     }
     
+    There is now a Code Generator class built into this project, to code generate a C# class from a header row. The Code Generator has been updated
+    to pass in a Row instance, to make loading the generate classes simple.
+    
+    This code is from a Windows Form .Net 5 project located in the sample:
+    
+    # Code Generation Sample
+    
+        // if the value for HasWorksheet is true
+        if ((HasWorksheet) && (ListHelper.HasOneOrMoreItems(Worksheet.Rows)))
+        {
+            // The file I am using to test has 3 rows at the top above the header row. Take this out if I accidently check this in
+            // worksheet.Rows.RemoveRange(0, 3);
+
+            // Set the outputFolder
+            string outputFolder = OutputFolderControl.Text;
+
+            // Set the className (the name of the generated class)
+            string className = "SalesTaxEntry";
+
+            // Create a new instance of a CodeGenerator
+            CodeGenerator codeGenerator = new CodeGenerator(worksheet, outputFolder, className);
+
+            // Generate a class and set the Namespace
+            bool success = codeGenerator.GenerateClassFromWorksheet("STATS.Objects");
+
+            // Show the results
+            MessageBox.Show("Success: " + success);
+        }
+        
+
+    
     
     There is another override to load multiple sheets at once. I will build a sample project when I get some time to build a sample spreadsheet I can give away.
     
@@ -80,10 +113,9 @@ Snippet is from a Windows Form .Net 5 project, located in the Sample folder of t
     List<LoadWorksheetInfo> loadWorkSheetsInfo = new List<LoadWorksheetInfo>();
     
     // Add each LoadWorksheetInfo
-    workbook= ExcellDataLoader.LoadWorkbook(path, loadWorkSheetsInfo)
+    workbook = ExcellDataLoader.LoadWorkbook(path, loadWorkSheetsInfo)
     
     I will build some helper methods to save writing as much code once I use this a little to know what is needed.
-    
     
     
     
