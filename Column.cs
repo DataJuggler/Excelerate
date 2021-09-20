@@ -28,6 +28,7 @@ namespace DataJuggler.Excelerate
         private bool columnContainsData;
         private object columnValue;
         private string columnName;
+        private string originalName;
         private string columnText;
         private DataManager.DataTypeEnum dataType;
         #endregion
@@ -329,6 +330,21 @@ namespace DataJuggler.Excelerate
                     // return value
                     return intValue;
                 }
+            }
+            #endregion
+            
+            #region OriginalName
+            /// <summary>
+            /// This property gets or sets the value for 'OriginalName'.
+            /// The original name is the name as it is in the source Excel.
+            /// The purpose of this property is after ReplaceSpecialCharacters is called,
+            /// the ColumnName is set and I needed a way too display the name the way
+            /// it is in the source excel.
+            /// </summary>
+            public string OriginalName
+            {
+                get { return originalName; }
+                set { originalName = value; }
             }
             #endregion
             

@@ -395,6 +395,9 @@ namespace DataJuggler.Excelerate
                                 // Create a field for this column
                                 DataField field = new DataField();
 
+                                // Store the orininalName so it can be used during Export.
+                                column.OriginalName = column.StringValue;
+
                                 // Set the name, but replace out things that make it an illegal field name like spaces or dashes
                                 field.FieldName = TextHelper.CapitalizeFirstChar(ReplaceInvalidCharacters(column.StringValue));
 

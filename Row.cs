@@ -22,6 +22,7 @@ namespace DataJuggler.Excelerate
         
         #region Private Variables
         private List<Column> columns;
+        private bool isHeaderRow;
         #endregion
         
         #region Constructor
@@ -62,6 +63,17 @@ namespace DataJuggler.Excelerate
                     // return value
                     return hasColumns;
                 }
+            }
+            #endregion
+            
+            #region IsHeaderRow
+            /// <summary>
+            /// This property gets or sets the value for 'IsHeaderRow'.
+            /// </summary>
+            public bool IsHeaderRow
+            {
+                get { return isHeaderRow; }
+                set { isHeaderRow = value; }
             }
             #endregion
             
