@@ -74,8 +74,8 @@ Snippet is from a Windows Form .Net 5 project, located in the Sample folder of t
         }
     }
     
-    There is now a Code Generator class built into this project, to code generate a C# class from a header row. The Code Generator has been updated
-    to pass in a Row instance, to make loading the generate classes simple.
+    There is now a Code Generator class built into this project, to code generate a C# class from a header row. 
+    The Code Generator has been updated to pass in a Row instance, to make loading the generate classes simple.
     
     This code is from a Windows Form .Net 5 project located in the sample:
     
