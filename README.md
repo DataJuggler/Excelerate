@@ -127,7 +127,7 @@ Feel free to mention any new features you think would be useful. I can't promise
 
 This code is all brand new, so use with caution until more testing has been done. First tests have been promising.
 
-I am now working on building a loader for the code generated classes to convert Worksheet.Rows to List<YourClass>;
+I just finished adding a Load method, that is code generated when the classes are written.
 
 ** I am available for hire if you need help with any size C# / SQL Server project **
 
