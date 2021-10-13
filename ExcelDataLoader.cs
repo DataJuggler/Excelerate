@@ -97,6 +97,33 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region GetSheetNames(string path)
+            /// <summary>
+            /// method returns the Sheet Names for the workbook given
+            /// </summary>
+            public static List<string> GetSheetNames(string path)
+            {
+                // initial value
+                List<string> sheetNames = new List<string>();
+
+                // Load the excelWorkbook
+                ExcelWorkbook excelWorkbook = LoadExcelWorkbook(path);
+
+                // If the excelWorkbook object exists
+                if (NullHelper.Exists(excelWorkbook))
+                {
+                    for (int x = 0; x < excelWorkbook.Worksheets.Count; x++)
+                    {
+                        // Add this name
+                        sheetNames.Add(excelWorkbook.Worksheets[x].Name);
+                    }
+                }
+
+                // return value
+                return sheetNames;
+            }
+            #endregion
+
             #region GetSheetNames(ExcelWorkbook excelWorkbook)
             /// <summary>
             /// method returns the Sheet Names for the workbook given
