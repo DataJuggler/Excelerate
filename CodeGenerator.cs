@@ -348,10 +348,10 @@ namespace DataJuggler.Excelerate
             /// This method returns a Class From the Worksheet supplied in the Constructor.
             /// The Worksheet must have a HeaderRow for the top row.
             /// </summary>
-            public bool GenerateClassFromWorksheet(string namespaceName)
+            public CodeGenerationResponse GenerateClassFromWorksheet(string namespaceName)
             {
                 // initial value
-                bool success  = false;
+                CodeGenerationResponse response = new CodeGenerationResponse();
 
                 // locals
                 int columnIndex = -1;
@@ -445,10 +445,10 @@ namespace DataJuggler.Excelerate
                         dataManager.References = referencesSet;
 
                         // Write out the class
-                        success = WriteDataClasses(dataManager);
+                        response.Success = WriteDataClasses(dataManager);
 
                         // if the success = true, and one or more files were created during the build
-                        if ((success) && (ListHelper.HasOneOrMoreItems(CreatedFilePaths)))
+                        if ((response.Success) && (ListHelper.HasOneOrMoreItems(CreatedFilePaths)))
                         {
                             // if exactly one file was created (should be, since the build here is done one at a time for now)
                             if (CreatedFilePaths.Count == 1)
@@ -536,6 +536,15 @@ namespace DataJuggler.Excelerate
 
                                         // Now write the new file text
                                         File.WriteAllText(filePath, newFileText);
+
+                                        // Create a FileInfo
+                                        FileInfo fileInfo = new FileInfo(filePath);
+
+                                        // Set the FileName
+                                        response.FileName = fileInfo.Name;
+
+                                        // Set the fullPath
+                                        response.FullPath = filePath;
                                     }
                                 }
                             }
@@ -544,7 +553,7 @@ namespace DataJuggler.Excelerate
                 }
                 
                 // return value
-                return success;
+                return response;
             }
             #endregion
             
