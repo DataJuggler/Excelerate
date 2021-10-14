@@ -55,7 +55,7 @@ namespace DataJuggler.Excelerate.Sample
                 if ((HasWorksheet) && (ListHelper.HasOneOrMoreItems(Worksheet.Rows)))
                 {
                     // The file I am using to test has 3 rows at the top. Take this out if I accidently check this in
-                    worksheet.Rows.RemoveRange(0, 3);
+                    // worksheet.Rows.RemoveRange(0, 3);
 
                     // Set the outputFolder
                     string outputFolder = OutputFolderControl.Text;
