@@ -16,7 +16,11 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <RepositoryUrl>https://github.com/DataJuggler/Excelerate.git</RepositoryUrl>
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C#</PackageTags>
-    <PackageReleaseNotes>10.14.2021: 
+    <PackageReleaseNotes>10.16.2021:
+Version 1.1.8: AppendPartialGuid is now an optional parameter, and only if true will the partial guid be appended to the filename.
+
+
+10.14.2021: 
 Version 1.1.7: CodeGenerator.GenerateClassFromWorksheet now returns an object of type CodeGenerationResponse. Previous version only returns a boolean, which wasn't very helpful for the caller.
 
 10.13.2021: New override for GetSheetNames takes a path argument.
@@ -51,7 +55,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>1.1.7</Version>
+    <Version>1.1.8</Version>
   </PropertyGroup>
 
   <ItemGroup>

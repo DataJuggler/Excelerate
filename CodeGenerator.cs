@@ -343,20 +343,18 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
-            #region GenerateClassFromWorksheet(string namespaceName)
+            #region GenerateClassFromWorksheet(string namespaceName, bool appendPartialGuid = true)
             /// <summary>
             /// This method returns a Class From the Worksheet supplied in the Constructor.
             /// The Worksheet must have a HeaderRow for the top row.
             /// </summary>
-            public CodeGenerationResponse GenerateClassFromWorksheet(string namespaceName)
+            public CodeGenerationResponse GenerateClassFromWorksheet(string namespaceName, bool appendPartialGuidToFileNameForUniquenessInFolder = true)
             {
                 // initial value
                 CodeGenerationResponse response = new CodeGenerationResponse();
 
                 // locals
                 int columnIndex = -1;
-                string indent = "            ";
-                string indent2 = "                ";
                 int lineNumber = 0;
                 
                 // if the value for IsValid is true (means there is a worksheet and it has at least one row)
@@ -531,8 +529,12 @@ namespace DataJuggler.Excelerate
                                         // Now the fileContent has been rebuilt in the string builder
                                         string newFileText = sb.ToString().TrimEnd();
 
-                                        // Delete the existing file
-                                        File.Delete(filePath);
+                                        // if true
+                                        if (appendPartialGuidToFileNameForUniquenessInFolder)
+                                        {
+                                            // Create a PartialGuid
+                                            filePath = FileHelper.CreateFileNameWithPartialGuid(filePath, 12);
+                                        }
 
                                         // Now write the new file text
                                         File.WriteAllText(filePath, newFileText);
@@ -540,7 +542,7 @@ namespace DataJuggler.Excelerate
                                         // Create a FileInfo
                                         FileInfo fileInfo = new FileInfo(filePath);
 
-                                        // Set the FileName
+                                        // Set the FileName                                        
                                         response.FileName = fileInfo.Name;
 
                                         // Set the fullPath
