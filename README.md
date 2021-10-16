@@ -3,6 +3,10 @@
 # DataJuggler.Excelerate
 Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it easy to load Workbooks or Worksheets.
 
+I just released a Blazor project that is built using this project:
+Blazor.Excelerate
+https://github.com/DataJuggler/Blazor.Excelerate
+
 Nuget package version 1.1.0 was just published: DataJuggler.Excelerate
 
 A class named CodeGenerator was just created, and now by inheriting from the same CSharpClassWriter that code generates for DataTier.Net, I code generate
