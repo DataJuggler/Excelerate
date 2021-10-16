@@ -102,8 +102,6 @@ Snippet is from a Windows Form .Net 5 project, located in the Sample folder of t
             // Show the results
             MessageBox.Show("Success: " + success);
         }
-        
-
     
     
     There is another override to load multiple sheets at once. I will build a sample project when I get some time to build a sample spreadsheet I can give away.
@@ -119,7 +117,12 @@ Snippet is from a Windows Form .Net 5 project, located in the Sample folder of t
     
     
     
-I am just starting testing now. My first test loaded a 12 column spreadsheet with 3,376 rows in just a few seconds.
+My first test loaded a 12 column spreadsheet with 3,376 rows in just a few seconds.
+
+I have a new project that uses this project as a good sample. Blazor.Excelerate will soon be an online 
+way to create classes from a spreadsheet.
+
+https://github.com/DataJuggler/Blazor.Excelerate
 
 More helper methods and features will be added. The Nuget package has been released: DataJuggler.Excelerate.
 

@@ -148,6 +148,60 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region LoadAllData(string path)
+            /// <summary>
+            /// method returns the All Data
+            /// </summary>
+            public static Workbook LoadAllData(string path)
+            {
+                // initial value
+                Workbook workbook = null;
+
+                // load the workbook
+                ExcelWorkbook excelWorkbook = LoadExcelWorkbook(path);
+                    
+                // If the excelWorkbook object exists
+                if (NullHelper.Exists(excelWorkbook))
+                {
+                    // Create a new instance of a 'Workbook' object.
+                    workbook = new Workbook();
+
+                    // Get the sheetNames
+                    List<string> sheetNames = GetSheetNames(excelWorkbook);
+
+                    // If the sheetNames collection exists and has one or more items
+                    if (ListHelper.HasOneOrMoreItems(sheetNames))
+                    {
+                        // Iterate the collection of string objects
+                        foreach (string sheetName in sheetNames)
+                        {
+                            // Create a new instance of a 'LoadWorksheetInfo' object.
+                            LoadWorksheetInfo loadWorksheetInfo = new LoadWorksheetInfo();
+
+                            // Set the sheetName
+                            loadWorksheetInfo.SheetName = sheetName;
+
+                            // Set the LoadColumnOption
+                            loadWorksheetInfo.LoadColumnOptions = LoadColumnOptionsEnum.LoadAllColumnsExceptExcluded;
+
+                            // Load this worksheet
+                            Worksheet worksheet = LoadWorksheet(excelWorkbook, loadWorksheetInfo);
+
+                            // if the workbook exists
+                            if (NullHelper.Exists(worksheet))
+                            {
+                                // Add this item
+                                workbook.Worksheets.Add(worksheet);
+                            }
+                        }
+                    }
+                }
+
+                // return value
+                return workbook;
+            }
+            #endregion
+            
             #region LoadExcelPackage(string path)
             /// <summary>
             /// returns the Excel Package
