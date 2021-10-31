@@ -16,7 +16,10 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <RepositoryUrl>https://github.com/DataJuggler/Excelerate.git</RepositoryUrl>
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C#</PackageTags>
-    <PackageReleaseNotes>10.31.2021: (Take Five)
+    <PackageReleaseNotes>10.31.2021: (Take Six)
+Version 1.2.5: I fixed Active being a boolean, and discovered the LoadMethod was trying to set bool columns to a string value.
+
+10.31.2021: (Take Five)
 Version 1.2.4: I fixed the Active field = boolean. I need an else so the data type didn't get set to Int further in the AttemptToDetermineDataType method.
 
 10.31.2021: (Take Four)
@@ -76,7 +79,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>1.2.4</Version>
+    <Version>1.2.5</Version>
   </PropertyGroup>
 
   <ItemGroup>

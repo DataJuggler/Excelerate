@@ -207,6 +207,14 @@ namespace DataJuggler.Excelerate
                                 // required
                                 break;
 
+                            case DataManager.DataTypeEnum.Boolean:
+
+                                // Set the value
+                                sb.Append("].BoolValue;");
+
+                                // required
+                                break;
+
                             case DataManager.DataTypeEnum.Guid:
 
                                 // Set the value
