@@ -424,23 +424,32 @@ namespace DataJuggler.Excelerate
                             // if the ColumnValue exists or if this is the RowId field
                             if ((column.HasColumnValue) || (TextHelper.IsEqual(column.ColumnName, RowId)))
                             {
-                                // Increment the value for columnIndex
-                                columnIndex++;
-
                                 // Create a field for this column
                                 DataField field = new DataField();
 
-                                // Store the orininalName so it can be used during Export.
-                                column.OriginalName = column.StringValue;
+                                // if this is not the RowId
+                                if (!TextHelper.IsEqual(column.ColumnName, RowId))
+                                {
+                                    // Increment the value for columnIndex
+                                    columnIndex++;
 
-                                // Set the name, but replace out things that make it an illegal field name like spaces or dashes
-                                field.FieldName = TextHelper.CapitalizeFirstChar(ReplaceInvalidCharacters(column.StringValue));
+                                    // Store the orininalName so it can be used during Export.
+                                    column.OriginalName = column.StringValue;
 
-                                // Set the ColumnName in the Column
-                                column.ColumnName = field.FieldName;
+                                    // Set the name, but replace out things that make it an illegal field name like spaces or dashes
+                                    field.FieldName = TextHelper.CapitalizeFirstChar(ReplaceInvalidCharacters(column.StringValue));
 
-                                // Set the FieldOrdinal
-                                field.FieldOrdinal = columnIndex;
+                                    // Set the ColumnName in the Column
+                                    column.ColumnName = field.FieldName;
+                                }
+                                else
+                                {
+                                    // Store
+                                    field.FieldName = column.ColumnName;
+
+                                    // Set the OriginalName (not sure if this is needed, more for if needed)
+                                    column.OriginalName = field.FieldName;
+                                }
 
                                 // if this is the RowId
                                 if (TextHelper.IsEqual(field.FieldName, RowId))
@@ -456,6 +465,9 @@ namespace DataJuggler.Excelerate
                                     // Store the DataType in the column, so the Loader knows how to handle this column
                                     column.DataType = field.DataType;
                                 }
+
+                                // Set the FieldOrdinal
+                                field.FieldOrdinal = columnIndex;
 
                                 // Add this field
                                 dataTable.Fields.Add(field);
