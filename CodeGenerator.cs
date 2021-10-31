@@ -315,50 +315,52 @@ namespace DataJuggler.Excelerate
                                 // this is a boolean
                                 dataType = DataManager.DataTypeEnum.Boolean;
                             }
-
-                            // if a column starts with preceding zeros, and it is a number I am counting this as string
-                            if ((temp.StartsWith("0")) && ((tempInt != 0) || (tempDecimal != 0)))
+                            else
                             {
-                                // Set to string
-                                dataType = DataManager.DataTypeEnum.String;
-
-                                // break out of the loop
-                                break;
-                            }
-
-                            // if this is a number
-                            if ((tempInt != 0) || (tempDecimal != 0))
-                            {
-                                // if the string contains a decimal point
-                                if (temp.Contains("."))
+                                // if a column starts with preceding zeros, and it is a number I am counting this as string
+                                if ((temp.StartsWith("0")) && ((tempInt != 0) || (tempDecimal != 0)))
                                 {
-                                    // Use Decimal
-                                    dataType = DataManager.DataTypeEnum.Decimal;
+                                    // Set to string
+                                    dataType = DataManager.DataTypeEnum.String;
 
-                                    // break out
+                                    // break out of the loop
+                                    break;
+                                }
+
+                                // if this is a number
+                                if ((tempInt != 0) || (tempDecimal != 0))
+                                {
+                                    // if the string contains a decimal point
+                                    if (temp.Contains("."))
+                                    {
+                                        // Use Decimal
+                                        dataType = DataManager.DataTypeEnum.Decimal;
+
+                                        // break out
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        // Use Integer, but keep looking
+                                        dataType = DataManager.DataTypeEnum.Integer;
+                                    }
+                                }
+                                else if ((tempDate.HasValue) && (tempDate.Value.Year > 1900))
+                                {
+                                    // Use Date
+                                    dataType = DataManager.DataTypeEnum.DateTime;
+
+                                    // once we determine we used DateTime, break out of loop
                                     break;
                                 }
                                 else
-                                {
-                                    // Use Integer, but keep looking
-                                    dataType = DataManager.DataTypeEnum.Integer;
-                                }
-                            }
-                            else if ((tempDate.HasValue) && (tempDate.Value.Year > 1900))
-                            {
-                                // Use Date
-                                dataType = DataManager.DataTypeEnum.DateTime;
-
-                                // once we determine we used DateTime, break out of loop
-                                break;
-                            }
-                            else
-                            {  
-                                // Use String
-                                dataType = DataManager.DataTypeEnum.String;
+                                {  
+                                    // Use String
+                                    dataType = DataManager.DataTypeEnum.String;
                                 
-                                // Use for scoring
-                                break;
+                                    // Use for scoring
+                                    break;
+                                }
                             }
                             
                             // Increment the value for lookedAt
