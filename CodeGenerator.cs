@@ -492,10 +492,12 @@ namespace DataJuggler.Excelerate
                         // Create a couple references
                         Reference reference = new Reference("DataJuggler.Excelerate", 1);
                         Reference reference2 = new Reference("DataJuggler.UltimateHelper", 2);
+                        Reference reference3 = new Reference("System", 3);
 
                         // Add the references to the ReferencesSet
                         referencesSet.Add(reference);
                         referencesSet.Add(reference2);
+                        referencesSet.Add(reference3);
 
                         // Set the references
                         dataManager.References = referencesSet;
