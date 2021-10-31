@@ -52,7 +52,7 @@ namespace DataJuggler.Excelerate
                         try
                         {
                             // attempt to cast as a bool
-                            boolValue = (bool) ColumnValue;
+                            boolValue = BooleanHelper.ParseBoolean(StringValue, false, false);
                         }
                         catch (Exception error)
                         {
