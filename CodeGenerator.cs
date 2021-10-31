@@ -19,7 +19,7 @@ namespace DataJuggler.Excelerate
 
     #region class CodeGenerator
     /// <summary>
-    /// method [Enter Method Description]
+    /// This class is used to code generate classes based on the columns from an Excel worksheet
     /// </summary>
     public class CodeGenerator : CSharpClassWriter
     {
@@ -301,6 +301,20 @@ namespace DataJuggler.Excelerate
                             tempInt = worksheet.Rows[x].Columns[columnIndex].IntValue;
                             tempDecimal = worksheet.Rows[x].Columns[columnIndex].DecimalValue;
                             tempDate = worksheet.Rows[x].Columns[columnIndex].DateValue;
+                            
+                            // if true or false
+                            if ((temp.ToLower() == "true") || (temp.ToLower() == "false"))
+                            {
+                                // this is a boolean
+                                dataType = DataManager.DataTypeEnum.Boolean;
+                            }
+                            else if ((TextHelper.Exists(fieldName)) && (fieldName.ToLower() == "active"))
+                            {
+                                // hard coding Active as boolean, because I need it for the Demo and Active usually is a boolean
+
+                                // this is a boolean
+                                dataType = DataManager.DataTypeEnum.Boolean;
+                            }
 
                             // if a column starts with preceding zeros, and it is a number I am counting this as string
                             if ((temp.StartsWith("0")) && ((tempInt != 0) || (tempDecimal != 0)))
