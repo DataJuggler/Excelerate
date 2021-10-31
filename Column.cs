@@ -198,6 +198,38 @@ namespace DataJuggler.Excelerate
                 }
             }
             #endregion
+
+            #region GuidValue
+            /// <summary>
+            /// This property returns the value for 'GuidValue'.
+            /// </summary>
+            public Guid GuidValue
+            {
+                get
+                {
+                    // initial value
+                    Guid guidValue = Guid.Empty;
+
+                    // if the value for HasColumnValue is true
+                    if (HasColumnValue)
+                    {
+                         try
+                        {
+                            // attempt to cast as a Decimal
+                            guidValue = (Guid) this.ColumnValue;
+                        }
+                        catch (Exception error)
+                        {
+                            // for debugging only
+                            DebugHelper.WriteDebugError("GuidValue", "Column", error);
+                        }
+                    }
+
+                    // return value
+                    return guidValue;
+                }
+            }
+            #endregion
             
             #region HasColumnName
             /// <summary>

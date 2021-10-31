@@ -22,6 +22,8 @@ namespace DataJuggler.Excelerate
         
         #region Private Variables
         private List<Column> columns;
+        private int number;
+        private Guid id;
         private bool isHeaderRow;
         #endregion
         
@@ -66,6 +68,17 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region Id
+            /// <summary>
+            /// This property gets or sets the value for 'Id'.
+            /// </summary>
+            public Guid Id
+            {
+                get { return id; }
+                set { id = value; }
+            }
+            #endregion
+            
             #region IsHeaderRow
             /// <summary>
             /// This property gets or sets the value for 'IsHeaderRow'.
@@ -74,6 +87,17 @@ namespace DataJuggler.Excelerate
             {
                 get { return isHeaderRow; }
                 set { isHeaderRow = value; }
+            }
+            #endregion
+            
+            #region Number
+            /// <summary>
+            /// This property gets or sets the value for 'Number'.
+            /// </summary>
+            public int Number
+            {
+                get { return number; }
+                set { number = value; }
             }
             #endregion
             

@@ -27,7 +27,8 @@ namespace DataJuggler.Excelerate
         #region Private Variables
         private Worksheet worksheet;
         private string outputFolder;
-        private string className;        
+        private string className;
+        private const string RowId = "RowId";
         #endregion
         
         #region Constructor
@@ -144,7 +145,7 @@ namespace DataJuggler.Excelerate
                 foreach (Column column in row.Columns)
                 {
                     // if the ColumnName Exists
-                    if (column.HasColumnName)
+                    if ((column.HasColumnName) && (column.ColumnName != RowId))
                     {
                         // Increment the value for columnIndex
                         columnIndex++;
@@ -206,6 +207,14 @@ namespace DataJuggler.Excelerate
                                 // required
                                 break;
 
+                            case DataManager.DataTypeEnum.Guid:
+
+                                // Set the value
+                                sb.Append("].GuidValue;");
+
+                                // required
+                                break;
+
                             default:
 
                                 // Set the value
@@ -223,6 +232,19 @@ namespace DataJuggler.Excelerate
                 // Add a closing bracket
                 sb.Append(indent2);
                 sb.Append('}');
+                sb.Append(Environment.NewLine);
+
+                // Add an extra blank line
+                sb.Append(Environment.NewLine);
+
+                // Add a comment for the RowId
+                sb.Append(indent2);
+                sb.Append("// Set RowId");
+                sb.Append(Environment.NewLine);
+
+                // add RowId
+                sb.Append(indent2);
+                sb.Append("RowId = row.Id;");
                 sb.Append(Environment.NewLine);
 
                 // Add indent
@@ -366,6 +388,21 @@ namespace DataJuggler.Excelerate
                     // if the row exists
                     if (ListHelper.HasOneOrMoreItems(row.Columns))
                     {
+                        // Update 10.31.2021: Creating a column to hold the RowId
+                        Column rowIdColumn = new Column();
+
+                        // Set the rowId
+                        rowIdColumn.ColumnName = RowId;
+
+                        // Set the DataType
+                        rowIdColumn.DataType = DataManager.DataTypeEnum.Guid;
+
+                        // Extra column
+                        rowIdColumn.ColumnNumber = row.Columns.Count + 1;
+
+                        // Add this rowIdColumn
+                        row.Columns.Add(rowIdColumn);
+
                         // Create a DataTable to create the 
                         DataManager dataManager = new DataManager(outputFolder, this.ClassName, DataManager.ClassOutputLanguage.CSharp);
 
@@ -384,8 +421,8 @@ namespace DataJuggler.Excelerate
                         // Create DataFields for each column
                         foreach (Column column in row.Columns)
                         {
-                            // if the ColumNValue exists
-                            if (column.HasColumnValue)
+                            // if the ColumnValue exists or if this is the RowId field
+                            if ((column.HasColumnValue) || (TextHelper.IsEqual(column.ColumnName, RowId)))
                             {
                                 // Increment the value for columnIndex
                                 columnIndex++;
@@ -405,11 +442,20 @@ namespace DataJuggler.Excelerate
                                 // Set the FieldOrdinal
                                 field.FieldOrdinal = columnIndex;
 
-                                // DetermineDataType
-                                field.DataType = AttemptToDetermineDataType(field.FieldName, columnIndex);
+                                // if this is the RowId
+                                if (TextHelper.IsEqual(field.FieldName, RowId))
+                                {
+                                    // If this is RowId
+                                    field.DataType = DataManager.DataTypeEnum.Guid;
+                                }
+                                else
+                                {
+                                    // DetermineDataType
+                                    field.DataType = AttemptToDetermineDataType(field.FieldName, columnIndex);
 
-                                // Store the DataType in the column, so the Loader knows how to handle this column
-                                column.DataType = field.DataType;
+                                    // Store the DataType in the column, so the Loader knows how to handle this column
+                                    column.DataType = field.DataType;
+                                }
 
                                 // Add this field
                                 dataTable.Fields.Add(field);

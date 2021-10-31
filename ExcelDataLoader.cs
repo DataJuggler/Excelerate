@@ -408,6 +408,12 @@ namespace DataJuggler.Excelerate
                                     // Create a new instance of a 'Row' object.
                                     Row row = new Row();
 
+                                    // Set the rowNumber
+                                    row.Number = rowNumber;
+
+                                    // Set the rowId
+                                    row.Id = Guid.NewGuid();
+
                                     // now load the columns for this row
 
                                     // if load specified columns is true and there are one or more columns specified
