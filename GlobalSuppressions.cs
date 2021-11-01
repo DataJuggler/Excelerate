@@ -7,3 +7,4 @@ using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Style", "IDE0017:Simplify object initialization", Justification = "<Pending>", Scope = "member", Target = "~M:DataJuggler.Excelerate.ExcelDataLoader.LoadWorksheet(OfficeOpenXml.ExcelWorkbook,DataJuggler.Excelerate.LoadWorksheetInfo)~DataJuggler.Excelerate.Worksheet")]
 [assembly: SuppressMessage("Style", "IDE0090:Use 'new(...)'", Justification = "<Pending>", Scope = "member", Target = "~M:DataJuggler.Excelerate.ExcelDataLoader.LoadWorksheet(OfficeOpenXml.ExcelWorkbook,DataJuggler.Excelerate.LoadWorksheetInfo)~DataJuggler.Excelerate.Worksheet")]
+[assembly: SuppressMessage("Style", "IDE0017:Simplify object initialization", Justification = "<Pending>", Scope = "member", Target = "~M:DataJuggler.Excelerate.Worksheet.NewRow~DataJuggler.Excelerate.Row")]

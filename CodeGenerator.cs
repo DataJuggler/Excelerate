@@ -295,15 +295,18 @@ namespace DataJuggler.Excelerate
                 int lookedAt = 0;
                 
                 // If the worksheet object exists
-                if ((NullHelper.Exists(worksheet)) && (ListHelper.HasOneOrMoreItems(worksheet.Rows)))
+                if ((NullHelper.Exists(worksheet)) && (ListHelper.HasOneOrMoreItems(worksheet.Rows)) && (TextHelper.Exists(fieldName)))
                 {
+                    // get a lowercase version of the fieldName
+                    fieldName = fieldName.ToLower();
+
                     for (int x = 1; x < worksheet.Rows.Count; x++)
                     {
                         // get the value in this position
                         temp = worksheet.Rows[x].Columns[columnIndex].ColumnText;
 
                         // If the temp string exists, and this is not a 0, 0's are hard to tell anything from
-                        if ((TextHelper.Exists(temp)) && (temp != "0") && (temp != "0.00"))
+                        if ((temp != "0") && (temp != "0.00"))
                         {
                             // get the values
                             tempInt = worksheet.Rows[x].Columns[columnIndex].IntValue;
@@ -315,13 +318,27 @@ namespace DataJuggler.Excelerate
                             {
                                 // this is a boolean
                                 dataType = DataManager.DataTypeEnum.Boolean;
+
+                                // break
+                                break;
                             }
-                            else if ((TextHelper.Exists(fieldName)) && (fieldName.ToLower() == "active"))
+                            else if (fieldName == "active")
                             {
                                 // hard coding Active as boolean, because I need it for the Demo and Active usually is a boolean
 
                                 // this is a boolean
                                 dataType = DataManager.DataTypeEnum.Boolean;
+
+                                // break
+                                break;
+                            }
+                            else if ((fieldName == "zip") || (fieldName == "zipcode") || (fieldName == "postal") || (fieldName == "postalcode"))
+                            {
+                                // this is a string, not an int
+                                dataType = DataManager.DataTypeEnum.String;
+
+                                // break out
+                                break;
                             }
                             else
                             {
@@ -362,11 +379,11 @@ namespace DataJuggler.Excelerate
                                     break;
                                 }
                                 else
-                                {  
+                                {
                                     // Use String
                                     dataType = DataManager.DataTypeEnum.String;
-                                
-                                    // Use for scoring
+
+                                    // exit loop
                                     break;
                                 }
                             }

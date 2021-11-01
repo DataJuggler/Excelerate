@@ -488,6 +488,16 @@ namespace DataJuggler.Excelerate
                                         }
                                     }
 
+                                    // if the firstRow
+                                    if (rowNumber == 1)
+                                    {
+                                        // Set the Columns
+                                        worksheet.Columns = row.Columns;
+
+                                        // Clear the values of this column
+                                        worksheet.ClearColumnValues();
+                                    }
+
                                     // Add this row
                                     worksheet.Rows.Add(row);
 
