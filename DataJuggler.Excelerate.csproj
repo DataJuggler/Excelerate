@@ -15,8 +15,11 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/DataJuggler/Excelerate.git</RepositoryUrl>
     <RepositoryType>Git / Git Hub</RepositoryType>
-    <PackageTags>EPPPlus Excel C#</PackageTags>
-    <PackageReleaseNotes>11.1.2021
+    <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
+    <PackageReleaseNotes>11.2.2021
+Version 1.3.0: I now code generate a Save method, so the current Row.Column's ColumnValues are updated with the current value of this object.
+
+11.1.2021
 Version 1.2.8: I updated Worksheet.Columns is now set to first row.Columns when the Worksheet is loaded.
 I added a NewRow method, that returns a new row with the columns set.
 I updated AttemptToDetermineDataType to set ZipCode and PostalCode fields to a string, not an integer.
@@ -92,7 +95,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>1.2.8</Version>
+    <Version>1.3.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

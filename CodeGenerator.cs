@@ -270,6 +270,142 @@ namespace DataJuggler.Excelerate
                 sb.Append(Environment.NewLine);
             }
             #endregion
+
+            #region AddSaveMethod(Row row, ref StringBuilder sb)
+            /// <summary>
+            /// This method Adds a Save Method
+            /// </summary>            
+            public void AddSaveMethod(Row row, ref StringBuilder sb)
+            {
+                 // locals
+                int columnIndex = -1;
+                string indent = "            ";
+                string indent2 = "                ";
+                string indent3 = "                    ";
+                
+                 // Add a blank line
+                sb.Append(Environment.NewLine);
+
+                // Add a region
+                sb.Append(indent);
+                sb.Append("#region Save(Row row)");
+                sb.Append(Environment.NewLine);
+
+                // Now add the method summary
+
+                // Summary Line 1
+                sb.Append(indent);
+                sb.Append("/// <summary>");
+                sb.Append(Environment.NewLine);
+
+                // Summary Line 2
+                sb.Append(indent);
+                sb.Append("/// This method saves a " + ClassName + " object back to a Row.");
+                sb.Append(Environment.NewLine);
+
+                // Summary Line 3
+                sb.Append(indent);
+                sb.Append("/// </Summary>");
+                sb.Append(Environment.NewLine);
+
+                // Add the param comment
+                sb.Append(indent);
+                sb.Append("/// <param name=\"row\">The row which the row.Columns[x].ColumnValue will be set to Save back to Excel.</param>");
+                sb.Append(Environment.NewLine);
+
+                // Now add the indent
+                sb.Append(indent);
+
+                // Set the methodDeclarationLine
+                string methodDeclarationLine = "public void Save(Row row)";
+
+                // Add this line
+                sb.Append(methodDeclarationLine);
+
+                // Add a new line
+                sb.Append(Environment.NewLine);
+
+                // Now add the method
+                sb.Append(indent);
+
+                // Add an open bracket
+                sb.Append('{');
+
+                // Add a new line
+                sb.Append(Environment.NewLine);
+
+                // Add a comment
+                sb.Append(indent2);
+
+                // Add this
+                sb.Append("// If the row exists and the row's column collection exists");
+                sb.Append(Environment.NewLine);
+
+                // Add a check for the column
+                sb.Append(indent2);
+
+                // create the ifLine
+                sb.Append("if ((NullHelper.Exists(row)) && (row.HasColumns))");
+
+                // Add a new line here before the paren
+                sb.Append(Environment.NewLine);
+
+                // Add an open paren
+                sb.Append(indent2);
+                sb.Append('{');
+
+                // Add a new line
+                sb.Append(Environment.NewLine);
+
+                // reset
+                columnIndex = -1;
+               
+                // Create DataFields for each column
+                foreach (Column column in row.Columns)
+                {
+                    // if the ColumnName Exists
+                    if ((column.HasColumnName) && (column.ColumnName != RowId))
+                    {
+                        // Increment the value for columnIndex
+                        columnIndex++;
+
+                        // Now add the indent3 (8 spaces extra)
+                        sb.Append(indent3);
+
+                        // Set the columnValue
+                        sb.Append("row.ColumnValue = ");
+
+                        // Set the Column Name (Property Name)
+                        sb.Append(column.ColumnName);
+
+                        // Append closing semicolon
+                        sb.Append(";");
+
+                        // Add a new line
+                        sb.Append(Environment.NewLine);
+                    }
+                }
+
+                // Add a closing bracket
+                sb.Append(indent2);
+                sb.Append('}');
+                sb.Append(Environment.NewLine);
+
+                // Add indent
+                sb.Append(indent);
+
+                // Add a closing bracket
+                sb.Append('}');
+
+                // Add a new line
+                sb.Append(Environment.NewLine);
+
+                // Add the endregion
+                sb.Append(indent);
+                sb.Append("#endregion");
+                sb.Append(Environment.NewLine);
+            }
+            #endregion
             
             #region AttemptToDetermineDataType(int columnIndex)
             /// <summary>
@@ -617,6 +753,9 @@ namespace DataJuggler.Excelerate
                                             {
                                                 // Pass in the string builder here, saves a bunch of code in this method
                                                AddLoadMethod(row, ref sb);
+
+                                               // Add the Save method
+                                               AddSaveMethod(row, ref sb);
                                             }
 
                                             // if this line is blank
