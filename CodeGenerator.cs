@@ -63,6 +63,7 @@ namespace DataJuggler.Excelerate
                 string indent = "            ";
                 string indent2 = "                ";
                 string indent3 = "                    ";
+                columnIndex = -1;
                 
                  // Add a blank line
                 sb.Append(Environment.NewLine);
@@ -137,9 +138,6 @@ namespace DataJuggler.Excelerate
 
                 // Add a new line
                 sb.Append(Environment.NewLine);
-
-                // reset
-                columnIndex = -1;
                
                 // Create DataFields for each column
                 foreach (Column column in row.Columns)
@@ -281,7 +279,8 @@ namespace DataJuggler.Excelerate
                 int columnIndex = -1;
                 string indent = "            ";
                 string indent2 = "                ";
-                string indent3 = "                    ";
+                string indent3 = "                    ";                 
+                columnIndex = -1;
                 
                  // Add a blank line
                 sb.Append(Environment.NewLine);
@@ -357,9 +356,6 @@ namespace DataJuggler.Excelerate
                 // Add a new line
                 sb.Append(Environment.NewLine);
 
-                // reset
-                columnIndex = -1;
-               
                 // Create DataFields for each column
                 foreach (Column column in row.Columns)
                 {
@@ -373,7 +369,13 @@ namespace DataJuggler.Excelerate
                         sb.Append(indent3);
 
                         // Set the columnValue
-                        sb.Append("row.ColumnValue = ");
+                        sb.Append("row.Columns[");
+                        
+                        // add the columnIndex
+                        sb.Append(columnIndex);
+
+                        // Append '].ColumnValue = '
+                        sb.Append("].ColumnValue = ");
 
                         // Set the Column Name (Property Name)
                         sb.Append(column.ColumnName);
