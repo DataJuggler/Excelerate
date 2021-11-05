@@ -316,7 +316,7 @@ namespace DataJuggler.Excelerate
                 sb.Append(indent);
 
                 // Set the methodDeclarationLine
-                string methodDeclarationLine = "public void Save(Row row)";
+                string methodDeclarationLine = "public Row Save(Row row)";
 
                 // Add this line
                 sb.Append(methodDeclarationLine);
@@ -391,6 +391,19 @@ namespace DataJuggler.Excelerate
                 // Add a closing bracket
                 sb.Append(indent2);
                 sb.Append('}');
+                sb.Append(Environment.NewLine);
+
+                // Add a new line
+                sb.Append(Environment.NewLine);
+
+                // write a comment
+                sb.Append(indent2);
+                sb.Append("// return value");
+                sb.Append(Environment.NewLine);
+
+                // write the return value row
+                sb.Append(indent2);
+                sb.Append("return row;");
                 sb.Append(Environment.NewLine);
 
                 // Add indent

@@ -2,15 +2,12 @@
 
 #region using statements
 
+using DataJuggler.UltimateHelper;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using OfficeOpenXml;
-using OfficeOpenXml.Style;
-using DataJuggler.UltimateHelper;
+using System.Linq;
 
 #endregion
 
@@ -26,7 +23,7 @@ namespace DataJuggler.Excelerate
         
         #region Methods
 
-            #region GetCellText()
+            #region GetCellText(ExcelWorksheet sheet, int row, int col)
             /// <summary>
             /// This method returns the Cell Text (what you see, including formatting)
             /// </summary>
@@ -245,7 +242,7 @@ namespace DataJuggler.Excelerate
                     var package = new ExcelPackage(fileInfo);
 
                     // get the workbook
-                    excelWorkbook = package.Workbook;
+                    excelWorkbook = package.Workbook;                    
                 }
                 
                 // return value
@@ -322,7 +319,7 @@ namespace DataJuggler.Excelerate
 
                     // get the workbook
                     ExcelWorkbook excelWorkbook = package.Workbook;
-                
+
                     // If the excelWorkbook object exists
                     if (NullHelper.Exists(excelWorkbook))
                     {  
@@ -397,7 +394,10 @@ namespace DataJuggler.Excelerate
                                 // Create a new instance of a 'Worksheet' object.
                                 worksheet = new Worksheet();
 
-                                // Load th
+                                // Store the loadWorksheetInfo, so saving is easier
+                                worksheet.WorksheetInfo = loadWorksheetInfo;
+
+                                // Set the sheetName
                                 worksheet.Name = loadWorksheetInfo.SheetName;
 
                                 do

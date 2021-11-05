@@ -26,6 +26,7 @@ namespace DataJuggler.Excelerate
         private List<Column> columns;
         private List<Row> rows;
         private string name;
+        private LoadWorksheetInfo worksheetInfo;
         #endregion
         
         #region Constructor
@@ -180,14 +181,14 @@ namespace DataJuggler.Excelerate
 
         #region Properties
 
-        #region Columns
-        /// <summary>
-        /// This property gets or sets the value for 'Columns'.
-        /// Worksheet.Rows has the actual Data. The Columns collection
-        /// here is for a 'HeaderRow' and contains information about
-        /// column data types.
-        /// </summary>
-        public List<Column> Columns
+            #region Columns
+            /// <summary>
+            /// This property gets or sets the value for 'Columns'.
+            /// Worksheet.Rows has the actual Data. The Columns collection
+            /// here is for a 'HeaderRow' and contains information about
+            /// column data types.
+            /// </summary>
+            public List<Column> Columns
             {
                 get { return columns; }
                 set { columns = value; }
@@ -228,6 +229,23 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region HasWorksheetInfo
+            /// <summary>
+            /// This property returns true if this object has a 'WorksheetInfo'.
+            /// </summary>
+            public bool HasWorksheetInfo
+            {
+                get
+                {
+                    // initial value
+                    bool hasWorksheetInfo = (this.WorksheetInfo != null);
+                    
+                    // return value
+                    return hasWorksheetInfo;
+                }
+            }
+            #endregion
+            
             #region Name
             /// <summary>
             /// This property gets or sets the value for 'Name'.
@@ -247,6 +265,17 @@ namespace DataJuggler.Excelerate
             {
                 get { return rows; }
                 set { rows = value; }
+            }
+            #endregion
+            
+            #region WorksheetInfo
+            /// <summary>
+            /// This property gets or sets the value for 'WorksheetInfo'.
+            /// </summary>
+            public LoadWorksheetInfo WorksheetInfo
+            {
+                get { return worksheetInfo; }
+                set { worksheetInfo = value; }
             }
             #endregion
             
