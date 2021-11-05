@@ -42,7 +42,7 @@ namespace DataJuggler.Excelerate
             /// <summary>
             /// returns the Row
             /// </summary>
-            public bool SaveRow(string path, Row row, Worksheet worksheet)
+            public static bool SaveRow(string path, Row row, Worksheet worksheet)
             {
                 // initial value
                 bool saved = false;
@@ -67,6 +67,9 @@ namespace DataJuggler.Excelerate
 
                         // Save the package
                         package.Save();
+
+                        // all is good
+                        saved = true;
                     }
                 }
                 catch (Exception error)
