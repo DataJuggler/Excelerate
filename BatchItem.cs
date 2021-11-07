@@ -24,9 +24,20 @@ namespace DataJuggler.Excelerate
         private LoadWorksheetInfo worksheetInfo;
         private List<Row> updates;
         #endregion
-
+        
+        #region Constructor
+        /// <summary>
+        /// Create a new instance of a 'BatchItem' object.
+        /// </summary>
+        public BatchItem()
+        {
+            // Create a new collection of 'Row' objects.
+            this.Updates = new List<Row>();
+        }
+        #endregion
+        
         #region Properties
-
+            
             #region HasUpdates
             /// <summary>
             /// This property returns true if this object has an 'Updates'.
