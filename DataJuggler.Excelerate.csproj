@@ -16,7 +16,10 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <RepositoryUrl>https://github.com/DataJuggler/Excelerate.git</RepositoryUrl>
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
-    <PackageReleaseNotes>11.6.2021 (Take Four)
+    <PackageReleaseNotes>11.7.2021
+Version 1.3.10: BooleanHelper, part of DataJuggler.UltimateHelper had a bug in the ParseBoolean method.
+
+11.6.2021 (Take Four)
 Version 1.3.9: I set StringValue to an empty string if an error occurrs.
 
 11.6.2021 (Take Three)
@@ -132,7 +135,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>1.3.9</Version>
+    <Version>1.3.10</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -151,7 +154,7 @@ This is the first release. I have just begun adding classes and helper methods t
 
   <ItemGroup>
     <PackageReference Include="DataJuggler.Net5" Version="3.0.6" />
-    <PackageReference Include="DataJuggler.UltimateHelper" Version="1.6.8" />
+    <PackageReference Include="DataJuggler.UltimateHelper" Version="1.6.9" />
     <PackageReference Include="EPPlus" Version="4.5.3.3" />
   </ItemGroup>
 
