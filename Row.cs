@@ -4,9 +4,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DataJuggler.UltimateHelper;
 
 #endregion
 
@@ -36,6 +34,41 @@ namespace DataJuggler.Excelerate
             // Create a new collection of 'Column' objects.
             Columns = new List<Column>();
         }
+        #endregion
+        
+        #region Methods
+
+            #region FindColumn(string name)
+            /// <summary>
+            /// returns the Column
+            /// </summary>
+            public Column FindColumn(string name)
+            {
+                // initial value
+                Column column = null;
+
+                // if the value for HasColumns is true
+                if (HasColumns)
+                {
+                    // Iterate the collection of Column objects
+                    foreach (Column tempColumn in Columns)
+                    {
+                        if (TextHelper.IsEqual(tempColumn.ColumnName, name))
+                        {
+                            // set the return value
+                            column = tempColumn;
+
+                            // break out of the loop
+                            break;
+                        }
+                    }
+                }
+                
+                // return value
+                return column;
+            }
+            #endregion
+            
         #endregion
         
         #region Properties

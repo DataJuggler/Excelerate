@@ -30,6 +30,7 @@ namespace DataJuggler.Excelerate
         private string columnName;
         private string originalName;
         private string columnText;
+        private bool exportBooleanAsOneOrZero;
         private DataManager.DataTypeEnum dataType;
         #endregion
 
@@ -119,7 +120,30 @@ namespace DataJuggler.Excelerate
             /// </summary>
             public object ColumnValue
             {
-                get { return columnValue; }
+                get 
+                {
+                    // set the initial value
+                    object returnValue = columnValue;
+
+                    // formatting changes here. Something more advanced might be needed.
+                    if ((DataType == DataManager.DataTypeEnum.Boolean) && (ExportBooleanAsOneOrZero))
+                    {
+                        // if the value for BoolValue is true
+                        if (BoolValue)
+                        {
+                            // set the returnValue to 1 for true
+                            returnValue = "1";
+                        }
+                        else
+                        {
+                            // set the returnValue to 0 for false
+                            returnValue = "0";
+                        }
+                    }
+
+                    // return value
+                    return returnValue;
+                }
                 set { columnValue = value; }
             }
             #endregion
@@ -199,6 +223,17 @@ namespace DataJuggler.Excelerate
             }
             #endregion
 
+            #region ExportBooleanAsOneOrZero
+            /// <summary>
+            /// This property gets or sets the value for 'ExportBooleanAsOneOrZero'.
+            /// </summary>
+            public bool ExportBooleanAsOneOrZero
+            {
+                get { return exportBooleanAsOneOrZero; }
+                set { exportBooleanAsOneOrZero = value; }
+            }
+            #endregion
+            
             #region GuidValue
             /// <summary>
             /// This property returns the value for 'GuidValue'.

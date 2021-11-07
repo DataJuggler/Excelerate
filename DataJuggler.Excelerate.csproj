@@ -16,7 +16,13 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <RepositoryUrl>https://github.com/DataJuggler/Excelerate.git</RepositoryUrl>
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
-    <PackageReleaseNotes>11.7.2021
+    <PackageReleaseNotes>11.7.2021 (Take Two)
+Version 1.3.12: I added two new features:
+1. ColumnValue for a boolean column, can now be exported as 0 or 1 (instead of True / False).
+To use this, set ExportBooleanAsOneOrZero to true, and the DataType must be a DataManager.DataTypes.Boolean
+2. I added a FindColumn method to the row object, to make setting ExportBooleanAsOneOrZero easier.
+
+11.7.2021
 Version 1.3.10: BooleanHelper, part of DataJuggler.UltimateHelper had a bug in the ParseBoolean method.
 
 11.6.2021 (Take Four)
@@ -135,7 +141,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>1.3.10</Version>
+    <Version>1.3.12</Version>
   </PropertyGroup>
 
   <ItemGroup>
