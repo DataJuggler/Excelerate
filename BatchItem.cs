@@ -33,6 +33,9 @@ namespace DataJuggler.Excelerate
         {
             // Create a new collection of 'Row' objects.
             this.Updates = new List<Row>();
+
+            // Create the WorksheetInfo
+            this.WorksheetInfo = new LoadWorksheetInfo();
         }
         #endregion
         
