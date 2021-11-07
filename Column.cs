@@ -412,8 +412,11 @@ namespace DataJuggler.Excelerate
                         }
                         catch (Exception error)
                         {
+                            // set to an emptyString versus null
+                            stringValue = "";
+
                             // for debugging only
-                            DebugHelper.WriteDebugError("StringValue", "ExcelImort.Column", error);
+                            DebugHelper.WriteDebugError("StringValue", "Column", error);
                         }
                     }
 
