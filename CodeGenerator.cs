@@ -63,7 +63,6 @@ namespace DataJuggler.Excelerate
                 string indent = "            ";
                 string indent2 = "                ";
                 string indent3 = "                    ";
-                columnIndex = -1;
                 
                  // Add a blank line
                 sb.Append(Environment.NewLine);
@@ -269,6 +268,169 @@ namespace DataJuggler.Excelerate
             }
             #endregion
 
+            #region AddNewRowMethod(Row row, ref StringBuilder sb)
+            /// <summary>
+            /// This method Adds a NewRow method, so that new records can be inserted.
+            /// </summary>            
+            public void AddNewRowMethod(Row row, ref StringBuilder sb)
+            {
+                 // locals                
+                string indent = "            ";
+                string indent2 = "                ";
+                
+                 // Add a blank line
+                sb.Append(Environment.NewLine);
+
+                // Add a region
+                sb.Append(indent);
+                sb.Append("#region NewRow(Row row)");
+                sb.Append(Environment.NewLine);
+
+                // Now add the method summary
+
+                // Summary Line 1
+                sb.Append(indent);
+                sb.Append("/// <summary>");
+                sb.Append(Environment.NewLine);
+
+                // Summary Line 2
+                sb.Append(indent);
+                sb.Append("/// This method creates the columns for the row ");
+                sb.Append("to save a new ");
+                sb.Append(ClassName);
+                sb.Append(" object.");
+                sb.Append(Environment.NewLine);
+
+                // Summary Line 3
+                sb.Append(indent);
+                sb.Append("/// </Summary>");
+                sb.Append(Environment.NewLine);
+
+                // Add the param comment
+                sb.Append(indent);
+                sb.Append("/// <param name=\"row\">The row which the Columns will be created for.</param>");
+                sb.Append(Environment.NewLine);
+
+                // Now add the indent
+                sb.Append(indent);
+
+                // Set the methodDeclarationLine
+                string methodDeclarationLine = "public static Row NewRow(int rowNumber)";
+
+                // Add this line
+                sb.Append(methodDeclarationLine);
+
+                // Add a new line
+                sb.Append(Environment.NewLine);
+
+                // Now add the method
+                sb.Append(indent);
+
+                // Add an open bracket
+                sb.Append('{');
+
+                // Add a new line
+                sb.Append(Environment.NewLine);
+
+                // method body starts here
+
+                // Comment for the new row
+                sb.Append(indent2);
+                sb.Append("// initial value");
+                sb.Append(Environment.NewLine);
+
+                 // line to create the new row
+                 sb.Append(indent2);
+                 sb.Append("Row newRow = new Row();");
+                 sb.Append(Environment.NewLine);
+
+                 // Add a blank line
+                 sb.Append(Environment.NewLine);
+
+                 if ((NullHelper.Exists(row)) && (row.HasColumns))
+                 {
+                    // Iterate the collection of Column objects
+                    foreach (Column column in row.Columns)
+                    {
+                        // I don't think the RowId column needs to be created here
+                        if (column.ColumnName != RowId)
+                        {
+                            // the first column doesn't need a blank line before it
+                            if (column.ColumnNumber > 1)
+                            {
+                                // Add a new line here
+                                sb.Append(Environment.NewLine);
+                            }
+
+                            // write comment create column
+                            sb.Append(indent2);
+                            sb.Append("// Create Column");
+                            sb.Append(Environment.NewLine);
+
+                            // Create the column
+                            string variableName = TextHelper.CapitalizeFirstChar(column.ColumnName, true) + "Column";
+                            string columnLine = indent2 + "Column " + variableName + " = new Column(";
+                            sb.Append(columnLine);
+
+                            // column name must be enclosed in quotes
+                            sb.Append('"');
+                            sb.Append(column.ColumnName);
+                            // column name must be enclosed in quotes
+                            sb.Append('"');
+
+                            sb.Append(", ");
+                            sb.Append("rowNumber, ");
+                            sb.Append(column.ColumnNumber);
+                            sb.Append(", DataManager.DataTypeEnum.");
+                            sb.Append(column.DataType);
+                            sb.Append(");");
+                            sb.Append(Environment.NewLine);
+
+                            // add an extra blank line
+                            sb.Append(Environment.NewLine);
+
+                            // add comment
+                            sb.Append(indent2);
+                            sb.Append("// Add this column");
+                            sb.Append(Environment.NewLine);
+                            sb.Append(indent2);
+                            sb.Append("row.Columns.Add(");
+                            sb.Append(variableName);
+                            sb.Append(");");
+                            sb.Append(Environment.NewLine);
+                        }
+                    }
+
+                    // add a blank line
+                    sb.Append(Environment.NewLine);
+
+                    // Add a comment
+                    sb.Append(indent2);
+                    sb.Append("// return value");
+                    sb.Append(Environment.NewLine);
+                    sb.Append(indent2);
+                    sb.Append("return newRow;");
+                    sb.Append(Environment.NewLine);
+                 }
+
+                // method body ends here
+
+                // Add indent
+                sb.Append(indent);
+
+                // Add a closing bracket
+                sb.Append('}');
+
+                // Add a new line
+                sb.Append(Environment.NewLine);
+
+                // Add the endregion
+                sb.Append(indent);
+                sb.Append("#endregion");
+                sb.Append(Environment.NewLine);
+            }
+            #endregion
+
             #region AddSaveMethod(Row row, ref StringBuilder sb)
             /// <summary>
             /// This method Adds a Save Method
@@ -279,8 +441,7 @@ namespace DataJuggler.Excelerate
                 int columnIndex = -1;
                 string indent = "            ";
                 string indent2 = "                ";
-                string indent3 = "                    ";                 
-                columnIndex = -1;
+                string indent3 = "                    ";
                 
                  // Add a blank line
                 sb.Append(Environment.NewLine);
@@ -769,6 +930,9 @@ namespace DataJuggler.Excelerate
                                                 // Pass in the string builder here, saves a bunch of code in this method
                                                AddLoadMethod(row, ref sb);
 
+                                               // Add the NewRow method, so the row.Columns are created
+                                               AddNewRowMethod(row, ref sb);
+
                                                // Add the Save method
                                                AddSaveMethod(row, ref sb);
                                             }
@@ -818,7 +982,7 @@ namespace DataJuggler.Excelerate
             /// <summary>
             /// This method returns the Invalid Characters
             /// </summary>
-            public string ReplaceInvalidCharacters(string fieldName)
+            public static string ReplaceInvalidCharacters(string fieldName)
             {
                 // If the fieldName string exists
                 if (TextHelper.Exists(fieldName))

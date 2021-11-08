@@ -34,6 +34,38 @@ namespace DataJuggler.Excelerate
         private DataManager.DataTypeEnum dataType;
         #endregion
 
+        #region Constructors
+
+            #region Default Constructor
+            /// <summary>
+            /// Create a new instance of a Column object
+            /// </summary>
+            public Column()
+            {
+                    
+            }
+            #endregion
+
+            #region Parametized Constuctor Column(string columnName, int rowNumber, int colNumber, DataManager.DataTypeEnum dataType)
+            /// <summary>
+            /// Create a new instance of a Column object and set it's data types
+            /// </summary>
+            /// <param name="columnName"></param>
+            /// <param name="rowNumber"></param>
+            /// <param name="columnNumber"></param>
+            /// <param name="dataType"></param>
+            public Column(string columnName, int rowNumber, int columnNumber, DataManager.DataTypeEnum dataType)
+            {
+                // store the args
+                ColumnName = columnName;
+                RowNumber = rowNumber;
+                ColumnNumber = columnNumber;
+                DataType = dataType;
+            }
+            #endregion
+
+        #endregion
+
         #region Properties
 
             #region BoolValue
