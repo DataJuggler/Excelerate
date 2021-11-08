@@ -30,7 +30,7 @@ namespace DataJuggler.Excelerate
         private string columnName;
         private string originalName;
         private string columnText;
-        private bool exportBooleanAsOneOrZero;
+        private bool exportBooleanAsOneOrZero;        
         private DataManager.DataTypeEnum dataType;
         #endregion
 
