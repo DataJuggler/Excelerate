@@ -164,12 +164,12 @@ namespace DataJuggler.Excelerate
                         if (BoolValue)
                         {
                             // set the returnValue to 1 for true
-                            returnValue = "1";
+                            returnValue = 1;
                         }
                         else
                         {
                             // set the returnValue to 0 for false
-                            returnValue = "0";
+                            returnValue = 0;
                         }
                     }
 
