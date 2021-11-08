@@ -16,7 +16,11 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <RepositoryUrl>https://github.com/DataJuggler/Excelerate.git</RepositoryUrl>
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
-    <PackageReleaseNotes>11.8.2021 (Take Two)
+    <PackageReleaseNotes>11.8.2021 (Take Three)
+Version 1.4.1: I realized I had to add a using statement reference for DataJuggler.Net5
+to the code generated classes.
+
+11.8.2021 (Take Two)
 Version 1.4.0: The Add New Method code generation appears to work. 
 I am updating Blazor Excelerate with this version and will continue to test.
 
@@ -148,7 +152,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>1.4.0</Version>
+    <Version>1.4.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
