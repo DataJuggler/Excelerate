@@ -394,7 +394,7 @@ namespace DataJuggler.Excelerate
                             sb.Append("// Add this column");
                             sb.Append(Environment.NewLine);
                             sb.Append(indent2);
-                            sb.Append("row.Columns.Add(");
+                            sb.Append("newRow.Columns.Add(");
                             sb.Append(variableName);
                             sb.Append(");");
                             sb.Append(Environment.NewLine);
