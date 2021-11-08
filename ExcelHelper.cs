@@ -64,6 +64,7 @@ namespace DataJuggler.Excelerate
                                 // Get the sheet
                                 ExcelWorksheet excelworksheet = package.Workbook.Worksheets.FirstOrDefault(x => x.Name == batchItem.WorksheetInfo.SheetName);
 
+                                // If the excelworksheet object exists
                                 if (NullHelper.Exists(excelworksheet))
                                 {
                                     // iterate the rows to update

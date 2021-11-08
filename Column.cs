@@ -79,8 +79,8 @@ namespace DataJuggler.Excelerate
                     // initial value
                     bool boolValue = false;
 
-                    // if the value for HasColumnValue is true
-                    if (HasColumnValue)
+                    // if the columnValue exists (can't use HasColumnValue here or capital ColumnValue)
+                    if (NullHelper.Exists(columnValue))
                     {
                         try
                         {
@@ -202,8 +202,8 @@ namespace DataJuggler.Excelerate
                     // initial value
                     DateTime? dateValue = null;
 
-                    // if the value for HasColumnValue is true
-                    if (HasColumnValue)
+                     // if the columnValue exists (can't use HasColumnValue or capital ColumnValue here)
+                    if (NullHelper.Exists(columnValue))
                     {
                          try
                         {
@@ -234,8 +234,8 @@ namespace DataJuggler.Excelerate
                     // initial value
                     Decimal decimalValue = 0;
 
-                    // if the value for HasColumnValue is true
-                    if (HasColumnValue)
+                    // if the columnValue exists (can't use HasColumnValue or the Capital ColumnValue here)
+                    if (NullHelper.Exists(columnValue))
                     {
                          try
                         {
@@ -277,8 +277,8 @@ namespace DataJuggler.Excelerate
                     // initial value
                     Guid guidValue = Guid.Empty;
 
-                    // if the value for HasColumnValue is true
-                    if (HasColumnValue)
+                    // if the columnValue exists (can't use HasColumnValue or the capital HasColumnvalue here)
+                    if (NullHelper.Exists(columnValue))
                     {
                          try
                         {
@@ -411,8 +411,8 @@ namespace DataJuggler.Excelerate
                     // initial value
                     int intValue = 0;
 
-                    // if the value for HasColumnValue is true
-                    if (HasColumnValue)
+                    // if the columnValue exists (can't use HasColumnValue or the capital ColumnValue here)
+                    if (NullHelper.Exists(columnValue))
                     {
                          try
                         {
@@ -469,13 +469,13 @@ namespace DataJuggler.Excelerate
                     // initial value
                     string stringValue = "";
 
-                     // if the value for HasColumnValue is true
-                    if (HasColumnValue)
+                    // if the columnValue exists (can't use HasColumnValue or the capital here)
+                    if (NullHelper.Exists(columnValue))
                     {
                         try
                         {
                             // attempt to cast as a string
-                            stringValue = ColumnValue.ToString();
+                            stringValue = columnValue.ToString();
                         }
                         catch (Exception error)
                         {
