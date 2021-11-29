@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>net5.0;net6.0;</TargetFrameworks>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>DataJuggler</Authors>
@@ -17,6 +17,9 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
     <PackageReleaseNotes>
+		11.10.2021 (Take Two)
+		Version 1.5.1: .Net6.0 won't open the file. Testing with .Net 5.0.
+		
 		11.10.2021 
 		Version 1.5.0: Package now supports mullti-targeting net5.0 and net6.0.
 		
@@ -162,9 +165,9 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>1.5.0</Version>
+    <Version>1.6.0</Version>
     <ErrorReport>none</ErrorReport>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
@@ -197,7 +200,7 @@ This is the first release. I have just begun adding classes and helper methods t
 
   <ItemGroup>
     <PackageReference Include="DataJuggler.Net5" Version="3.0.6" />
-    <PackageReference Include="DataJuggler.UltimateHelper" Version="1.6.9" />
+    <PackageReference Include="DataJuggler.UltimateHelper" Version="1.7.1" />
     <PackageReference Include="EPPlus" Version="4.5.3.3" />
   </ItemGroup>
 
