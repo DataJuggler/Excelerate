@@ -17,6 +17,10 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
     <PackageReleaseNotes>
+11.30.2021 (Take Two)
+Version 1.7.1: I realized the Load method for a list, needed row.Number > 1 and row.HasColumns, because of the
+header row means you need to skeep the first row.
+		
 11.30.2021
 Version 1.7.0: I added a new feature to code generate a Load method override, that accepts a worksheet parameter,
 and will load a list of objects now. Saves writing a load method for each worksheet, now one line of code can take car of it.
@@ -169,10 +173,11 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>1.7.0</Version>
+    <Version>1.7.1</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>ExcelerateLogoSmallWhite.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -192,6 +197,10 @@ This is the first release. I have just begun adding classes and helper methods t
     <Compile Remove="Sample\**" />
     <EmbeddedResource Remove="Sample\**" />
     <None Remove="Sample\**" />
+    <None Include="..\Blazor.Excelerate\wwwroot\Images\ExcelerateLogoSmallWhite.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
