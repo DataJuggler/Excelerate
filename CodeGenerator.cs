@@ -178,16 +178,16 @@ namespace DataJuggler.Excelerate
                 sb.Append("{");
                 sb.Append(Environment.NewLine);
 
-                // add comment
+                // add comment for is not header row and the column's collection exists
                 sb.Append(indent4);
-                sb.Append("// If row's column collection exists");
+                sb.Append("// If the row is not a HeaderRow and row's column collection exists");
                 sb.Append(Environment.NewLine);
 
                 // add the test
                 sb.Append(indent4);
 
-                // needed because of the header row
-                sb.Append("if ((row.Number > 1) && (row.HasColumns))");
+                // write if this is not a HeaderRow and the row's columns exist
+                sb.Append("if ((!row.IsHeaderRow) && (row.HasColumns))");
                 sb.Append(Environment.NewLine);
 
                 // add the open paren

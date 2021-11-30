@@ -411,6 +411,9 @@ namespace DataJuggler.Excelerate
                                     // Set the rowNumber
                                     row.Number = rowNumber;
 
+                                    // Set IsHeaderRow to true, since the header row has to be in the top row
+                                    row.IsHeaderRow = (rowNumber == 1);
+
                                     // Set the rowId
                                     row.Id = Guid.NewGuid();
 

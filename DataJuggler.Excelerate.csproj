@@ -17,6 +17,10 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
     <PackageReleaseNotes>
+11.30.2021 (Take Four)
+Version 1.7.3: I fixed IsHeaderRow is set to true for the top row, for data that is loaded in LoadAllData which calls LoadWorksheet.
+Now the Load list method checks for the row is not a header row.
+		
 11.30.2021 (Take Three)
 Version 1.7.2: I changed an if statement to a compound if in CodeGenerator.cs (in the Load List override), and I forgot to 
 add an extra opening paren. Computers are so picky.
@@ -177,7 +181,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>1.7.2</Version>
+    <Version>1.7.3</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>
