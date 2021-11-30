@@ -52,6 +52,256 @@ namespace DataJuggler.Excelerate
 
         #region Methods
 
+            #region AddLoadListMethod(ref StringBuilder sb)
+            /// <summary>
+            /// This method writes out a Load method that loads a list of objects
+            /// </summary>            
+            public void AddLoadMethod(ref StringBuilder sb)
+            {
+                 // locals                
+                string indent = TextHelper.Indent(12);
+                string indent2 = TextHelper.Indent(16);
+                string indent3 = TextHelper.Indent(20);
+                string indent4 = TextHelper.Indent(24);
+                string indent5 = TextHelper.Indent(28);
+                
+                 // Add a blank line
+                sb.Append(Environment.NewLine);
+
+                // Add a region
+                sb.Append(indent);
+                sb.Append("#region Load(Worksheet worksheet)");
+                sb.Append(Environment.NewLine);
+
+                // Now add the method summary
+
+                // Summary Line 1
+                sb.Append(indent);
+                sb.Append("/// <summary>");
+                sb.Append(Environment.NewLine);
+
+                // Summary Line 2
+                sb.Append(indent);
+                sb.Append("/// This method loads a list of " + ClassName + " objects from a Worksheet.");
+                sb.Append(Environment.NewLine);
+
+                // Summary Line 3
+                sb.Append(indent);
+                sb.Append("/// </Summary>");
+                sb.Append(Environment.NewLine);
+
+                // Add the param comment
+                sb.Append(indent);
+                sb.Append("/// <param name=\"worksheet\">The worksheet which the rows collection will be used to load a list of " + ClassName + " objects.</param>");
+                sb.Append(Environment.NewLine);
+
+                // Now add the indent
+                sb.Append(indent);
+
+                // Set the methodDeclarationLine
+                string methodDeclarationLine = "public static List<" + ClassName + "> Load(Worksheet worksheet)";
+
+                // Add this line
+                sb.Append(methodDeclarationLine);
+
+                // Add a new line
+                sb.Append(Environment.NewLine);
+
+                // Now add the method
+                sb.Append(indent);
+
+                // Add an open bracket
+                sb.Append('{');
+
+                // Add a new line
+                sb.Append(Environment.NewLine);
+
+                // Add a comment
+                sb.Append(indent2);
+                sb.Append("// Initial value");
+                sb.Append(Environment.NewLine);
+
+                // get a lower case variable name
+                string variableName = TextHelper.CapitalizeFirstChar(ClassName, true);
+                string listName = variableName + "List";
+
+                // Create the return value
+                sb.Append(indent2);
+                sb.Append("List<");
+                sb.Append(ClassName);
+                sb.Append("> ");
+                sb.Append(listName);
+                sb.Append(" = new List<");
+                sb.Append(ClassName);
+                sb.Append(">();");
+                sb.Append(Environment.NewLine);
+
+                // add a blank line
+                sb.Append(indent2);
+                sb.Append(Environment.NewLine);
+
+                // write out the null test
+                sb.Append(indent2);
+
+                // Add this
+                sb.Append("// If the worksheet exists and the row's collection exists");
+                sb.Append(Environment.NewLine);
+
+                // Add a check for the column
+                sb.Append(indent2);
+
+                // create the ifLine
+                sb.Append("if ((NullHelper.Exists(worksheet)) && (worksheet.HasRows))");
+
+                // Add a new line here
+                sb.Append(Environment.NewLine);
+
+                // Add an open paren
+                sb.Append(indent2);
+                sb.Append('{');
+
+                // Add a new line
+                sb.Append(Environment.NewLine);
+
+                // add comment
+                sb.Append(indent3);
+                sb.Append("// Iterate the worksheet.Rows collection");
+                sb.Append(Environment.NewLine);
+               
+                // now iterate
+                sb.Append(indent3);
+                sb.Append("foreach (Row row in worksheet.Rows)");
+                sb.Append(Environment.NewLine);
+
+                // add the open paren
+                sb.Append(indent3);
+                sb.Append("{");
+                sb.Append(Environment.NewLine);
+
+                // add comment
+                sb.Append(indent4);
+                sb.Append("// If row's column collection exists");
+                sb.Append(Environment.NewLine);
+
+                // add the test
+                sb.Append(indent4);
+                sb.Append("if (row.HasColumns)");
+                sb.Append(Environment.NewLine);
+
+                // add the open paren
+                sb.Append(indent4);
+                sb.Append("{");
+                sb.Append(Environment.NewLine);
+
+                // now the load
+
+                // write the comment for create new insteance
+                sb.Append(indent5);
+                if (TextHelper.StartsWithAVowel(ClassName))
+                {
+                    // use an
+                    sb.Append("// Create a new instance of an ");
+                }
+                else
+                {
+                    // use an
+                    sb.Append("// Create a new instance of a ");
+                }
+
+                // resume comment
+                sb.Append(ClassName);
+                sb.Append(" object.");
+                sb.Append(Environment.NewLine);
+
+                // now instatiate the new object
+                sb.Append(indent5);
+                sb.Append(ClassName);
+                sb.Append(" ");
+                sb.Append(variableName);
+                sb.Append(" = new ");
+                sb.Append(ClassName);
+                sb.Append("();");
+                sb.Append(Environment.NewLine);
+
+                // write a blank line
+                sb.Append(indent5);
+                sb.Append(Environment.NewLine);
+
+                // Now write the load comment
+                sb.Append(indent5);
+                sb.Append("// Load this object");
+                sb.Append(Environment.NewLine);
+
+                // now perform the load
+                sb.Append(indent5);
+                sb.Append(variableName);
+                sb.Append(".Load(row);");
+                sb.Append(Environment.NewLine);
+
+                // write a blank line
+                sb.Append(indent5);
+                sb.Append(Environment.NewLine);
+
+                // write a comment for add to list
+                sb.Append(indent5);
+                sb.Append("// Add this object to the list");
+                sb.Append(Environment.NewLine);
+
+                // now write the line to add this object
+                sb.Append(indent5);
+                sb.Append(listName);
+                sb.Append(".Add(");
+                sb.Append(variableName);
+                sb.Append(");");
+                sb.Append(Environment.NewLine);
+
+                // add the close paren
+                sb.Append(indent4);
+                sb.Append("}");
+                sb.Append(Environment.NewLine);
+
+                // add the close paren
+                sb.Append(indent3);
+                sb.Append("}");
+                sb.Append(Environment.NewLine);
+
+                // Add a closing bracket
+                sb.Append(indent2);
+                sb.Append('}');
+                sb.Append(Environment.NewLine);
+
+                // add a blank line
+                sb.Append(indent2);
+                sb.Append(Environment.NewLine);
+
+                // now write a comment for the return value
+                sb.Append(indent2);
+                sb.Append("// return value");
+                sb.Append(Environment.NewLine);
+
+                // now write out the return value
+                sb.Append(indent2);
+                sb.Append("return ");
+                sb.Append(listName);
+                sb.Append(";");
+                sb.Append(Environment.NewLine);
+
+                // Add indent
+                sb.Append(indent);
+
+                // Add a closing bracket
+                sb.Append('}');
+
+                // Add a new line
+                sb.Append(Environment.NewLine);
+
+                // Add the endregion
+                sb.Append(indent);
+                sb.Append("#endregion");
+                sb.Append(Environment.NewLine);
+            }
+            #endregion
+
             #region AddLoadMethod(Row row, ref StringBuilder sb)
             /// <summary>
             /// This method Add Load Method
@@ -60,9 +310,9 @@ namespace DataJuggler.Excelerate
             {
                  // locals
                 int columnIndex = -1;
-                string indent = "            ";
-                string indent2 = "                ";
-                string indent3 = "                    ";
+                string indent = TextHelper.Indent(12);
+                string indent2 = TextHelper.Indent(16);
+                string indent3 = TextHelper.Indent(20);
                 
                  // Add a blank line
                 sb.Append(Environment.NewLine);
@@ -847,12 +1097,14 @@ namespace DataJuggler.Excelerate
                         Reference reference2 = new Reference("DataJuggler.Net5", 2);
                         Reference reference3 = new Reference("DataJuggler.UltimateHelper", 3);
                         Reference reference4 = new Reference("System", 4);
+                        Reference reference5 = new Reference("System.Collections.Generic", 5);
 
                         // Add the references to the ReferencesSet
                         referencesSet.Add(reference);
                         referencesSet.Add(reference2);
                         referencesSet.Add(reference3);
                         referencesSet.Add(reference4);
+                        referencesSet.Add(reference5);
 
                         // Set the references
                         dataManager.References = referencesSet;
@@ -929,8 +1181,11 @@ namespace DataJuggler.Excelerate
                                             // if this is the Methods line
                                             if (TextHelper.IsEqual(line.Text.Trim(), "#region Methods"))
                                             {
-                                                // Pass in the string builder here, saves a bunch of code in this method
+                                               // Pass in the string builder here, saves a bunch of code in this method
                                                AddLoadMethod(row, ref sb);
+
+                                               // Load a List of objects
+                                               AddLoadMethod(ref sb);
 
                                                // Add the NewRow method, so the row.Columns are created
                                                AddNewRowMethod(row, ref sb);
