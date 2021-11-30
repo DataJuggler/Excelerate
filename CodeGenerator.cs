@@ -187,7 +187,7 @@ namespace DataJuggler.Excelerate
                 sb.Append(indent4);
 
                 // needed because of the header row
-                sb.Append("if (row.Number > 1) && (row.HasColumns))");
+                sb.Append("if ((row.Number > 1) && (row.HasColumns))");
                 sb.Append(Environment.NewLine);
 
                 // add the open paren
