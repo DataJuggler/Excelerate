@@ -5,8 +5,12 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>DataJuggler</Authors>
-    <Description>Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it easy to load Workbooks or Worksheets. Excelerate now has a code generation feature, you can create a C# class from a header row.
+    <Description>Excelerate will change how you work with C# and Excel. Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it easy to load Workbooks or Worksheets. Excelerate now has a code generation feature, you can create a C# class from a header row.
+Excelerate also has helper classes to allow you load and save entire workbooks or worksheets without
+ever having referring to a cell. Use my free site https://excelerate.datajuggler.com to code generate C# classes from Excel header rows.
+ExcelDataLoader will load a workbook or worksheet by passing in a path and a WorksheetInfo object to specify what to load.
 
+Background
 I have a couple of clients that I build programs that automate combining columns from multiple Worksheets to form reports.
 
 Rather than continue to write custom loaders, I really only need custom Exporters in most cases, so I created this project.</Description>
@@ -16,7 +20,9 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <RepositoryUrl>https://github.com/DataJuggler/Excelerate.git</RepositoryUrl>
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
-    <PackageReleaseNotes>
+    <PackageReleaseNotes>9.28.2022: I improved the DataType scoring. Before I had a few hard coded items, but today
+I built a DataTypeScorer to look at 25 data rows for a column and attempt to determine the data type.
+
 4.1.2022: Version 6.0.1: I added ExcludedColumnIndexes. I have a project for a client and I need to skip two columns.
 This is brand new code, and not tested, so use with caution for now. April Fools, my code always works the 1st time!
 
@@ -186,11 +192,12 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>6.0.1</Version>
+    <Version>6.0.2</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>ExcelerateLogoSmallWhite.png</PackageIcon>
+    <Title>DataJuggler.Excelerate</Title>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

@@ -854,9 +854,13 @@ namespace DataJuggler.Excelerate
                 string temp = "";
                 int tempInt = 0;
                 Decimal tempDecimal = 0;
+                Guid tempGuid;
                 DateTime? tempDate = new DateTime();
-                int maxToLookAt = 50;
+                int maxToLookAt = 25;
                 int lookedAt = 0;
+
+                // Create a new instance of a 'DataTypeScorer' object.
+                DataTypeScorer scorer = new DataTypeScorer();
                 
                 // If the worksheet object exists
                 if ((NullHelper.Exists(worksheet)) && (ListHelper.HasOneOrMoreItems(worksheet.Rows)) && (TextHelper.Exists(fieldName)))
@@ -869,100 +873,78 @@ namespace DataJuggler.Excelerate
                         // get the value in this position
                         temp = worksheet.Rows[x].Columns[columnIndex].ColumnText;
 
+                        // get the values
+                        tempInt = worksheet.Rows[x].Columns[columnIndex].IntValue;
+                        tempDecimal = worksheet.Rows[x].Columns[columnIndex].DecimalValue;
+                        tempGuid = worksheet.Rows[x].Columns[columnIndex].GuidValue;
+    
                         // If the temp string exists, and this is not a 0, 0's are hard to tell anything from
                         if ((temp != "0") && (temp != "0.00"))
-                        {
-                            // get the values
-                            tempInt = worksheet.Rows[x].Columns[columnIndex].IntValue;
-                            tempDecimal = worksheet.Rows[x].Columns[columnIndex].DecimalValue;
+                        {  
                             tempDate = worksheet.Rows[x].Columns[columnIndex].DateValue;
                             
                             // if true or false
                             if ((temp.ToLower() == "true") || (temp.ToLower() == "false"))
                             {
                                 // this is a boolean
-                                dataType = DataManager.DataTypeEnum.Boolean;
+                                scorer.BoolCount++;
 
                                 // break
-                                break;
-                            }
-                            else if (fieldName == "active")
-                            {
-                                // hard coding Active as boolean, because I need it for the Demo and Active usually is a boolean
-
-                                // this is a boolean
-                                dataType = DataManager.DataTypeEnum.Boolean;
-
-                                // break
-                                break;
-                            }
-                            else if ((fieldName == "zip") || (fieldName == "zipcode") || (fieldName == "postal") || (fieldName == "postalcode"))
-                            {
-                                // this is a string, not an int
-                                dataType = DataManager.DataTypeEnum.String;
-
-                                // break out
                                 break;
                             }
                             else
-                            {
-                                // if a column starts with preceding zeros, and it is a number I am counting this as string
-                                if ((temp.StartsWith("0")) && ((tempInt != 0) || (tempDecimal != 0)))
-                                {
-                                    // Set to string
-                                    dataType = DataManager.DataTypeEnum.String;
-
-                                    // break out of the loop
-                                    break;
-                                }
-
-                                // if this is a number
-                                if ((tempInt != 0) || (tempDecimal != 0))
-                                {
-                                    // if the string contains a decimal point
-                                    if (temp.Contains("."))
-                                    {
-                                        // Use Decimal
-                                        dataType = DataManager.DataTypeEnum.Decimal;
-
-                                        // break out
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        // Use Integer, but keep looking
-                                        dataType = DataManager.DataTypeEnum.Integer;
-                                    }
-                                }
-                                else if ((tempDate.HasValue) && (tempDate.Value.Year > 1900))
+                            { 
+                                if ((tempDate.HasValue) && (tempDate.Value.Year > 1900))
                                 {
                                     // Use Date
-                                    dataType = DataManager.DataTypeEnum.DateTime;
-
-                                    // once we determine we used DateTime, break out of loop
-                                    break;
+                                    scorer.DateCount++;
+                                }
+                                if (tempGuid != Guid.Empty)
+                                {
+                                    // Use Guid
+                                    scorer.GuidCount++;
+                                }
+                                else if (tempDecimal != 0)
+                                {
+                                    // Use double
+                                    scorer.DecimalCount++;
+                                }
+                                else if (tempInt != 0)
+                                {
+                                    // Use int
+                                    scorer.IntCount++;
                                 }
                                 else
                                 {
                                     // Use String
-                                    dataType = DataManager.DataTypeEnum.String;
-
-                                    // exit loop
-                                    break;
+                                    scorer.StringCount++;
                                 }
                             }
-                            
-                            // Increment the value for lookedAt
-                            lookedAt++;
+                        }
+                        else if (tempDecimal != 0)
+                        {
+                            // 0.00 Use double
+                            scorer.DecimalCount++;
+                        }
+                        else
+                        {
+                            // Use int for 0's
+                            scorer.IntCount++;
+                        }
 
-                            // if we have looked at enough
-                            if (lookedAt > maxToLookAt)
-                            {
-                                // break out of the loop
-                                break;
-                            }
+                        // Increment the value for lookedAt
+                        lookedAt++;
+
+                        // if we have looked at enough
+                        if (lookedAt > maxToLookAt)
+                        {
+                            // break out of the loop
+                            break;
                         }
                     }
+
+                    // Set the return value
+                    dataType = scorer.TopDataType;
                 }
                 
                 // return value

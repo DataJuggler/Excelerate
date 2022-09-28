@@ -356,7 +356,7 @@ namespace DataJuggler.Excelerate
                 int columnIndex = -1;
                 bool skipColumn = false;
                 int tempIndex = -1;
-
+                
                 // verify both objects exist
                 if (NullHelper.Exists(excelWorkbook, loadWorksheetInfo))
                 {
