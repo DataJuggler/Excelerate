@@ -20,7 +20,11 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <RepositoryUrl>https://github.com/DataJuggler/Excelerate.git</RepositoryUrl>
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
-    <PackageReleaseNotes>9.28.2022: I improved the DataType scoring. Before I had a few hard coded items, but today
+    <PackageReleaseNotes>9.28.2022: I fixed my earlier attempts at improving the data type. I wasn't removing $ signs,
+or taking them into account and I was getting strings for doubles. It isn't hard to switch if it
+generates wrong, but still I want this to do most of the work.
+
+9.28.2022: I improved the DataType scoring. Before I had a few hard coded items, but today
 I built a DataTypeScorer to look at 25 data rows for a column and attempt to determine the data type.
 
 4.1.2022: Version 6.0.1: I added ExcludedColumnIndexes. I have a project for a client and I need to skip two columns.
@@ -192,7 +196,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>6.0.2</Version>
+    <Version>6.0.3</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>

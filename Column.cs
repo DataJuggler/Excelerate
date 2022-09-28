@@ -241,7 +241,7 @@ namespace DataJuggler.Excelerate
                          try
                         {
                             // attempt to cast as a Decimal
-                            decimalValue = NumericHelper.ParseDecimal(StringValue, decimalValue, decimalValue);
+                            decimalValue = NumericHelper.ParseDecimal(StringValue.Replace("$", ""), decimalValue, decimalValue);
                         }
                         catch (Exception error)
                         {
@@ -428,8 +428,8 @@ namespace DataJuggler.Excelerate
                     {
                          try
                         {
-                            // attempt to cast as an int
-                            intValue = NumericHelper.ParseInteger(StringValue, 0, 0);
+                            // attempt to cast as an int and remove dollar signs in case currency is present
+                            intValue = NumericHelper.ParseInteger(StringValue.Replace("$", ""), 0, 0);
                         }
                         catch (Exception error)
                         {

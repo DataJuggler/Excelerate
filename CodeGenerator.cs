@@ -868,68 +868,70 @@ namespace DataJuggler.Excelerate
                     // get a lowercase version of the fieldName
                     fieldName = fieldName.ToLower();
 
+                    // starting at 1, since the sheet must have a header row for this to work
                     for (int x = 1; x < worksheet.Rows.Count; x++)
                     {
                         // get the value in this position
                         temp = worksheet.Rows[x].Columns[columnIndex].ColumnText;
 
-                        // get the values
-                        tempInt = worksheet.Rows[x].Columns[columnIndex].IntValue;
-                        tempDecimal = worksheet.Rows[x].Columns[columnIndex].DecimalValue;
-                        tempGuid = worksheet.Rows[x].Columns[columnIndex].GuidValue;
+                        // If the temp string exists, skipping empty rows
+                        if (TextHelper.Exists(temp))
+                        {
+                            // get the values
+                            tempInt = worksheet.Rows[x].Columns[columnIndex].IntValue;
+                            tempDecimal = worksheet.Rows[x].Columns[columnIndex].DecimalValue;
+                            tempGuid = worksheet.Rows[x].Columns[columnIndex].GuidValue;
     
-                        // If the temp string exists, and this is not a 0, 0's are hard to tell anything from
-                        if ((temp != "0") && (temp != "0.00"))
-                        {  
-                            tempDate = worksheet.Rows[x].Columns[columnIndex].DateValue;
+                            // If the temp string exists, and this is not a 0, 0's are hard to tell anything from
+                            if ((temp != "0") && (temp != "0.00") && (temp != "$0.00"))
+                            {  
+                                tempDate = worksheet.Rows[x].Columns[columnIndex].DateValue;
                             
-                            // if true or false
-                            if ((temp.ToLower() == "true") || (temp.ToLower() == "false"))
-                            {
-                                // this is a boolean
-                                scorer.BoolCount++;
-
-                                // break
-                                break;
-                            }
-                            else
-                            { 
-                                if ((tempDate.HasValue) && (tempDate.Value.Year > 1900))
+                                // if true or false
+                                if ((temp.ToLower() == "true") || (temp.ToLower() == "false"))
                                 {
-                                    // Use Date
-                                    scorer.DateCount++;
-                                }
-                                if (tempGuid != Guid.Empty)
-                                {
-                                    // Use Guid
-                                    scorer.GuidCount++;
-                                }
-                                else if (tempDecimal != 0)
-                                {
-                                    // Use double
-                                    scorer.DecimalCount++;
-                                }
-                                else if (tempInt != 0)
-                                {
-                                    // Use int
-                                    scorer.IntCount++;
+                                    // this is a boolean
+                                    scorer.BoolCount++;
                                 }
                                 else
-                                {
-                                    // Use String
-                                    scorer.StringCount++;
+                                { 
+                                    if ((tempDate.HasValue) && (tempDate.Value.Year > 1900))
+                                    {
+                                        // Use Date
+                                        scorer.DateCount++;
+                                    }
+                                    else if (tempGuid != Guid.Empty)
+                                    {
+                                        // Use Guid
+                                        scorer.GuidCount++;
+                                    }
+                                    else if ((tempDecimal != 0) && (temp.ToString().Contains(".")))
+                                    {
+                                        // Use double
+                                        scorer.DecimalCount++;
+                                    }
+                                    else if (tempInt != 0)
+                                    {
+                                        // Use int
+                                        scorer.IntCount++;
+                                    }
+                                    else
+                                    {
+                                        // Use String
+                                        scorer.StringCount++;
+                                    }
                                 }
                             }
-                        }
-                        else if (tempDecimal != 0)
-                        {
-                            // 0.00 Use double
-                            scorer.DecimalCount++;
-                        }
-                        else
-                        {
-                            // Use int for 0's
-                            scorer.IntCount++;
+                            else if (temp.ToString().Contains("."))
+                            {
+                                // 0.00 Use double
+                                scorer.DecimalCount++;
+                            }
+                            else
+                            {
+                                // Use int for 0's
+                                scorer.IntCount++;
+                            }
                         }
 
                         // Increment the value for lookedAt

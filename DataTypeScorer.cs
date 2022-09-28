@@ -153,6 +153,16 @@ namespace DataJuggler.Excelerate
                         // set the new highest
                         highest = GuidCount;
                     }
+
+                    // if an int
+                    if (IntCount > highest)
+                    {
+                         // Set the return value
+                        topDataType = DataManager.DataTypeEnum.Integer;
+
+                        // set the new highest
+                        highest = IntCount;
+                    }
                     
                     // return value
                     return topDataType;
