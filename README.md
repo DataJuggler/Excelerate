@@ -2,13 +2,14 @@
 
 # DataJuggler.Excelerate
 
-# Update 4.1.2022:
+# Update 10.31.2022:
 LoadWorksheetInfo.ExcludedColumnIndexes was added. This is a collection of integers
 to not load. I may expand this to column names also as an option.
 
 Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it easy to load Workbooks or Worksheets.
 
-I just released a Blazor project that is built using this project:
+Code Generate C# Classes From Excel Header Rows with:
+
 Blazor.Excelerate
 https://github.com/DataJuggler/Blazor.Excelerate
 

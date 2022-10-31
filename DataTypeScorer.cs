@@ -2,8 +2,8 @@
 
 #region using statements
 
-using DataJuggler.Net6;
-using DataJuggler.Net6.Enumerations;
+using DataJuggler.Net7;
+using DataJuggler.Net7.Enumerations;
 
 #endregion
 

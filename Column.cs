@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataJuggler.UltimateHelper;
-using DataJuggler.Net6;
+using DataJuggler.Net7;
 
 #endregion
 

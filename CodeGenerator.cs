@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataJuggler.Net6;
+using DataJuggler.Net7;
 using DataJuggler.UltimateHelper;
 using DataJuggler.UltimateHelper.Objects;
 using System.IO;
