@@ -29,7 +29,7 @@ namespace DataJuggler.Excelerate
         private object columnValue;
         private string columnName;
         private string originalName;
-        private string columnText;
+        private string columnText;        
         private bool exportBooleanAsOneOrZero;
         private int index;        
         private DataManager.DataTypeEnum dataType;
@@ -38,6 +38,7 @@ namespace DataJuggler.Excelerate
         private double width;
         private double height;
         private string unit;
+        private string caption;
         #endregion
 
         #region Constructors
@@ -103,6 +104,17 @@ namespace DataJuggler.Excelerate
                     // initial value
                     return boolValue;
                 }
+            }
+            #endregion
+            
+            #region Caption
+            /// <summary>
+            /// This property gets or sets the value for 'Caption'.
+            /// </summary>
+            public string Caption
+            {
+                get { return caption; }
+                set { caption = value; }
             }
             #endregion
             

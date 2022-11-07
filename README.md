@@ -1,17 +1,23 @@
 <img height=192 width=192 src=https://github.com/DataJuggler/Blazor.Excelerate/blob/main/wwwroot/Images/ExcelerateLogoSmallWhite.png>
 
+Live Demo
+
+Blazor.Excelerate
+https://github.com/DataJuggler/Blazor.Excelerate
+Code Generate C# Classes From Excel Header Rows
+
 # DataJuggler.Excelerate
+
+# Update 11.8.2022:
+I added some new properties to the Column object for use with the Grid for DataJuggler.Blazor.Components.
 
 # Update 10.31.2022:
 LoadWorksheetInfo.ExcludedColumnIndexes was added. This is a collection of integers
 to not load. I may expand this to column names also as an option.
 
+--
+
 Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it easy to load Workbooks or Worksheets.
-
-Code Generate C# Classes From Excel Header Rows with:
-
-Blazor.Excelerate
-https://github.com/DataJuggler/Blazor.Excelerate
 
 A class named CodeGenerator was just created, and now by inheriting from the same CSharpClassWriter that code generates for DataTier.Net, I code generate
 classes based on your header row.
