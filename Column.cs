@@ -31,8 +31,13 @@ namespace DataJuggler.Excelerate
         private string originalName;
         private string columnText;
         private bool exportBooleanAsOneOrZero;
-        private int index;
+        private int index;        
         private DataManager.DataTypeEnum dataType;
+
+        // Added for DataJuggler.Blazor.Components.Grid
+        private double width;
+        private double height;
+        private string unit;
         #endregion
 
         #region Constructors
@@ -401,6 +406,35 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region Height
+            /// <summary>
+            /// This property gets or sets the value for 'Height'.
+            /// </summary>
+            public double Height
+            {
+                get { return height; }
+                set { height = value; }
+            }
+            #endregion
+            
+            #region HeightPlusUnit
+            /// <summary>
+            /// This read only property returns the value of Height + the Unit.
+            /// </summary>
+            public string HeightPlusUnit
+            {
+                
+                get
+                {
+                    // set the return value
+                    string heightPlusUnit = Height + unit;
+                    
+                    // return value
+                    return heightPlusUnit;
+                }
+            }
+            #endregion
+            
             #region Index
             /// <summary>
             /// This property gets or sets the value for 'Index'.
@@ -501,6 +535,46 @@ namespace DataJuggler.Excelerate
 
                     // returnValue
                     return stringValue;
+                }
+            }
+            #endregion
+            
+            #region Unit
+            /// <summary>
+            /// This property gets or sets the value for 'Unit'.
+            /// </summary>
+            public string Unit
+            {
+                get { return unit; }
+                set { unit = value; }
+            }
+            #endregion
+            
+            #region Width
+            /// <summary>
+            /// This property gets or sets the value for 'Width'.
+            /// </summary>
+            public double Width
+            {
+                get { return width; }
+                set { width = value; }
+            }
+            #endregion
+            
+            #region WidthPlusUnit
+            /// <summary>
+            /// This read only property returns the value of Width' + the Unit. 
+            /// </summary>
+            public string WidthPlusUnit
+            {
+                
+                get
+                {
+                    // set the return value
+                    string widthPlusUnit = Width + Unit;
+                    
+                    // return value
+                    return widthPlusUnit;
                 }
             }
             #endregion
