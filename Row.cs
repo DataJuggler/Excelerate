@@ -23,6 +23,7 @@ namespace DataJuggler.Excelerate
         private int number;
         private Guid id;
         private bool isHeaderRow;
+        private string className;
         #endregion
         
         #region Constructor
@@ -72,6 +73,17 @@ namespace DataJuggler.Excelerate
         #endregion
         
         #region Properties
+            
+            #region ClassName
+            /// <summary>
+            /// This property gets or sets the value for 'ClassName'.
+            /// </summary>
+            public string ClassName
+            {
+                get { return className; }
+                set { className = value; }
+            }
+            #endregion
             
             #region Columns
             /// <summary>

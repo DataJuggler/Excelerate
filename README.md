@@ -9,7 +9,7 @@ Code Generate C# Classes From Excel Header Rows
 # DataJuggler.Excelerate
 
 # Update 11.8.2022:
-I added some new properties to the Column object for use with the Grid for DataJuggler.Blazor.Components.
+I added some new properties to the row and Column object for use with the Grid for DataJuggler.Blazor.Components.
 
 # Update 10.31.2022:
 LoadWorksheetInfo.ExcludedColumnIndexes was added. This is a collection of integers
