@@ -20,12 +20,15 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <RepositoryUrl>https://github.com/DataJuggler/Excelerate.git</RepositoryUrl>
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
-    <PackageReleaseNotes>11.7.2022: I added three properties for use with DataJuggler.Blazor.Components.Grid.
+    <PackageReleaseNotes>11.7.2022: I added these properties for use with DataJuggler.Blazor.Components.Grid.
 Height
 Width
 Unit
+ClassName (used for styling classes using BlazorStyled).
 
 Also had two read only property WidthPlusUnit and HeightPlusUnit.
+
+
 
 10.31.2022
 v7.0.0-rc1: I updated this project to .NET 7. Use a 6.x version for .NET6.
@@ -207,7 +210,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>7.0.2-rc1</Version>
+    <Version>7.0.3-rc1</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>

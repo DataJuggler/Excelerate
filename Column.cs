@@ -31,7 +31,7 @@ namespace DataJuggler.Excelerate
         private string originalName;
         private string columnText;        
         private bool exportBooleanAsOneOrZero;
-        private int index;        
+        private int index;   
         private DataManager.DataTypeEnum dataType;
 
         // Added for DataJuggler.Blazor.Components.Grid
@@ -39,6 +39,7 @@ namespace DataJuggler.Excelerate
         private double height;
         private string unit;
         private string caption;
+        private string className;
         #endregion
 
         #region Constructors
@@ -115,6 +116,17 @@ namespace DataJuggler.Excelerate
             {
                 get { return caption; }
                 set { caption = value; }
+            }
+            #endregion
+            
+            #region ClassName
+            /// <summary>
+            /// This property gets or sets the value for 'ClassName'.
+            /// </summary>
+            public string ClassName
+            {
+                get { return className; }
+                set { className = value; }
             }
             #endregion
             

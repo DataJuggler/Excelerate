@@ -3,7 +3,7 @@
 Live Demo
 
 Blazor.Excelerate
-https://github.com/DataJuggler/Blazor.Excelerate
+https://excelerate.datajuggler.com 
 Code Generate C# Classes From Excel Header Rows
 
 # DataJuggler.Excelerate
