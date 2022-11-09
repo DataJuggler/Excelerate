@@ -22,7 +22,9 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <RepositoryUrl>https://github.com/DataJuggler/Excelerate.git</RepositoryUrl>
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
-    <PackageReleaseNotes>11.8.2022: I added ClassName property to the row object.
+    <PackageReleaseNotes>11.8.2022: .NET7 is out of preview, so this version is now 7.0.4 (was 7.0.4-rc1).
+
+11.8.2022: I added ClassName property to the row object.
 
 11.7.2022: I added these properties for use with DataJuggler.Blazor.Components.Grid.
 Height
