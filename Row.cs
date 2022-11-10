@@ -24,6 +24,7 @@ namespace DataJuggler.Excelerate
         private Guid id;
         private bool isHeaderRow;
         private string className;
+        private bool editMode;
         #endregion
         
         #region Constructor
@@ -34,6 +35,9 @@ namespace DataJuggler.Excelerate
         {
             // Create a new collection of 'Column' objects.
             Columns = new List<Column>();
+
+            // Create a Guid
+            Id = Guid.NewGuid();
         }
         #endregion
         
@@ -93,6 +97,17 @@ namespace DataJuggler.Excelerate
             {
                 get { return columns; }
                 set { columns = value; }
+            }
+            #endregion
+            
+            #region EditMode
+            /// <summary>
+            /// This property gets or sets the value for 'EditMode'.
+            /// </summary>
+            public bool EditMode
+            {
+                get { return editMode; }
+                set { editMode = value; }
             }
             #endregion
             

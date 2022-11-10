@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataJuggler.UltimateHelper;
 using DataJuggler.Net7;
+using DataJuggler.Excelerate.Enumerations;
 
 #endregion
 
@@ -40,6 +41,7 @@ namespace DataJuggler.Excelerate
         private string unit;
         private string caption;
         private string className;
+        private EditorTypeEnum editorType;
         #endregion
 
         #region Constructors
@@ -285,6 +287,17 @@ namespace DataJuggler.Excelerate
             }
             #endregion
 
+            #region EditorType
+            /// <summary>
+            /// This property gets or sets the value for 'EditorType'.
+            /// </summary>
+            public EditorTypeEnum EditorType
+            {
+                get { return editorType; }
+                set { editorType = value; }
+            }
+            #endregion
+            
             #region ExportBooleanAsOneOrZero
             /// <summary>
             /// This property gets or sets the value for 'ExportBooleanAsOneOrZero'.
