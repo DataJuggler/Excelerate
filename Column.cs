@@ -530,6 +530,27 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region ReadOnly
+            /// <summary>
+            /// This read only property returns true if EditType = EditTypeEnum.ReadOnly
+            /// </summary>
+            public bool ReadOnly
+            {
+                
+                get
+                {
+                    // initial value
+                    bool readOnly = false;
+                    
+                    // set the return value
+                    readOnly = (EditorType == EditorTypeEnum.ReadOnly);
+                    
+                    // return value
+                    return readOnly;
+                }
+            }
+            #endregion
+            
             #region RowNumber
             /// <summary>
             /// This property gets or sets the value for 'RowNumber'.
