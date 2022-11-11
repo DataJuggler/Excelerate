@@ -45,7 +45,7 @@ namespace DataJuggler.Excelerate
         private string className;
         private EditorTypeEnum editorType;
         private bool hidden;
-        private bool setFocusOnFirstLoad;
+        private bool setFocusOnFirstRender;
         #endregion
 
         #region Constructors
@@ -657,15 +657,15 @@ namespace DataJuggler.Excelerate
                 set { rowNumber = value; }
             }
             #endregion
-            
-            #region SetFocusOnFirstLoad
+           
+            #region SetFocusOnFirstRender
             /// <summary>
-            /// This property gets or sets the value for 'SetFocusOnFirstLoad'.
+            /// This property gets or sets the value for 'SetFocusOnFirstRender'.
             /// </summary>
-            public bool SetFocusOnFirstLoad
+            public bool SetFocusOnFirstRender
             {
-                get { return setFocusOnFirstLoad; }
-                set { setFocusOnFirstLoad = value; }
+                get { return setFocusOnFirstRender; }
+                set { setFocusOnFirstRender = value; }
             }
             #endregion
             
