@@ -24,6 +24,7 @@ namespace DataJuggler.Excelerate
     {
         
         #region Private Variables
+        private Guid id;
         private int rowNumber;
         private int columnNumber;
         private bool columnContainsData;
@@ -32,7 +33,8 @@ namespace DataJuggler.Excelerate
         private string originalName;
         private string columnText;        
         private bool exportBooleanAsOneOrZero;
-        private int index;   
+        private int index;
+        private Row row;
         private DataManager.DataTypeEnum dataType;
 
         // Added for DataJuggler.Blazor.Components.Grid
@@ -42,6 +44,7 @@ namespace DataJuggler.Excelerate
         private string caption;
         private string className;
         private EditorTypeEnum editorType;
+        private bool hidden;
         #endregion
 
         #region Constructors
@@ -52,7 +55,8 @@ namespace DataJuggler.Excelerate
             /// </summary>
             public Column()
             {
-                    
+                // Create
+                Id = Guid.NewGuid();
             }
             #endregion
 
@@ -66,6 +70,9 @@ namespace DataJuggler.Excelerate
             /// <param name="dataType"></param>
             public Column(string columnName, int rowNumber, int columnNumber, DataManager.DataTypeEnum dataType)
             {
+                // Create
+                Id = Guid.NewGuid();
+
                 // store the args
                 ColumnName = columnName;
                 RowNumber = rowNumber;
@@ -409,6 +416,23 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region HasId
+            /// <summary>
+            /// This property returns true if this object has an 'Id'.
+            /// </summary>
+            public bool HasId
+            {
+                get
+                {
+                    // initial value
+                    bool hasId = (this.Id != Guid.Empty);
+                    
+                    // return value
+                    return hasId;
+                }
+            }
+            #endregion
+            
             #region HasIntValue
             /// <summary>
             /// This property returns true if the 'IntValue' is set.
@@ -422,6 +446,23 @@ namespace DataJuggler.Excelerate
                     
                     // return value
                     return hasIntValue;
+                }
+            }
+            #endregion
+            
+            #region HasRow
+            /// <summary>
+            /// This property returns true if this object has a 'Row'.
+            /// </summary>
+            public bool HasRow
+            {
+                get
+                {
+                    // initial value
+                    bool hasRow = (this.Row != null);
+                    
+                    // return value
+                    return hasRow;
                 }
             }
             #endregion
@@ -472,6 +513,28 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region Hidden
+            /// <summary>
+            /// This property gets or sets the value for 'Hidden'.
+            /// </summary>            
+            public bool Hidden
+            {
+                get { return hidden; }
+                set { hidden = value; }
+            }
+            #endregion
+            
+            #region Id
+            /// <summary>
+            /// This property gets or sets the value for 'Id'.
+            /// </summary>
+            public Guid Id
+            {
+                get { return id; }
+                set { id = value; }
+            }
+            #endregion
+            
             #region Index
             /// <summary>
             /// This property gets or sets the value for 'Index'.
@@ -515,6 +578,27 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region IsEditable
+            /// <summary>
+            /// This read only property returns true if this object is not read only.
+            /// </summary>
+            public bool IsEditable
+            {
+                
+                get
+                {
+                    // initial value
+                    bool isEditable = false;
+                    
+                    // if EditorType exists
+                    isEditable = (EditorType != EditorTypeEnum.ReadOnly);
+                    
+                    // return value
+                    return isEditable;
+                }
+            }
+            #endregion
+            
             #region OriginalName
             /// <summary>
             /// This property gets or sets the value for 'OriginalName'.
@@ -548,6 +632,17 @@ namespace DataJuggler.Excelerate
                     // return value
                     return readOnly;
                 }
+            }
+            #endregion
+            
+            #region Row
+            /// <summary>
+            /// This property gets or sets the value for 'Row'.
+            /// </summary>
+            public Row Row
+            {
+                get { return row; }
+                set { row = value; }
             }
             #endregion
             

@@ -22,8 +22,13 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <RepositoryUrl>https://github.com/DataJuggler/Excelerate.git</RepositoryUrl>
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
-    <PackageReleaseNotes>11.10.2022 B:
+    <PackageReleaseNotes>11.11.2022: I added ExternalId and ExternalIdDescription properties to the
+Row object. This makes it easier for consumers to know what was just updated.
+
+11.10.2022 B:
+Added a Row property to a Column. Had RowNumber before, but Row gives you access to the parent.
 I added a read only property called ReadOnly if EditType == EditTypeEnum.ReadOnly.
+Also added a read only property 'IsEditable' which returns true if EditType is not ReadOnly.
 Makes it easier to determine if a column is read only or not.
 
 11.10.2022: I added an enumeration for EditorType, and now the column object has an Editortype.
@@ -225,7 +230,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>7.0.10</Version>
+    <Version>7.0.14</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>

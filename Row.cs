@@ -25,6 +25,8 @@ namespace DataJuggler.Excelerate
         private bool isHeaderRow;
         private string className;
         private bool editMode;
+        private int externalId;
+        private string externalIdDescription;
         #endregion
         
         #region Constructor
@@ -108,6 +110,28 @@ namespace DataJuggler.Excelerate
             {
                 get { return editMode; }
                 set { editMode = value; }
+            }
+            #endregion
+            
+            #region ExternalId
+            /// <summary>
+            /// This property gets or sets the value for 'ExternalId'.
+            /// </summary>
+            public int ExternalId
+            {
+                get { return externalId; }
+                set { externalId = value; }
+            }
+            #endregion
+            
+            #region ExternalIdDescription
+            /// <summary>
+            /// This property gets or sets the value for 'ExternalIdDescription'.
+            /// </summary>
+            public string ExternalIdDescription
+            {
+                get { return externalIdDescription; }
+                set { externalIdDescription = value; }
             }
             #endregion
             
