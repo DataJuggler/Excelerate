@@ -45,6 +45,7 @@ namespace DataJuggler.Excelerate
         private string className;
         private EditorTypeEnum editorType;
         private bool hidden;
+        private bool setFocusOnFirstLoad;
         #endregion
 
         #region Constructors
@@ -654,6 +655,17 @@ namespace DataJuggler.Excelerate
             {
                 get { return rowNumber; }
                 set { rowNumber = value; }
+            }
+            #endregion
+            
+            #region SetFocusOnFirstLoad
+            /// <summary>
+            /// This property gets or sets the value for 'SetFocusOnFirstLoad'.
+            /// </summary>
+            public bool SetFocusOnFirstLoad
+            {
+                get { return setFocusOnFirstLoad; }
+                set { setFocusOnFirstLoad = value; }
             }
             #endregion
             

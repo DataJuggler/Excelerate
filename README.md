@@ -8,6 +8,9 @@ Code Generate C# Classes From Excel Header Rows
 
 # DataJuggler.Excelerate
 
+# Update 11.11.2022: I am working on the Grid, and added a properties to the column object
+and some code to the ValidationComponent to allow SetFocusOnFirstRender.
+
 # Update 11.9.2022 - 11.10.2022:
 I added some new properties and enumerations for editing data in the Grid in DataJuggler.Blazor.Components.
 
