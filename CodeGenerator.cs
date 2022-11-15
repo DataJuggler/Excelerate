@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataJuggler.Net7;
+using DataJuggler.Net7.Enumerations;
 using DataJuggler.UltimateHelper;
 using DataJuggler.UltimateHelper.Objects;
 using System.IO;
@@ -954,12 +955,12 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
-            #region GenerateClassFromWorksheet(string namespaceName, bool appendPartialGuid = true)
+            #region GenerateClassFromWorksheet(string namespaceName, TargetFrameworkEnum targetFramework = TargetFrameworkEnum.Net7, bool appendPartialGuidToFileName = true)
             /// <summary>
             /// This method returns a Class From the Worksheet supplied in the Constructor.
             /// The Worksheet must have a HeaderRow for the top row.
             /// </summary>
-            public CodeGenerationResponse GenerateClassFromWorksheet(string namespaceName, bool appendPartialGuidToFileNameForUniquenessInFolder = true)
+            public CodeGenerationResponse GenerateClassFromWorksheet(string namespaceName, TargetFrameworkEnum targetFramework = TargetFrameworkEnum.Net7, bool appendPartialGuidToFileName = true)
             {
                 // initial value
                 CodeGenerationResponse response = new CodeGenerationResponse();
@@ -1080,7 +1081,17 @@ namespace DataJuggler.Excelerate
 
                         // Create a couple references
                         Reference reference = new Reference("DataJuggler.Excelerate", 1);
-                        Reference reference2 = new Reference("DataJuggler.Net6", 2);
+                        
+                        // Create the reference as .NET 7
+                        Reference reference2 = new Reference("DataJuggler.Net7", 2);
+                        
+                        // Only .NET 6 and .NET 7 are supported.
+                        if (targetFramework == TargetFrameworkEnum.Net6)
+                        {
+                            // Set to .NET 6 version
+                            reference2.ReferenceName = "DataJuggler.Net6";
+                        }
+
                         Reference reference3 = new Reference("DataJuggler.UltimateHelper", 3);
                         Reference reference4 = new Reference("System", 4);
                         Reference reference5 = new Reference("System.Collections.Generic", 5);
@@ -1192,7 +1203,7 @@ namespace DataJuggler.Excelerate
                                         string newFileText = sb.ToString().TrimEnd();
 
                                         // if true
-                                        if (appendPartialGuidToFileNameForUniquenessInFolder)
+                                        if (appendPartialGuidToFileName)
                                         {
                                             // Create a PartialGuid
                                             filePath = FileHelper.CreateFileNameWithPartialGuid(filePath, 12);
