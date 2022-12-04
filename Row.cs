@@ -76,6 +76,27 @@ namespace DataJuggler.Excelerate
                 return column;
             }
             #endregion
+
+            #region FindColumnById(Guid id)
+            /// <summary>
+            /// returns the Column By Id
+            /// </summary>
+            public Column FindColumnById(Guid id)
+            {
+                // initial value
+                Column column = null;
+
+                // if the value for HasColumns is true
+                if (HasColumns)
+                {
+                    // find the column
+                    column = Columns.FirstOrDefault(x => x.Id == id);
+                }
+                
+                // return value
+                return column;
+            }
+            #endregion
             
             #region FindColumnByNumber(int number)
             /// <summary>
