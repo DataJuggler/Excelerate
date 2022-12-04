@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DataJuggler.UltimateHelper;
 
 #endregion
@@ -69,6 +70,27 @@ namespace DataJuggler.Excelerate
                             break;
                         }
                     }
+                }
+                
+                // return value
+                return column;
+            }
+            #endregion
+            
+            #region FindColumnByNumber(int number)
+            /// <summary>
+            /// returns the Column By Number
+            /// </summary>
+            public Column FindColumnByNumber(int number)
+            {
+                // initial value
+                Column column = null;
+
+                // if the value for HasColumns is true
+                if (HasColumns)
+                {
+                    // find the column
+                    column = Columns.FirstOrDefault(x => x.ColumnNumber == number);
                 }
                 
                 // return value

@@ -22,10 +22,12 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <RepositoryUrl>https://github.com/DataJuggler/Excelerate.git</RepositoryUrl>
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
-    <PackageReleaseNotes>12.4.2022: I added a property EditText and another read only property EditorText to the Column object.
+    <PackageReleaseNotes>12.4.2022 B: I added a method FindColumnByNumber to the Row object.
+
+12.4.2022: I added a property EditText and another read only property EditorText to the Column object.
 If EditText is set, then EditorText returns EditText, else ColumnText is returned. There are times
 when the displayed text is part of a calculation and the user entered value is not the same
-as the column text.
+as the column text. 
 
 11.15.2022: I added a TargetFrameworkEnum to the GenerateClassFromWorksheet method.
 Now you can generate for .NET 6 or .NET 7 (default).
@@ -245,7 +247,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>7.1.1</Version>
+    <Version>7.1.2</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>
