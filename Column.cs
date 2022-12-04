@@ -31,7 +31,8 @@ namespace DataJuggler.Excelerate
         private object columnValue;
         private string columnName;
         private string originalName;
-        private string columnText;        
+        private string columnText;
+        private string editText;
         private bool exportBooleanAsOneOrZero;
         private int index;
         private Row row;
@@ -295,6 +296,31 @@ namespace DataJuggler.Excelerate
             }
             #endregion
 
+            #region EditorText
+            /// <summary>
+            /// This read only property returns the value of EditorText from the object EditText.
+            /// </summary>
+            public string EditorText
+            {
+                
+                get
+                {
+                    // initial value
+                    string editorText = ColumnText;
+                    
+                    // if EditText exists
+                    if (TextHelper.Exists(EditText))
+                    {
+                        // set the return value
+                        editorText = EditText;
+                    }
+                    
+                    // return value
+                    return editorText;
+                }
+            }
+            #endregion
+            
             #region EditorType
             /// <summary>
             /// This property gets or sets the value for 'EditorType'.
@@ -303,6 +329,17 @@ namespace DataJuggler.Excelerate
             {
                 get { return editorType; }
                 set { editorType = value; }
+            }
+            #endregion
+            
+            #region EditText
+            /// <summary>
+            /// This property gets or sets the value for 'EditText'.
+            /// </summary>
+            public string EditText
+            {
+                get { return editText; }
+                set { editText = value; }
             }
             #endregion
             
