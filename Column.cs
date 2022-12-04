@@ -36,7 +36,7 @@ namespace DataJuggler.Excelerate
         private bool exportBooleanAsOneOrZero;
         private int index;
         private Row row;
-        private DataManager.DataTypeEnum dataType;
+        private DataManager.DataTypeEnum dataType;        
 
         // Added for DataJuggler.Blazor.Components.Grid
         private double width;
@@ -47,6 +47,7 @@ namespace DataJuggler.Excelerate
         private EditorTypeEnum editorType;
         private bool hidden;
         private bool setFocusOnFirstRender;
+        private bool editMode;
         #endregion
 
         #region Constructors
@@ -296,6 +297,17 @@ namespace DataJuggler.Excelerate
             }
             #endregion
 
+            #region EditMode
+            /// <summary>
+            /// This property gets or sets the value for 'EditMode'.
+            /// </summary>
+            public bool EditMode
+            {
+                get { return editMode; }
+                set { editMode = value; }
+            }
+            #endregion
+            
             #region EditorText
             /// <summary>
             /// This read only property returns the value of EditorText from the object EditText.
