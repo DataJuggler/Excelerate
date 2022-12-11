@@ -45,6 +45,7 @@ namespace DataJuggler.Excelerate
         private string caption;
         private string className;
         private EditorTypeEnum editorType;
+        private string editorClassName;
         private bool hidden;
         private bool setFocusOnFirstRender;
         private bool editMode;
@@ -305,6 +306,17 @@ namespace DataJuggler.Excelerate
             {
                 get { return editMode; }
                 set { editMode = value; }
+            }
+            #endregion
+            
+            #region EditorClassName
+            /// <summary>
+            /// This property gets or sets the value for 'EditorClassName'.
+            /// </summary>            
+            public string EditorClassName
+            {
+                get { return editorClassName; }
+                set { editorClassName = value; }
             }
             #endregion
             
