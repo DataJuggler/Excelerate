@@ -36,7 +36,7 @@ namespace DataJuggler.Excelerate
         private bool exportBooleanAsOneOrZero;
         private int index;
         private Row row;
-        private DataManager.DataTypeEnum dataType;        
+        private DataManager.DataTypeEnum dataType;      
 
         // Added for DataJuggler.Blazor.Components.Grid
         private double width;
@@ -46,6 +46,7 @@ namespace DataJuggler.Excelerate
         private string className;
         private EditorTypeEnum editorType;
         private string editorClassName;
+        private int zIndex;
         private bool hidden;
         private bool setFocusOnFirstRender;
         private bool editMode;
@@ -82,6 +83,9 @@ namespace DataJuggler.Excelerate
                 RowNumber = rowNumber;
                 ColumnNumber = columnNumber;
                 DataType = dataType;
+
+                // Editors need to be in front
+                ZIndex = 100;
             }
             #endregion
 
@@ -802,6 +806,17 @@ namespace DataJuggler.Excelerate
                     // return value
                     return widthPlusUnit;
                 }
+            }
+            #endregion
+            
+            #region ZIndex
+            /// <summary>
+            /// This property gets or sets the value for 'ZIndex'.
+            /// </summary>
+            public int ZIndex
+            {
+                get { return zIndex; }
+                set { zIndex = value; }
             }
             #endregion
             

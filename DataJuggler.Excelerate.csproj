@@ -23,6 +23,8 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
     <PackageReleaseNotes>12.11.2022: I added a property EditorClassName to the column object.
+Added another property for ZIndex. Used to set the EditorZIndex for the grid
+in DataJuggler.Blazor.Components.
 
 12.4.2022 C: I added EditMode property to the Column object.
 
@@ -251,7 +253,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>7.1.5</Version>
+    <Version>7.1.6</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>
