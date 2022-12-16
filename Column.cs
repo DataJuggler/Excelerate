@@ -67,7 +67,7 @@ namespace DataJuggler.Excelerate
 
             #region Parametized Constuctor Column(string columnName, int rowNumber, int colNumber, DataManager.DataTypeEnum dataType)
             /// <summary>
-            /// Create a new instance of a Column object and set it's data types
+            /// Create a new instance of a Column object and set it's Data types
             /// </summary>
             /// <param name="columnName"></param>
             /// <param name="rowNumber"></param>
@@ -151,7 +151,7 @@ namespace DataJuggler.Excelerate
             /// <summary>
             /// This property gets or sets the value for 'ColumnContainsData'.
             /// This property is referring to a complete list of Rows, and only
-            /// columns that one or more rows have data will be included.
+            /// columns that one or more rows have Data will be included.
             /// </summary>
             public bool ColumnContainsData
             {

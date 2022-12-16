@@ -17,7 +17,7 @@ namespace DataJuggler.Excelerate
 
     #region class ExcelHelper
     /// <summary>
-    /// This class is used to help with common Excel tasks, with the main one being Saving data to Excel.
+    /// This class is used to help with common Excel tasks, with the main one being Saving Data to Excel.
     /// </summary>
     public class ExcelHelper
     {
