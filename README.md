@@ -5,9 +5,7 @@ https://youtu.be/mj1h4_IRAQQ
 
 I deleted my server, it was getting overrun by bots. I will release a new sample project later.
 
-Here is a Blazor project that is built using this project:
-Blazor.Excelerate
-https://github.com/DataJuggler/Blazor.Excelerate
+I will publish a new sample project soon.
 
 Nuget package version 1.1.9 was just published: DataJuggler.Excelerate
 
