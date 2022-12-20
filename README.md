@@ -3,10 +3,9 @@
 Here is a short video:
 https://youtu.be/mj1h4_IRAQQ
 
-# DataJuggler.Excelerate
-Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it easy to load Workbooks or Worksheets.
+I deleted my server, it was getting overrun by bots. I will release a new sample project later.
 
-I just released a Blazor project that is built using this project:
+Here is a Blazor project that is built using this project:
 Blazor.Excelerate
 https://github.com/DataJuggler/Blazor.Excelerate
 
