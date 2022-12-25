@@ -50,6 +50,10 @@ namespace DataJuggler.Excelerate
         private bool hidden;
         private bool setFocusOnFirstRender;
         private bool editMode;
+        private bool isImageButton;
+        private string buttonClassName;
+        private string buttonUrl;
+        private int buttonNumber;
         #endregion
 
         #region Constructors
@@ -122,6 +126,39 @@ namespace DataJuggler.Excelerate
                     // initial value
                     return boolValue;
                 }
+            }
+            #endregion
+            
+            #region ButtonClassName
+            /// <summary>
+            /// This property gets or sets the value for 'ButtonClassName'.
+            /// </summary>
+            public string ButtonClassName
+            {
+                get { return buttonClassName; }
+                set { buttonClassName = value; }
+            }
+            #endregion
+            
+            #region ButtonNumber
+            /// <summary>
+            /// This property gets or sets the value for 'ButtonNumber'.
+            /// </summary>
+            public int ButtonNumber
+            {
+                get { return buttonNumber; }
+                set { buttonNumber = value; }
+            }
+            #endregion
+            
+            #region ButtonUrl
+            /// <summary>
+            /// This property gets or sets the value for 'ButtonUrl'.
+            /// </summary>
+            public string ButtonUrl
+            {
+                get { return buttonUrl; }
+                set { buttonUrl = value; }
             }
             #endregion
             
@@ -662,6 +699,17 @@ namespace DataJuggler.Excelerate
                     // return value
                     return isEditable;
                 }
+            }
+            #endregion
+            
+            #region IsImageButton
+            /// <summary>
+            /// This property gets or sets the value for 'IsImageButton'.
+            /// </summary>
+            public bool IsImageButton
+            {
+                get { return isImageButton; }
+                set { isImageButton = value; }
             }
             #endregion
             
