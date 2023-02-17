@@ -125,18 +125,62 @@ Snippet is from a Windows Form .Net 5 project, located in the Sample folder of t
     
 My first test loaded a 12 column spreadsheet with 3,376 rows in just a few seconds.
 
-I have a new project that uses this project as a good sample. Blazor.Excelerate will soon be an online 
-way to create classes from a spreadsheet.
+Live Demo
 
+Code Generate C# Classes From Excel Header Rows
+https://excelerate.datajuggler.com
+
+Note: 
+Blazor Excelerate comes with a sample workbook MemberData.xlsx
+
+Random Members (20,000)
+Addresses (20,000)
+States (51)
+
+Source Code For Above Site:
+
+Blazor Excelerate
 https://github.com/DataJuggler/Blazor.Excelerate
 
-More helper methods and features will be added. The Nuget package has been released: DataJuggler.Excelerate.
+
+
+Working WinForms Demo
+
+Use Excel As A Backend
+https://github.com/DataJuggler/Excelerate.WinForms.Demo
+
+Tutorial Practice
+
+Step 1: 
+
+Go To Blazor Excelerate
+https://excelerate.datajuggler.com
+
+Step 2: Download MemberData.xlsx
+
+Step 3: Click the Upload Excel button and browse for MemberData.xlsx downloaded in Step 1.
+
+Step 4: Set your Namespace name to 'Demo.Objects'
+
+Step 5: Select Members sheet in the ComboBox
+
+Step 6: Click the Generate Class Button.
+
+Step 7: Download the zip file and extract the class Members.cs
+
+Step 8: Repeat Steps 3 - 7 for the Address and States sheets.
+
+Now you have the classes generated that were used to build the Excelerate WinForms Demo
+
+Loading Data
+
+This method loads all 3 worksheets: (to be continued, building Codopy.com as a code formatter. Site is not live yet).
+
+
+
+More helper methods and features have been added. The Nuget package has been released: DataJuggler.Excelerate.
 
 Feel free to mention any new features you think would be useful. I can't promise to do them all, but if it is a good fit for this project I will add it.
-
-This code is all brand new, so use with caution until more testing has been done. First tests have been promising.
-
-I just finished adding a Load method, that is code generated when the classes are written.
 
 ** I am available for hire if you need help with any size C# / SQL Server project **
 
