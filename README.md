@@ -133,8 +133,8 @@ https://excelerate.datajuggler.com
 Note: 
 Blazor Excelerate comes with a sample workbook MemberData.xlsx
 
-Random Members (20,000)
-Addresses (20,000)
+Random Members (20,000)<br>
+Addresses (20,000)<br>
 States (51)
 
 Source Code For Above Site:
