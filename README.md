@@ -176,6 +176,79 @@ Loading Data
 
 This method loads all 3 worksheets: (to be continued, building Codopy.com as a code formatter. Site is not live yet).
 
+    /// <summary>
+    /// Load all 3 Lists Names, Addresses and States.
+    /// </summary>
+    public int LoadAllData()
+    {
+        // initial value
+        int objectsLoaded = 0;
+        
+        // Ensure visible
+        StatusLabel.Visible = true;
+        Graph.Visible = true;
+        
+        // ExcelPath is a relative path: const string ExcelPath =  "Documents/MemberData.xlsx";
+        string path = Path.GetFullPath(ExcelPath);
+        
+        // Set the Status
+        StatusLabel.Text = "Loading data, please wait.";
+        
+        // Force a refresh here
+        Refresh();
+        Application.DoEvents();
+        
+        // if the path exists
+        if (FileHelper.Exists(path))
+        {
+            // load the workbook
+            Workbook = ExcelDataLoader.LoadAllData(path);
+            
+            // if the workbook exists and has 3 or more shorts
+            if ((NullHelper.Exists(workbook)) && (ListHelper.HasXOrMoreItems(workbook.Worksheets, 3)))
+            {
+                // Get the indexes of each sheet
+                membersIndex = workbook.GetWorksheetIndex("Members");
+                addressIndex = workbook.GetWorksheetIndex("Address");
+                statesIndex = workbook.GetWorksheetIndex("States");
+                
+                // verify all sheet indexes were found
+                if ((membersIndex >= 0) && (addressIndex >= 0) && (statesIndex >= 0))
+                {
+                    // Get the counts
+                    int membersCount = workbook.Worksheets[membersIndex].Rows.Count -1;
+                    int addressesCount = workbook.Worksheets[addressIndex].Rows.Count -1;
+                    int statesCount = workbook.Worksheets[statesIndex].Rows.Count -1;
+                    
+                    // Setup the Graph
+                    Graph.Maximum = workbook.Worksheets[0].Rows.Count + addressesCount + statesCount;
+                    Graph.Value = 0;
+                    
+                    // Force a refresh here
+                    Refresh();
+                    Application.DoEvents();
+                    
+                    // Load the Members
+                    LoadMembers(workbook.Worksheets[membersIndex]);
+                    
+                    // Load the Addresses
+                    LoadAddresses(workbook.Worksheets[addressIndex]);
+                    
+                    // Load the States
+                    LoadStates(workbook.Worksheets[statesIndex]);
+                    
+                    // Set the StatusLabel
+                    StatusLabel.Text = "All data has been loaded";
+                }
+            }
+        }
+        
+        // return value
+        return objectsLoaded;
+    }
+    
+The above method loads 3 sheets. Here is one of the methods used:
+
 
 
 More helper methods and features have been added. The Nuget package has been released: DataJuggler.Excelerate.
