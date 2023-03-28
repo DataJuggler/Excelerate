@@ -2,12 +2,8 @@
 
 #region using statements
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataJuggler.Excelerate;
+using DataJuggler.Net7;
 
 #endregion
 
@@ -29,6 +25,7 @@ namespace DataJuggler.Excelerate
         private bool hasHeaderRow;
         private int columnsToLoad;
         private List<int> excludedColumnIndexes;
+        private List<DataField> fields;
         #endregion
 
         #region Constructor
@@ -68,6 +65,34 @@ namespace DataJuggler.Excelerate
             {
                 get { return excludedColumnIndexes; }
                 set { excludedColumnIndexes = value; }
+            }
+            #endregion
+            
+            #region Fields
+            /// <summary>
+            /// This property gets or sets the value for 'Fields'.
+            /// </summary>
+            public List<DataField> Fields
+            {
+                get { return fields; }
+                set { fields = value; }
+            }
+            #endregion
+            
+            #region HasFields
+            /// <summary>
+            /// This property returns true if this object has a 'Fields'.
+            /// </summary>
+            public bool HasFields
+            {
+                get
+                {
+                    // initial value
+                    bool hasFields = (this.Fields != null);
+                    
+                    // return value
+                    return hasFields;
+                }
             }
             #endregion
             

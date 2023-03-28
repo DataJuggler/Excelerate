@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using OfficeOpenXml;
 using DataJuggler.UltimateHelper;
 using System.IO;
+using DataJuggler.Net7;
 
 #endregion
 
@@ -34,6 +35,9 @@ namespace DataJuggler.Excelerate
                 // Create a new instance of an 'ExcelPackage' object.
                 ExcelPackage excel = new ExcelPackage();
 
+                // local
+                int index = 0;
+
                 // If the worksheets collection exists and has one or more items
                 if (ListHelper.HasOneOrMoreItems(worksheets))
                 {
@@ -42,6 +46,26 @@ namespace DataJuggler.Excelerate
                     {
                         // name of the sheet
                         ExcelWorksheet worksheet = excel.Workbook.Worksheets.Add(sheet.SheetName);
+
+                        // if the Fields collection exists
+                        if (sheet.HasFields)
+                        {
+                            // order the fields by FieldOrdinal
+                            sheet.Fields = sheet.Fields.OrderBy(x => x.FieldOrdinal).ToList();
+
+                            // iterate the fields
+                            foreach (DataField field in sheet.Fields)
+                            {
+                                // increment the value for index
+                                index++;
+
+                                // Set the fieldName
+                                worksheet.Cells[index, 1].Value = field.FieldName;    
+                            }
+
+                            // Set the header to bold
+                            worksheet.Cells[1, 1, 1, index].Style.Font.Bold = true;
+                        }
                     }
                 }
 
@@ -95,7 +119,7 @@ namespace DataJuggler.Excelerate
                                 {
                                     // iterate the rows to update
                                     foreach (Row row in batchItem.Updates)
-                                    {
+                                    {  
                                         // If the value for the property row.HasColumns is true
                                         if (row.HasColumns)
                                         {
