@@ -26,11 +26,11 @@ namespace DataJuggler.Excelerate
 
         #region Methods
 
-            #region CreateWorkbook(FileInfo worksheetInfo, List<LoadWorksheetInfo> worksheets)
+            #region CreateWorkbook(FileInfo worksheetInfo, List<LoadWorksheetInfo> worksheets, int maxColumnWidth = 800, string fontName = "Verdana", double fontSize = 11)
             /// <summary>
             /// Create Workbook
             /// </summary>
-            public static void CreateWorkbook(FileInfo worksheetInfo, List<LoadWorksheetInfo> worksheets)
+            public static void CreateWorkbook(FileInfo worksheetInfo, List<LoadWorksheetInfo> worksheets, int maxColumnWidth = 800, string fontName = "Verdana", double fontSize = 11)
             {
                 // Create a new instance of an 'ExcelPackage' object.
                 ExcelPackage excel = new ExcelPackage();
@@ -68,8 +68,8 @@ namespace DataJuggler.Excelerate
                             }
 
                             // Set the header to bold
-                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Name = "Verdana";
-                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Size = 11;
+                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Name = fontName;
+                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Size = (float) fontSize;
                             worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Bold = true;
                             worksheet.Cells[rowNumber, 1, rowNumber, index].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                             worksheet.Cells[rowNumber, 1, rowNumber, index].AutoFitColumns();
@@ -106,9 +106,21 @@ namespace DataJuggler.Excelerate
                             }
 
                             // Format the data rows
-                            worksheet.Cells[1, 1, rowNumber, index].Style.Font.Name = "Verdana";
-                            worksheet.Cells[1, 1, rowNumber, index].Style.Font.Size = 11;                            
+                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Name = fontName;
+                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Size = (float) fontSize;                
                             worksheet.Cells[1, 1, rowNumber, index].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowNumber, 1, rowNumber, index].AutoFitColumns();
+
+                            // now reset any widths that are too big
+                            for (int x = 1; x <= index; x++)
+                            {
+                                // if large
+                                if (worksheet.Column(x).Width > maxColumnWidth)
+                                {
+                                    // Reset width for large columns
+                                    worksheet.Column(x).Width = maxColumnWidth;
+                                }
+                            }
                         }
                     }
                 }
