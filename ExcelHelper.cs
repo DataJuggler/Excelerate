@@ -68,7 +68,7 @@ namespace DataJuggler.Excelerate
 
                             // Set the header to bold
                             worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Name = "Verdana";
-                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Size = 12;
+                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Size = 11;
                             worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Bold = true;
                             worksheet.Cells[rowNumber, 1, rowNumber, index].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                             worksheet.Cells[rowNumber, 1, rowNumber, index].AutoFitColumns();
@@ -80,12 +80,12 @@ namespace DataJuggler.Excelerate
                         // write out the rows collection
                         if (sheet.HasRows)
                         {
-                            // reset
-                            index = 0;
-
                             // iterate the rows
                             foreach (DataRow row in sheet.Rows)
-                            {
+                            {                                
+                                // reset
+                                index = 0;
+                                
                                 // if there are one or more fields
                                 if (ListHelper.HasOneOrMoreItems(row.Fields))
                                 {
@@ -102,6 +102,11 @@ namespace DataJuggler.Excelerate
                                 // Increment the value for rowNumber
                                 rowNumber++;
                             }
+
+                            // Format the data rows
+                            worksheet.Cells[1, 1, rowNumber, index].Style.Font.Name = "Verdana";
+                            worksheet.Cells[1, 1, rowNumber, index].Style.Font.Size = 11;                            
+                            worksheet.Cells[1, 1, rowNumber, index].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
                         }
                     }
                 }
