@@ -47,6 +47,7 @@ namespace DataJuggler.Excelerate
                     {
                         // reset
                         index = 0;
+                        rowNumber = 1;
 
                         // name of the sheet
                         ExcelWorksheet worksheet = excel.Workbook.Worksheets.Add(sheet.SheetName);
