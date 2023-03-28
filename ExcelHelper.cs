@@ -26,11 +26,11 @@ namespace DataJuggler.Excelerate
 
         #region Methods
 
-            #region CreateWorkbook(FileInfo worksheetInfo, List<LoadWorksheetInfo> worksheets, int maxColumnWidth = 800, string fontName = "Verdana", double fontSize = 11)
+            #region CreateWorkbook(FileInfo worksheetInfo, List<LoadWorksheetInfo> worksheets, string fontName = "Verdana", double fontSize = 11)
             /// <summary>
             /// Create Workbook
             /// </summary>
-            public static void CreateWorkbook(FileInfo worksheetInfo, List<LoadWorksheetInfo> worksheets, int maxColumnWidth = 800, string fontName = "Verdana", double fontSize = 11)
+            public static void CreateWorkbook(FileInfo worksheetInfo, List<LoadWorksheetInfo> worksheets, string fontName = "Verdana", double fontSize = 11)
             {
                 // Create a new instance of an 'ExcelPackage' object.
                 ExcelPackage excel = new ExcelPackage();
@@ -112,19 +112,7 @@ namespace DataJuggler.Excelerate
                             // Format the data rows
                             worksheet.Cells[startRowNumber, 1, rowNumber, index].Style.Font.Name = fontName;
                             worksheet.Cells[startRowNumber, 1, rowNumber, index].Style.Font.Size = (float) fontSize;                
-                            worksheet.Cells[startRowNumber, 1, rowNumber, index].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-                            worksheet.Cells[startRowNumber, 1, rowNumber, index].AutoFitColumns();
-
-                            // now reset any widths that are too big
-                            for (int x = 1; x <= index; x++)
-                            {
-                                // if large
-                                if (worksheet.Column(x).Width > maxColumnWidth)
-                                {
-                                    // Reset width for large columns
-                                    worksheet.Column(x).Width = maxColumnWidth;
-                                }
-                            }
+                            worksheet.Cells[startRowNumber, 1, rowNumber, index].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;                            
                         }
                     }
                 }
