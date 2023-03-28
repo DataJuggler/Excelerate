@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OfficeOpenXml;
 using DataJuggler.UltimateHelper;
+using System.IO;
 
 #endregion
 
@@ -24,6 +25,31 @@ namespace DataJuggler.Excelerate
 
         #region Methods
 
+            #region CreateWorkbook(FileInfo worksheetInfo, List<LoadWorksheetInfo> worksheets)
+            /// <summary>
+            /// Create Workbook
+            /// </summary>
+            public static void CreateWorkbook(FileInfo worksheetInfo, List<LoadWorksheetInfo> worksheets)
+            {
+                // Create a new instance of an 'ExcelPackage' object.
+                ExcelPackage excel = new ExcelPackage();
+
+                // If the worksheets collection exists and has one or more items
+                if (ListHelper.HasOneOrMoreItems(worksheets))
+                {
+                    // Iterate the collection of LoadWorksheetInfo objects
+                    foreach (LoadWorksheetInfo sheet in worksheets)
+                    {
+                        // name of the sheet
+                        ExcelWorksheet worksheet = excel.Workbook.Worksheets.Add(sheet.SheetName);
+                    }
+                }
+
+                // Save the file
+                excel.SaveAs(worksheetInfo);
+            }
+            #endregion
+            
             #region GetColumnLetter(int column)
             /// <summary>
             /// returns the Column Letter for the column index (1 = A, 2 = B, 27 = AA, 78 = "ZZZ" I think)
