@@ -90,7 +90,8 @@ namespace DataJuggler.Excelerate
                                 // if there are one or more fields
                                 if (ListHelper.HasOneOrMoreItems(row.Fields))
                                 {
-                                    foreach (DataField field in sheet.Fields)
+                                    // iterate row.Fields
+                                    foreach (DataField field in row.Fields)
                                     {
                                         // increment the value for index
                                         index++;
