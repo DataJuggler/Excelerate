@@ -26,6 +26,7 @@ namespace DataJuggler.Excelerate
         private int columnsToLoad;
         private List<int> excludedColumnIndexes;
         private List<DataField> fields;
+        private List<DataRow> rows;
         #endregion
 
         #region Constructor
@@ -107,6 +108,23 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region HasRows
+            /// <summary>
+            /// This property returns true if this object has a 'Rows'.
+            /// </summary>
+            public bool HasRows
+            {
+                get
+                {
+                    // initial value
+                    bool hasRows = (this.Rows != null);
+                    
+                    // return value
+                    return hasRows;
+                }
+            }
+            #endregion
+            
             #region LoadColumnOptions
             /// <summary>
             /// This property gets or sets the value for 'LoadColumnOptions'.
@@ -126,6 +144,17 @@ namespace DataJuggler.Excelerate
             {
                 get { return maxRowsToLoad; }
                 set { maxRowsToLoad = value; }
+            }
+            #endregion
+            
+            #region Rows
+            /// <summary>
+            /// This property gets or sets the value for 'Rows'.
+            /// </summary>
+            public List<DataRow> Rows
+            {
+                get { return rows; }
+                set { rows = value; }
             }
             #endregion
             

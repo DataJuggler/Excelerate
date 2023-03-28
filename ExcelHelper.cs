@@ -37,6 +37,7 @@ namespace DataJuggler.Excelerate
 
                 // local
                 int index = 0;
+                int rowNumber = 1;
 
                 // If the worksheets collection exists and has one or more items
                 if (ListHelper.HasOneOrMoreItems(worksheets))
@@ -53,8 +54,7 @@ namespace DataJuggler.Excelerate
                         // if the Fields collection exists
                         if (sheet.HasFields)
                         {
-                            // order the fields by FieldOrdinal
-                            sheet.Fields = sheet.Fields.OrderBy(x => x.FieldOrdinal).ToList();
+                            // Write out the HeaderRow
 
                             // iterate the fields
                             foreach (DataField field in sheet.Fields)
@@ -63,15 +63,45 @@ namespace DataJuggler.Excelerate
                                 index++;
 
                                 // Set the fieldName
-                                worksheet.Cells[1, index].Value = field.FieldName;    
+                                worksheet.Cells[rowNumber, index].Value = field.FieldName;    
                             }
 
                             // Set the header to bold
-                            worksheet.Cells[1, 1, 1, index].Style.Font.Name = "Verdana";
-                            worksheet.Cells[1, 1, 1, index].Style.Font.Size = 12;
-                            worksheet.Cells[1, 1, 1, index].Style.Font.Bold = true;
-                            worksheet.Cells[1, 1, 1, index].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                            worksheet.Cells[1, 1, 1, index].AutoFitColumns();
+                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Name = "Verdana";
+                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Size = 12;
+                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Bold = true;
+                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                            worksheet.Cells[rowNumber, 1, rowNumber, index].AutoFitColumns();
+
+                            // Increment the value for rowNumber
+                            rowNumber++;
+                        }
+
+                        // write out the rows collection
+                        if (sheet.HasRows)
+                        {
+                            // reset
+                            index = 0;
+
+                            // iterate the rows
+                            foreach (DataRow row in sheet.Rows)
+                            {
+                                // if there are one or more fields
+                                if (ListHelper.HasOneOrMoreItems(row.Fields))
+                                {
+                                    foreach (DataField field in sheet.Fields)
+                                    {
+                                        // increment the value for index
+                                        index++;
+
+                                        // Set the fieldName
+                                        worksheet.Cells[rowNumber, index].Value = field.FieldValue;   
+                                    }
+                                }
+
+                                // Increment the value for rowNumber
+                                rowNumber++;
+                            }
                         }
                     }
                 }
@@ -127,7 +157,7 @@ namespace DataJuggler.Excelerate
                                     // iterate the rows to update
                                     foreach (Row row in batchItem.Updates)
                                     {  
-                                        // If the value for the property row.HasColumns is true
+                                        // If the value for the property rowNumber.HasColumns is true
                                         if (row.HasColumns)
                                         {
                                             // iterate the rows
@@ -186,7 +216,7 @@ namespace DataJuggler.Excelerate
                             // iterate the rows to update
                             foreach (Row row in batchItem.Updates)
                             {
-                                // If the value for the property row.HasColumns is true
+                                // If the value for the property rowNumber.HasColumns is true
                                 if (row.HasColumns)
                                 {
                                     // iterate the rows
