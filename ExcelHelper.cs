@@ -2,15 +2,15 @@
 
 #region using statements
 
+using DataJuggler.Net7;
+using DataJuggler.UltimateHelper;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OfficeOpenXml;
-using DataJuggler.UltimateHelper;
 using System.IO;
-using DataJuggler.Net7;
+using System.Linq;
+
 
 #endregion
 
@@ -44,6 +44,9 @@ namespace DataJuggler.Excelerate
                     // Iterate the collection of LoadWorksheetInfo objects
                     foreach (LoadWorksheetInfo sheet in worksheets)
                     {
+                        // reset
+                        index = 0;
+
                         // name of the sheet
                         ExcelWorksheet worksheet = excel.Workbook.Worksheets.Add(sheet.SheetName);
 
@@ -60,11 +63,15 @@ namespace DataJuggler.Excelerate
                                 index++;
 
                                 // Set the fieldName
-                                worksheet.Cells[index, 1].Value = field.FieldName;    
+                                worksheet.Cells[1, index].Value = field.FieldName;    
                             }
 
                             // Set the header to bold
+                            worksheet.Cells[1, 1, 1, index].Style.Font.Name = "Verdana";
+                            worksheet.Cells[1, 1, 1, index].Style.Font.Size = 12;
                             worksheet.Cells[1, 1, 1, index].Style.Font.Bold = true;
+                            worksheet.Cells[1, 1, 1, index].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                            worksheet.Cells[1, 1, 1, index].AutoFitColumns();
                         }
                     }
                 }
