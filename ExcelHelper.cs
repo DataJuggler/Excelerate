@@ -38,6 +38,7 @@ namespace DataJuggler.Excelerate
                 // local
                 int index = 0;
                 int rowNumber = 1;
+                int startRowNumber = 1;
 
                 // If the worksheets collection exists and has one or more items
                 if (ListHelper.HasOneOrMoreItems(worksheets))
@@ -76,6 +77,9 @@ namespace DataJuggler.Excelerate
 
                             // Increment the value for rowNumber
                             rowNumber++;
+
+                            // needed when formatting at the end of this method
+                            startRowNumber = rowNumber;
                         }
 
                         // write out the rows collection
@@ -106,10 +110,10 @@ namespace DataJuggler.Excelerate
                             }
 
                             // Format the data rows
-                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Name = fontName;
-                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Size = (float) fontSize;                
-                            worksheet.Cells[1, 1, rowNumber, index].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-                            worksheet.Cells[rowNumber, 1, rowNumber, index].AutoFitColumns();
+                            worksheet.Cells[startRowNumber, 1, rowNumber, index].Style.Font.Name = fontName;
+                            worksheet.Cells[startRowNumber, 1, rowNumber, index].Style.Font.Size = (float) fontSize;                
+                            worksheet.Cells[startRowNumber, 1, rowNumber, index].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[startRowNumber, 1, rowNumber, index].AutoFitColumns();
 
                             // now reset any widths that are too big
                             for (int x = 1; x <= index; x++)
