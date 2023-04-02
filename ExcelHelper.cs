@@ -8,6 +8,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -35,10 +36,11 @@ namespace DataJuggler.Excelerate
                 // Create a new instance of an 'ExcelPackage' object.
                 ExcelPackage excel = new ExcelPackage();
 
-                // local
+                // locals
                 int index = 0;
                 int rowNumber = 1;
                 int startRowNumber = 1;
+                DateTime badDate = new DateTime(1,1,1900);
 
                 // If the worksheets collection exists and has one or more items
                 if (ListHelper.HasOneOrMoreItems(worksheets))
@@ -101,7 +103,24 @@ namespace DataJuggler.Excelerate
                                         index++;
 
                                         // Set the fieldName
-                                        worksheet.Cells[rowNumber, index].Value = field.FieldValue;   
+                                        worksheet.Cells[rowNumber, index].Value = field.FieldValue;
+
+                                        // if the first row
+                                        if (rowNumber == 1)
+                                        {
+                                            // set the tempValue
+                                            string tempValue = field.FieldValue.ToString();
+
+                                            // parse the date
+                                            DateTime tempDate = DateHelper.ParseDate(tempValue, badDate, badDate);
+
+                                            // if this is a real date
+                                            if (tempDate.Year > 1900)
+                                            {
+                                                // Format the column as a date (testing this now)
+                                                worksheet.Column(index).Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                                            }
+                                        }
                                     }
                                 }
 

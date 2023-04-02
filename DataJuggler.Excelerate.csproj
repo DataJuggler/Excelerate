@@ -22,7 +22,11 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <RepositoryUrl>https://github.com/DataJuggler/Excelerate.git</RepositoryUrl>
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
-    <PackageReleaseNotes>4.1.2023: Everyone who leaves a star on this project at https://github.com/DataJuggler/Excelerate
+    <PackageReleaseNotes>4.2.2023: I am attempting to set Date columns as Dates in the CreateWorkbook method.
+This will only work if the first row has a value that can be parsed to a date. I may expand this
+more once I prove it works.
+
+4.1.2023: Everyone who leaves a star on this project at https://github.com/DataJuggler/Excelerate
 will be granted 3 wishes. Results may vary. Also, Package DataJuggler.Net7 was updated is why this 
 release is being published.
 
@@ -267,7 +271,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>7.2.7</Version>
+    <Version>7.2.8</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>
