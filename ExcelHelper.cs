@@ -40,8 +40,7 @@ namespace DataJuggler.Excelerate
                 int index = 0;
                 int rowNumber = 1;
                 int startRowNumber = 1;
-                DateTime badDate = new DateTime(1,1,1900);
-
+                
                 // If the worksheets collection exists and has one or more items
                 if (ListHelper.HasOneOrMoreItems(worksheets))
                 {
@@ -108,14 +107,8 @@ namespace DataJuggler.Excelerate
                                         // if the first row
                                         if (rowNumber == 1)
                                         {
-                                            // set the tempValue
-                                            string tempValue = field.FieldValue.ToString();
-
-                                            // parse the date
-                                            DateTime tempDate = DateHelper.ParseDate(tempValue, badDate, badDate);
-
-                                            // if this is a real date
-                                            if (tempDate.Year > 1900)
+                                            // if this is a date
+                                            if (field.DataType == DataManager.DataTypeEnum.DateTime)
                                             {
                                                 // Format the column as a date (testing this now)
                                                 worksheet.Column(index).Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
