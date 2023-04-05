@@ -8,6 +8,17 @@ Code Generate C# Classes From Excel Header Rows
 
 # DataJuggler.Excelerate
 
+# Update 4.4.2023
+I just released a cool project that uses this package.
+
+DataJuggler.SQLSnapshot
+Export a SQL Server database and all data rows with just a connection string and the path to save the Excel file.
+Nuget DataJuggler.SQLSnapshot
+https://github.com/DataJuggler/SQLSnapshot
+
+And a demo project for the above project
+https://github.com/DataJuggler/DemoSQLSnapshot
+
 # Update 11.11.2022: I am working on the Grid, and added a properties to the column object
 and some code to the ValidationComponent to allow SetFocusOnFirstRender.
 
