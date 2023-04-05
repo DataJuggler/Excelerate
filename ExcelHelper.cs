@@ -105,7 +105,7 @@ namespace DataJuggler.Excelerate
                                         worksheet.Cells[rowNumber, index].Value = field.FieldValue;
 
                                         // if the first row
-                                        if (rowNumber == 1)
+                                        if (rowNumber == 2)
                                         {
                                             // if this is a date
                                             if (field.DataType == DataManager.DataTypeEnum.DateTime)
