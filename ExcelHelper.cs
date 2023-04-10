@@ -3,6 +3,7 @@
 #region using statements
 
 using DataJuggler.Net7;
+using DataJuggler.Net7.Delegates;
 using DataJuggler.UltimateHelper;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -27,11 +28,11 @@ namespace DataJuggler.Excelerate
 
         #region Methods
 
-            #region CreateWorkbook(FileInfo worksheetInfo, List<LoadWorksheetInfo> worksheets, string fontName = "Verdana", double fontSize = 11)
+            #region CreateWorkbook(FileInfo worksheetInfo, List<LoadWorksheetInfo> worksheets, ProgressStatusCallback callback = null, string fontName = "Verdana", double fontSize = 11)
             /// <summary>
-            /// Create Workbook
+            /// Creates an Excel Workbook. When called by SQLSnapshot, the datarows and fields can be loaded and written out here.
             /// </summary>
-            public static void CreateWorkbook(FileInfo worksheetInfo, List<LoadWorksheetInfo> worksheets, string fontName = "Verdana", double fontSize = 11)
+            public static void CreateWorkbook(FileInfo worksheetInfo, List<LoadWorksheetInfo> worksheets, ProgressStatusCallback callback = null, string fontName = "Verdana", double fontSize = 11)
             {
                 // Create a new instance of an 'ExcelPackage' object.
                 ExcelPackage excel = new ExcelPackage();
@@ -40,10 +41,19 @@ namespace DataJuggler.Excelerate
                 int index = 0;
                 int rowNumber = 1;
                 int startRowNumber = 1;
-                
+                int progress = 0;
+                int subProgress = 0;
+
                 // If the worksheets collection exists and has one or more items
                 if (ListHelper.HasOneOrMoreItems(worksheets))
                 {
+                    // If the progress object exists
+                    if (NullHelper.Exists(callback))
+                    {
+                        // Notify the caller
+                        callback(worksheets.Count * 2, worksheets.Count + progress, "Begin exporting data rows", 0, 0, "Starting");
+                    }
+
                     // Iterate the collection of LoadWorksheetInfo objects
                     foreach (LoadWorksheetInfo sheet in worksheets)
                     {
@@ -51,8 +61,17 @@ namespace DataJuggler.Excelerate
                         index = 0;
                         rowNumber = 1;
 
-                        // name of the sheet
+                        // If the callback object exists
+                        if (NullHelper.Exists(callback, sheet.Rows))
+                        {
+                            // Notify the caller
+                            callback(worksheets.Count * 2, worksheets.Count + progress, "Exporting data rows", sheet.Rows.Count, 0, "Exporting sheet " + sheet.SheetName);
+                        }
+
+                        // Create the sheet
                         ExcelWorksheet worksheet = excel.Workbook.Worksheets.Add(sheet.SheetName);
+
+                        // Beging writing header row
 
                         // if the Fields collection exists
                         if (sheet.HasFields)
@@ -83,14 +102,24 @@ namespace DataJuggler.Excelerate
                             startRowNumber = rowNumber;
                         }
 
+                        // Beging writing data rows
+
                         // write out the rows collection
                         if (sheet.HasRows)
                         {
+                            // If the callback object exists
+                            if (NullHelper.Exists(callback))
+                            {
+                                // Notify the caller
+                                callback(worksheets.Count * 2, worksheets.Count + progress, "Exporting data rows", sheet.Rows.Count, 0, "Exporting sheet " + sheet.SheetName);
+                            }
+
                             // iterate the rows
                             foreach (DataRow row in sheet.Rows)
                             {                                
                                 // reset
                                 index = 0;
+                                subProgress = 0;
                                 
                                 // if there are one or more fields
                                 if (ListHelper.HasOneOrMoreItems(row.Fields))
@@ -119,12 +148,36 @@ namespace DataJuggler.Excelerate
 
                                 // Increment the value for rowNumber
                                 rowNumber++;
+
+                                // Increment the value for subProgress
+                                subProgress++;
+
+                                // if every 100th row
+                                if (subProgress % 100 == 0)
+                                {
+                                    // If the callback object exists
+                                    if (NullHelper.Exists(callback))
+                                    {
+                                        // Notify the caller
+                                        callback(worksheets.Count * 2, worksheets.Count + progress, "Exporting data rows", sheet.Rows.Count, subProgress, "Exporting sheet " + sheet.SheetName);
+                                    }
+                                }
                             }
 
                             // Format the data rows
                             worksheet.Cells[startRowNumber, 1, rowNumber, index].Style.Font.Name = fontName;
                             worksheet.Cells[startRowNumber, 1, rowNumber, index].Style.Font.Size = (float) fontSize;                
                             worksheet.Cells[startRowNumber, 1, rowNumber, index].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;                            
+                        }
+
+                        // Increment the value for progress
+                        progress++;
+
+                        // If the callback object exists
+                        if (NullHelper.Exists(callback))
+                        {
+                            // Notify the caller
+                            callback(worksheets.Count * 2, worksheets.Count + progress, "Exporting data rows", sheet.Rows.Count, subProgress, "Exporting sheet " + sheet.SheetName + " complete.");
                         }
                     }
                 }

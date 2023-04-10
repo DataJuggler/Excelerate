@@ -29,6 +29,9 @@ Date Format; you can switch it to show Time if needed in Excel by selecting Form
 This feature is designed to work with DataJuggler.SQLSnapshot, when the fields' datatypes are set from 
 reading the database schema of a SQL Server database. 
 
+4.11.2023: I added a new delegate ProgressStatusCallback to DataJuggler.Net7 that can be passed into 
+the CreateWorkbook method to receive callbacks during long operations.
+
 4.1.2023: Everyone who leaves a star on this project at https://github.com/DataJuggler/Excelerate
 will be granted 3 wishes. Results may vary. Also, Package DataJuggler.Net7 was updated is why this 
 release is being published.
@@ -274,7 +277,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>7.2.10</Version>
+    <Version>7.2.11</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -310,7 +313,7 @@ This is the first release. I have just begun adding classes and helper methods t
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DataJuggler.Net7" Version="7.0.6" />
+    <PackageReference Include="DataJuggler.Net7" Version="7.0.9" />
     <PackageReference Include="DataJuggler.UltimateHelper" Version="7.1.2" />
     <PackageReference Include="EPPlus" Version="4.5.3.3" />
   </ItemGroup>
