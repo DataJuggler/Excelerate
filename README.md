@@ -3,11 +3,25 @@
 Here is a short video:
 https://youtu.be/mj1h4_IRAQQ
 
-I deleted my server, it was getting overrun by bots. I will release a new sample project later.
+Live demo:
+https://excelerate.datajuggler.com
 
-I will publish a new sample project soon.
+Another very useful project built with is:
 
-Nuget package version 1.1.9 was just published: DataJuggler.Excelerate
+Nuget package DataJuggler.SQLSnapshot.
+
+Export an entire SQL Server database including all data rows with one line of code, passing in a connectionstring and a path to save to Excel.
+
+Source Code
+https://github.com/DataJuggler/SQLSnapshot
+
+SQL Snapshot Desktop
+https://github.com/DataJuggler/DemoSQLSnapshot
+A Winforms app using SQL Snapshot.
+
+Study the code in SQL Snapshot. I wrote SQL Snapshot in 1 day, with a few updates later. That is the power of DataJuggler.Net7 for SQL Server schema reading and ata loading and using DataJuggler.Excelerate to write out the data rows to Excel.
+
+Latest version is of Excelerate is 7.2.12 and has over 23,000 Nuget installs. 
 
 A class named CodeGenerator was just created, and now by inheriting from the same CSharpClassWriter that code generates for DataTier.Net, I code generate
 classes based on your header row.
