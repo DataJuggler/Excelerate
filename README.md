@@ -6,7 +6,7 @@ https://youtu.be/mj1h4_IRAQQ
 Live demo:
 https://excelerate.datajuggler.com
 
-Another very useful project built with is:
+Another very useful project built with Excelerate is:
 
 Nuget package DataJuggler.SQLSnapshot.
 
