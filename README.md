@@ -10,7 +10,7 @@ Another very useful project built with Excelerate is:
 
 Nuget package DataJuggler.SQLSnapshot.
 
-Export an entire SQL Server database including all data rows with one line of code, passing in a connectionstring and a path to save to Excel.
+Export an entire SQL Server database including all data rows to Excel with one line of code, passing in a connectionstring and a path to save.
 
 Source Code
 https://github.com/DataJuggler/SQLSnapshot
@@ -261,8 +261,6 @@ This method loads all 3 worksheets: (to be continued, building Codopy.com as a c
         return objectsLoaded;
     }
     
-The above method loads 3 sheets. Here is one of the methods used:
-
 
 
 More helper methods and features have been added. The Nuget package has been released: DataJuggler.Excelerate.
