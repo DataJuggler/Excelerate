@@ -19,7 +19,7 @@ SQL Snapshot Desktop
 https://github.com/DataJuggler/DemoSQLSnapshot
 A Winforms app using SQL Snapshot.
 
-Study the code in SQL Snapshot. I wrote SQL Snapshot in 1 day, with a few updates later. That is the power of DataJuggler.Net7 for SQL Server schema reading and ata loading and using DataJuggler.Excelerate to write out the data rows to Excel.
+Study the code in SQL Snapshot. I wrote SQL Snapshot in 1 day, with a few updates later. That is the power of DataJuggler.Net7 for SQL Server schema reading and data loading and using DataJuggler.Excelerate to write out the data rows to Excel.
 
 Latest version is of Excelerate is 7.2.12 and has over 23,000 Nuget installs. 
 
