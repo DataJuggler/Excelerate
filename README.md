@@ -6,11 +6,13 @@ Blazor.Excelerate
 https://excelerate.datajuggler.com 
 Code Generate C# Classes From Excel Header Rows
 
-# DataJuggler.Excelerate
+
+# Update
 
 7.16.2023: DataJuggler.UltimateHelper, DataJuggler.Net7 was updated.
 
 # Update 4.4.2023
+
 I just released a cool project that uses this package.
 
 DataJuggler.SQLSnapshot
