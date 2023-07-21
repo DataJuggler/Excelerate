@@ -28,7 +28,7 @@ namespace DataJuggler.Excelerate
         private int rowNumber;
         private int columnNumber;
         private bool columnContainsData;
-        private object columnValue;
+        private object columnValue;        
         private string columnName;
         private string originalName;
         private string columnText;
@@ -36,7 +36,8 @@ namespace DataJuggler.Excelerate
         private bool exportBooleanAsOneOrZero;
         private int index;
         private Row row;
-        private DataManager.DataTypeEnum dataType;      
+        private DataManager.DataTypeEnum dataType;
+        private bool hasChanges;
 
         // Added for DataJuggler.Blazor.Components.Grid
         private double width;
@@ -448,6 +449,17 @@ namespace DataJuggler.Excelerate
                     // return value
                     return guidValue;
                 }
+            }
+            #endregion
+            
+            #region HasChanges
+            /// <summary>
+            /// This property gets or sets the value for 'HasChanges'.
+            /// </summary>
+            public bool HasChanges
+            {
+                get { return hasChanges; }
+                set { hasChanges = value; }
             }
             #endregion
             

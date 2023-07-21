@@ -6,6 +6,11 @@ Blazor.Excelerate
 https://excelerate.datajuggler.com 
 Code Generate C# Classes From Excel Header Rows
 
+# Update
+7.21.2023: I added a property to the column object called HasChanges. In conjunection with this the class
+ExcelHelper has an optional parameter to SaveBatch, SaveBatchItem and SaveRow to only save columns with
+HasChanges = true. For now, you have to set this property on the column manually. I am investigating ways to
+auto set this if the value changes from the time you loaded the object until you save it.
 
 # Update
 

@@ -201,11 +201,11 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
-            #region SaveBatch(string path, Batch batch)
+            #region SaveBatch(string path, Batch batch, onlyColumnsWithChanges)
             /// <summary>
             /// returns the Batch
             /// </summary>
-            public static bool SaveBatch(string path, Batch batch)
+            public static bool SaveBatch(string path, Batch batch, bool onlyColumnsWithChanges)
             {
                 // initial value
                 bool saved = false;
@@ -239,8 +239,16 @@ namespace DataJuggler.Excelerate
                                             // iterate the rows
                                             foreach (Column column in row.Columns)
                                             {
-                                                // Set the value
-                                                excelworksheet.SetValue(column.RowNumber, column.ColumnNumber, column.ColumnValue);
+                                                if ((onlyColumnsWithChanges) && (column.HasChanges))
+                                                {
+                                                    // Set the value
+                                                    excelworksheet.SetValue(column.RowNumber, column.ColumnNumber, column.ColumnValue);
+                                                }
+                                                else
+                                                {
+                                                    // Set the value
+                                                    excelworksheet.SetValue(column.RowNumber, column.ColumnNumber, column.ColumnValue);
+                                                }
                                             }
                                         }
                                     }
@@ -266,11 +274,11 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
-            #region SaveBatchItem(string path, BatchItem batchItem)
+            #region SaveBatchItem(string path, BatchItem batchItem, bool onlyColumnsWithChanges)
             /// <summary>
             /// Save and then returns the batchItem
             /// </summary>
-            public static bool SaveBatchItem(string path, BatchItem batchItem)
+            public static bool SaveBatchItem(string path, BatchItem batchItem, bool onlyColumnsWithChanges = false)
             {
                 // initial value
                 bool saved = false;
@@ -298,8 +306,16 @@ namespace DataJuggler.Excelerate
                                     // iterate the rows
                                     foreach (Column column in row.Columns)
                                     {
-                                        // Set the value
-                                        excelworksheet.SetValue(column.RowNumber, column.ColumnNumber, column.ColumnValue);
+                                        if ((onlyColumnsWithChanges) && (column.HasChanges))
+                                        {
+                                            // Set the value
+                                            excelworksheet.SetValue(column.RowNumber, column.ColumnNumber, column.ColumnValue);
+                                        }
+                                        else
+                                        {
+                                            // Set the value
+                                            excelworksheet.SetValue(column.RowNumber, column.ColumnNumber, column.ColumnValue);
+                                        }
                                     }
                                 }
                             }
@@ -323,11 +339,11 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
-            #region SaveRow(string path, Row row, Worksheet worksheet)
+            #region SaveRow(string path, Row row, Worksheet worksheet, bool onlyColumnsWithChanges = false)
             /// <summary>
             /// returns the Row
             /// </summary>
-            public static bool SaveRow(string path, Row row, Worksheet worksheet)
+            public static bool SaveRow(string path, Row row, Worksheet worksheet, bool onlyColumnsWithChanges = false)
             {
                 // initial value
                 bool saved = false;
@@ -349,8 +365,16 @@ namespace DataJuggler.Excelerate
                             // iterate the rows
                             foreach (Column column in row.Columns)
                             {
-                                // Set the value
-                                excelworksheet.SetValue(column.RowNumber, column.ColumnNumber, column.ColumnValue);
+                                if ((onlyColumnsWithChanges) && (column.HasChanges))
+                                {
+                                    // Set the value
+                                    excelworksheet.SetValue(column.RowNumber, column.ColumnNumber, column.ColumnValue);
+                                }
+                                else
+                                {
+                                    // Set the value
+                                    excelworksheet.SetValue(column.RowNumber, column.ColumnNumber, column.ColumnValue);
+                                }
                             }
                         }
 

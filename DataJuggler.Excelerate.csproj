@@ -23,29 +23,34 @@ Rather than continue to write custom loaders, I really only need custom Exporter
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
     <PackageReleaseNotes>
+		7.21.2023: I added a property to the column object called HasChanges. In conjunection with this the class
+		ExcelHelper has an optional parameter to SaveBatch, SaveBatchItem and SaveRow to only save columns with
+		HasChanges = true. For now, you have to set this property on the column manually. I am investigating ways to
+		auto set this if the value changes from the time you loaded the object until you save it.
+
 		7.16.2023: DataJuggler.UltimateHelper, DataJuggler.Net7 was updated.
-		
-		4.4.2023: I fixed the bug of DateTime columns not being set in Excel. I am setting all dates to Short 
-Date Format; you can switch it to show Time if needed in Excel by selecting Format Cells for the column.
 
-4.2.2023: I am attempting to set Date columns as Dates in the CreateWorkbook method.
-This feature is designed to work with DataJuggler.SQLSnapshot, when the fields' datatypes are set from 
-reading the database schema of a SQL Server database. 
+		4.4.2023: I fixed the bug of DateTime columns not being set in Excel. I am setting all dates to Short
+		Date Format; you can switch it to show Time if needed in Excel by selecting Format Cells for the column.
 
-4.11.2023: I added a new delegate ProgressStatusCallback to DataJuggler.Net7 that can be passed into 
-the CreateWorkbook method to receive callbacks during long operations.
+		4.2.2023: I am attempting to set Date columns as Dates in the CreateWorkbook method.
+		This feature is designed to work with DataJuggler.SQLSnapshot, when the fields' datatypes are set from
+		reading the database schema of a SQL Server database.
 
-4.1.2023: Everyone who leaves a star on this project at https://github.com/DataJuggler/Excelerate
-will be granted 3 wishes. Results may vary. Also, Package DataJuggler.Net7 was updated is why this 
-release is being published.
+		4.11.2023: I added a new delegate ProgressStatusCallback to DataJuggler.Net7 that can be passed into
+		the CreateWorkbook method to receive callbacks during long operations.
 
-2.17.2023: I added a CreateWorkbook method. I am starting a new project called Excelerate.SQL and needed
-this method.
+		4.1.2023: Everyone who leaves a star on this project at https://github.com/DataJuggler/Excelerate
+		will be granted 3 wishes. Results may vary. Also, Package DataJuggler.Net7 was updated is why this
+		release is being published.
 
-12.16.2022 B: I removed Microsoft.Data.SqlClient.
+		2.17.2023: I added a CreateWorkbook method. I am starting a new project called Excelerate.SQL and needed
+		this method.
 
-12.16.2022: I started getting conflicts between versions of System.Text.Encoding.Pages
-as the version installed from EPP Plus 4.5.x is &gt;= 4.7 and Microsoft.Data.SQLClient
+		12.16.2022 B: I removed Microsoft.Data.SqlClient.
+
+		12.16.2022: I started getting conflicts between versions of System.Text.Encoding.Pages
+		as the version installed from EPP Plus 4.5.x is &gt;= 4.7 and Microsoft.Data.SQLClient
 is &gt;= 5.0. My Blazor project started giving me conflicts. This is still being tested.
 
 
@@ -280,7 +285,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>7.3.0</Version>
+    <Version>7.3.1</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>
