@@ -201,11 +201,11 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
-            #region SaveBatch(string path, Batch batch, onlyColumnsWithChanges)
+            #region SaveBatch(string path, Batch batch, onlyColumnsWithChanges = false)
             /// <summary>
             /// returns the Batch
             /// </summary>
-            public static bool SaveBatch(string path, Batch batch, bool onlyColumnsWithChanges)
+            public static bool SaveBatch(string path, Batch batch, bool onlyColumnsWithChanges = false)
             {
                 // initial value
                 bool saved = false;
@@ -274,7 +274,7 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
-            #region SaveBatchItem(string path, BatchItem batchItem, bool onlyColumnsWithChanges)
+            #region SaveBatchItem(string path, BatchItem batchItem, bool onlyColumnsWithChanges = false)
             /// <summary>
             /// Save and then returns the batchItem
             /// </summary>

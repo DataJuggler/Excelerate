@@ -6,13 +6,16 @@ Blazor.Excelerate
 https://excelerate.datajuggler.com 
 Code Generate C# Classes From Excel Header Rows
 
-# Update
+# Updates
+
+7.22.2023: I am in the process of redoing SaveRow for the code generated objects. Now each class
+has two properties created. Loading, and ChangedColumns, which is a comma delimited string of
+column indexes that have chagned. The next phase will be only saving columns that have changes.
+
 7.21.2023: I added a property to the column object called HasChanges. In conjunection with this the class
 ExcelHelper has an optional parameter to SaveBatch, SaveBatchItem and SaveRow to only save columns with
 HasChanges = true. For now, you have to set this property on the column manually. I am investigating ways to
-auto set this if the value changes from the time you loaded the object until you save it.
-
-# Update
+auto set this if the value changes from the time you loaded the object until you save it.\
 
 7.16.2023: DataJuggler.UltimateHelper, DataJuggler.Net7 was updated.
 

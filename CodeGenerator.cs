@@ -390,6 +390,27 @@ namespace DataJuggler.Excelerate
 
                 // Add a new line
                 sb.Append(Environment.NewLine);
+
+                // Now add the indent3 (8 spaces extra)
+                sb.Append(indent3);
+
+                // add comment and turn loading on
+                sb.Append("// Turn Loading On");
+                sb.Append(Environment.NewLine);
+
+
+                // Now add the indent3 (8 spaces extra)
+                sb.Append(indent3);
+                sb.Append("Loading = true;");
+                sb.Append(Environment.NewLine);
+
+                // Write a blank line
+                sb.Append(Environment.NewLine);
+
+                // write comment
+                sb.Append(indent3);
+                sb.Append("// set values");
+                sb.Append(Environment.NewLine);
                
                 // Create DataFields for each column
                 foreach (Column column in row.Columns)
@@ -486,6 +507,19 @@ namespace DataJuggler.Excelerate
                         sb.Append(Environment.NewLine);
                     }
                 }
+
+                // Now add the indent3 (8 spaces extra)
+                sb.Append(Environment.NewLine);
+                sb.Append(indent3);
+
+                // add comment and turn loading on
+                sb.Append("// Turn Loading Off");
+                sb.Append(Environment.NewLine);
+
+                // Now add the indent3 (8 spaces extra)
+                sb.Append(indent3);
+                sb.Append("Loading = false;");
+                sb.Append(Environment.NewLine);
 
                 // Add a closing bracket
                 sb.Append(indent2);
@@ -1008,6 +1042,9 @@ namespace DataJuggler.Excelerate
                         // Set the Name
                         dataTable.Name = ClassName;
 
+                        // local
+                        DataField field = null;
+
                         // Create DataFields for each column
                         foreach (Column column in row.Columns)
                         {
@@ -1015,14 +1052,17 @@ namespace DataJuggler.Excelerate
                             if ((column.HasColumnValue) || (TextHelper.IsEqual(column.ColumnName, RowId)))
                             {
                                 // Create a field for this column
-                                DataField field = new DataField();
+                                field = new DataField();
+
+                                // Increment the value for columnIndex
+                                columnIndex++;
+
+                                // set the index
+                                field.Index = columnIndex;
 
                                 // if this is not the RowId
                                 if (!TextHelper.IsEqual(column.ColumnName, RowId))
                                 {
-                                    // Increment the value for columnIndex
-                                    columnIndex++;
-
                                     // Store the orininalName so it can be used during Export.
                                     column.OriginalName = column.StringValue;
 
@@ -1037,9 +1077,12 @@ namespace DataJuggler.Excelerate
                                     // Store
                                     field.FieldName = column.ColumnName;
 
-                                    // Set the OriginalName (not sure if this is needed, more for if needed)
+                                    // Set the OriginalName (not sure if this is needed anymore 
                                     column.OriginalName = field.FieldName;
                                 }
+
+                                // add if (!Loading) HasChanges = true; 
+                                field.AddColumnToChangesIfNotLoading = true;
 
                                 // if this is the RowId
                                 if (TextHelper.IsEqual(field.FieldName, RowId))
@@ -1063,6 +1106,39 @@ namespace DataJuggler.Excelerate
                                 dataTable.Fields.Add(field);
                             }
                         }
+
+                        // Create a field for this column
+                        field = new DataField();
+
+                        // add loading
+                        field.FieldName = "Loading";
+
+                        // If this is RowId
+                        field.DataType = DataManager.DataTypeEnum.Boolean;
+
+                        // Set the FieldOrdinal
+                        field.FieldOrdinal = columnIndex;
+
+                        // Add this field
+                        dataTable.Fields.Add(field);
+
+                        // increment
+                        columnIndex++;
+
+                        // Create a field for this column
+                        field = new DataField();
+
+                        // add loading
+                        field.FieldName = "ChangedColumns";
+
+                        // If this is RowId
+                        field.DataType = DataManager.DataTypeEnum.String;
+
+                        // Set the FieldOrdinal
+                        field.FieldOrdinal = columnIndex;
+
+                        // Add this field
+                        dataTable.Fields.Add(field);
 
                         // Sort the fields
                         List<DataField> sortedFields = dataTable.Fields.OrderBy(x => x.FieldName).ToList();
@@ -1095,6 +1171,7 @@ namespace DataJuggler.Excelerate
                         Reference reference3 = new Reference("DataJuggler.UltimateHelper", 3);
                         Reference reference4 = new Reference("System", 4);
                         Reference reference5 = new Reference("System.Collections.Generic", 5);
+                        Reference reference6 = new Reference("DataJuggler.Excelerate.Interfaces", 6);
 
                         // Add the references to the ReferencesSet
                         referencesSet.Add(reference);
@@ -1102,6 +1179,7 @@ namespace DataJuggler.Excelerate
                         referencesSet.Add(reference3);
                         referencesSet.Add(reference4);
                         referencesSet.Add(reference5);
+                        referencesSet.Add(reference6);
 
                         // Set the references
                         dataManager.References = referencesSet;
@@ -1142,6 +1220,26 @@ namespace DataJuggler.Excelerate
                                         {
                                             // increment lineNumber
                                             lineNumber++;
+
+                                             // string for the classDeclarationLine such as punlic class Address
+                                            string regionClassDeclarationLine = "#region class " + className;
+
+                                             // if the line exists
+                                            if (line.Text.Contains(regionClassDeclarationLine))
+                                            {
+                                                // add the interface line
+                                                line.Text = line.Text + " : IExcelerateObject";
+                                            }
+
+                                            // string for the classDeclarationLine such as punlic class Address
+                                            string classDeclarationLine = "public class " + className;
+
+                                            // if the line exists
+                                            if (line.Text.Contains(classDeclarationLine))
+                                            {
+                                                // add the interface line
+                                                line.Text = line.Text + " : IExcelerateObject";
+                                            }
 
                                             // if skipNextLineIfBlank
                                             if ((skipNextLineIfBlank) && (!TextHelper.Exists(line.Text)) && (lineNumber > 2))
