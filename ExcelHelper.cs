@@ -5,6 +5,7 @@
 using DataJuggler.Net7;
 using DataJuggler.Net7.Delegates;
 using DataJuggler.UltimateHelper;
+using DataJuggler.UltimateHelper.Objects;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
@@ -198,6 +199,51 @@ namespace DataJuggler.Excelerate
                 
                 // return value
                 return columnLetter;
+            }
+            #endregion
+            
+            #region ParseChangedColumnIndexes(string changedColumns)
+            /// <summary>
+            /// returns a list of Changed Column Indexes
+            /// </summary>
+            public static List<int> ParseChangedColumnIndexes(string changedColumns)
+            {
+                // initial value
+                List<int> changedColumnIndexes = null;
+
+                // If the changedColumns string exists
+                if (TextHelper.Exists(changedColumns))
+                {
+                    // Create a new collection of 'int' objects.
+                    changedColumnIndexes = new List<int>();
+
+                    // Create a delimiter that is only a comma
+                    char[] delimiters = { ',' };
+
+                    // get the words
+                    List<Word> words = TextHelper.GetWords(changedColumns, delimiters);
+
+                    // If the words collection exists and has one or more items
+                    if (ListHelper.HasOneOrMoreItems(words))
+                    {
+                        // Iterate the collection of Word objects
+                        foreach (Word word in words)
+                        {
+                            // parse this column index
+                            int columnIndex = NumericHelper.ParseInteger(word.Text, -1, -2);
+
+                            // if this columnIndex was found
+                            if (columnIndex >= 0)
+                            {
+                                // add this item
+                                changedColumnIndexes.Add(columnIndex);
+                            }
+                        }
+                    }
+                }
+                
+                // return value
+                return changedColumnIndexes;
             }
             #endregion
             

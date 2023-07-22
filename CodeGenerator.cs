@@ -12,6 +12,7 @@ using DataJuggler.Net7.Enumerations;
 using DataJuggler.UltimateHelper;
 using DataJuggler.UltimateHelper.Objects;
 using System.IO;
+using System.Security.Cryptography.Pkcs;
 
 #endregion
 
@@ -785,14 +786,14 @@ namespace DataJuggler.Excelerate
                 sb.Append(indent2);
 
                 // Add this
-                sb.Append("// If the row exists and the row's column collection exists");
+                sb.Append("// If the row exists and the row's column collection exists and the ChangedColumns string is not null or empty");
                 sb.Append(Environment.NewLine);
 
                 // Add a check for the column
                 sb.Append(indent2);
 
                 // create the ifLine
-                sb.Append("if ((NullHelper.Exists(row)) && (row.HasColumns))");
+                sb.Append("if ((NullHelper.Exists(row)) && (row.HasColumns) && (TextHelper.Exists(ChangedColumns)))");
 
                 // Add a new line here before the paren
                 sb.Append(Environment.NewLine);
@@ -804,6 +805,19 @@ namespace DataJuggler.Excelerate
                 // Add a new line
                 sb.Append(Environment.NewLine);
 
+                // add a comment
+                sb.Append(indent3);
+                sb.Append("// Parse the changed column indexes");
+                sb.Append(Environment.NewLine);
+
+                // now parse the ChangedColumns string to a list of integer values
+                sb.Append(indent3);
+                sb.Append("List<int> changedColumnIndexes = ExcelHelper.ParseChangedColumnIndexes(ChangedColumns);");
+                sb.Append(Environment.NewLine);
+
+                // now a blank line
+                sb.Append(Environment.NewLine);
+                
                 // Create DataFields for each column
                 foreach (Column column in row.Columns)
                 {
@@ -832,6 +846,27 @@ namespace DataJuggler.Excelerate
                         sb.Append(";");
 
                         // Add a new line
+                        sb.Append(Environment.NewLine);
+
+                        // now adding the line to determine if this column has changes                        
+                        sb.Append(indent3);
+
+                        // Set the columnValue
+                        sb.Append("row.Columns[");
+                        
+                        // add the columnIndex
+                        sb.Append(columnIndex);
+
+                        // Append '].HasChanges = changedColumnIndexes.Contains("
+                        sb.Append("].HasChanges = changedColumnIndexes.Contains(");
+                        
+                        // add the columnIndex
+                        sb.Append(columnIndex);
+
+                        // append the closing paren and a semi colon
+                        sb.Append(");");
+
+                         // Add a new line
                         sb.Append(Environment.NewLine);
                     }
                 }
