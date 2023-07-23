@@ -10,11 +10,11 @@ using DataJuggler.Net7;
 namespace DataJuggler.Excelerate
 {
 
-    #region class LoadWorksheetInfo
+    #region class WorksheetInfo
     /// <summary>
-    /// This class is here so each Worksheet can have its own Load options
+    /// This class is used to set the Load and Save infromation for a Worksheet
     /// </summary>
-    public class LoadWorksheetInfo    
+    public class WorksheetInfo    
     {
 
         #region Private Variables
@@ -24,6 +24,7 @@ namespace DataJuggler.Excelerate
         private int maxRowsToLoad;
         private bool hasHeaderRow;
         private int columnsToLoad;
+        private string path;
         private List<int> excludedColumnIndexes;
         private List<DataField> fields;
         private List<DataRow> rows;
@@ -33,7 +34,7 @@ namespace DataJuggler.Excelerate
         /// <summary>
         /// Create a new instancce of a LoadWorkSheetInfo object
         /// </summary>
-        public LoadWorksheetInfo()
+        public WorksheetInfo()
         {
             // Create the lists
             SpecifiedColumnNames = new List<SpecifiedColumnName>();
@@ -144,6 +145,17 @@ namespace DataJuggler.Excelerate
             {
                 get { return maxRowsToLoad; }
                 set { maxRowsToLoad = value; }
+            }
+            #endregion
+            
+            #region Path
+            /// <summary>
+            /// This property gets or sets the value for 'Path'.
+            /// </summary>
+            public string Path
+            {
+                get { return path; }
+                set { path = value; }
             }
             #endregion
             

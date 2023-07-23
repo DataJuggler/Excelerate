@@ -13,7 +13,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-
+using DataJuggler.Excelerate.Delegates;
+using DataJuggler.Excelerate.Interfaces;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup;
 
 #endregion
 
@@ -33,7 +35,7 @@ namespace DataJuggler.Excelerate
             /// <summary>
             /// Creates an Excel Workbook. When called by SQLSnapshot, the datarows and fields can be loaded and written out here.
             /// </summary>
-            public static void CreateWorkbook(FileInfo worksheetInfo, List<LoadWorksheetInfo> worksheets, ProgressStatusCallback callback = null, string fontName = "Verdana", double fontSize = 11)
+            public static void CreateWorkbook(FileInfo worksheetInfo, List<WorksheetInfo> worksheets, ProgressStatusCallback callback = null, string fontName = "Verdana", double fontSize = 11)
             {
                 // Create a new instance of an 'ExcelPackage' object.
                 ExcelPackage excel = new ExcelPackage();
@@ -56,7 +58,7 @@ namespace DataJuggler.Excelerate
                     }
 
                     // Iterate the collection of LoadWorksheetInfo objects
-                    foreach (LoadWorksheetInfo sheet in worksheets)
+                    foreach (WorksheetInfo sheet in worksheets)
                     {
                         // reset
                         index = 0;
@@ -442,6 +444,84 @@ namespace DataJuggler.Excelerate
             }
             #endregion
 
+            #region SaveWorksheet(List<IExcelerateObject> excelerateObjects,Worksheet worksheet, WorksheetInfo worksheetInfo, SaveInProgressCallback callback, int saveBatchInterval = 100)
+            /// <summary>
+            /// returns the Worksheet
+            /// </summary>
+            public static SaveWorksheetResponse SaveWorksheet(List<IExcelerateObject> excelerateObjects, Worksheet worksheet, WorksheetInfo worksheetInfo, SaveInProgressCallback callback, int saveBatchInterval = 100)
+            {
+                // initial value
+                SaveWorksheetResponse response = new SaveWorksheetResponse();
+
+                // locals
+                Batch batch = new Batch();                    
+                BatchItem batchItem = new BatchItem();
+                batchItem.WorksheetInfo = worksheetInfo;
+                batch.BatchItems.Add(batchItem);
+
+                // If the excelerateObjects collection exists and has one or more items
+                if (ListHelper.HasOneOrMoreItems(excelerateObjects))
+                {
+                    // Setup the graph before we start
+                    response.CurrentRowNumber = 0;
+                    response.TotalRows = excelerateObjects.Count;
+
+                    // If the callback object exists
+                    if (NullHelper.Exists(callback))
+                    {
+                        // call back to the client
+                        callback(response);
+                    }
+
+                    // Iterate the collection of IExcelerateObject objects
+                    foreach (IExcelerateObject excelerateObject in excelerateObjects)
+                    {
+                        // Increment the value for CurrentRowNumber
+                        response.CurrentRowNumber++;
+
+                        // find the row                        
+                        Row row = worksheet.Rows.FirstOrDefault(x => x.Id == excelerateObject.RowId);
+
+                        // If the row object exists
+                        if (NullHelper.Exists(row))
+                        {
+                            // Save the property values columns in the row
+                            excelerateObject.Save(row);
+
+                            // Add this row
+                            batchItem.Updates.Add(row);
+
+                            // if the row exists
+                            if (batch.BatchItems[0].Updates.Count == saveBatchInterval)
+                            {
+                                // perform the save
+                                bool saved = ExcelHelper.SaveBatch(worksheetInfo.Path, batch, true);
+
+                                 // if the value for saved is true
+                                if ((saved) && (NullHelper.Exists(callback)))
+                                {
+                                    // update the rows saved
+                                    response.RowsSaved += saveBatchInterval;
+
+                                    // notify the client
+                                    callback(response);
+
+                                    // recreate the objects
+                                    batch = new Batch();                    
+                                    batchItem = new BatchItem();
+                                    batchItem.WorksheetInfo = worksheetInfo;
+                                    batch.BatchItems.Add(batchItem);
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                // return value
+                return response;
+            }
+            #endregion
+            
         #endregion
 
     }

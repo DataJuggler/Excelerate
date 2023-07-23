@@ -25,7 +25,7 @@ namespace DataJuggler.Excelerate
         #region Private Variables        
         private List<Row> rows;
         private string name;
-        private LoadWorksheetInfo worksheetInfo;
+        private WorksheetInfo worksheetInfo;
         #endregion
         
         #region Constructor
@@ -100,7 +100,7 @@ namespace DataJuggler.Excelerate
             /// <summary>
             /// This property gets or sets the value for 'WorksheetInfo'.
             /// </summary>
-            public LoadWorksheetInfo WorksheetInfo
+            public WorksheetInfo WorksheetInfo
             {
                 get { return worksheetInfo; }
                 set { worksheetInfo = value; }

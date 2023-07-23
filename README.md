@@ -8,6 +8,9 @@ Code Generate C# Classes From Excel Header Rows
 
 # Updates
 
+7.22.2023: I have completed ExcelHelper.SaveWorksheet method. This is a major milestone
+so I have updated the project to 7.4.0.
+
 7.22.2023: I am in the process of redoing SaveRow for the code generated objects. Now each class
 has two properties created. Loading, and ChangedColumns, which is a comma delimited string of
 column indexes that have chagned. The next phase will be only saving columns that have changes.

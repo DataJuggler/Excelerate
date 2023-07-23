@@ -173,7 +173,7 @@ namespace DataJuggler.Excelerate
                         foreach (string sheetName in sheetNames)
                         {
                             // Create a new instance of a 'LoadWorksheetInfo' object.
-                            LoadWorksheetInfo loadWorksheetInfo = new LoadWorksheetInfo();
+                            WorksheetInfo loadWorksheetInfo = new WorksheetInfo();
 
                             // Set the sheetName
                             loadWorksheetInfo.SheetName = sheetName;
@@ -256,7 +256,7 @@ namespace DataJuggler.Excelerate
             /// </summary>
             /// <param name="path"></param>
             /// <returns></returns>
-            public static Workbook LoadWorkbook(string path, List<LoadWorksheetInfo> sheetsToLoad)
+            public static Workbook LoadWorkbook(string path, List<WorksheetInfo> sheetsToLoad)
             {
                 // initial value
                 Workbook workbook = new Workbook();
@@ -277,7 +277,7 @@ namespace DataJuggler.Excelerate
                     if (NullHelper.Exists(excelWorkbook))
                     {
                         // Iterate the collection of LoadWorksheetInfo objects
-                        foreach (LoadWorksheetInfo loadWorksheetInfo in sheetsToLoad)
+                        foreach (WorksheetInfo loadWorksheetInfo in sheetsToLoad)
                         {
                             // Create a workSheet object
                             Worksheet worksheet = LoadWorksheet(excelWorkbook, loadWorksheetInfo);
@@ -303,7 +303,7 @@ namespace DataJuggler.Excelerate
             /// </summary>
             /// <param name="path"></param>
             /// <returns></returns>
-            public static Workbook LoadWorkbook(string path, LoadWorksheetInfo loadWorksheetInfo)
+            public static Workbook LoadWorkbook(string path, WorksheetInfo loadWorksheetInfo)
             {
                 // initial value
                 Workbook workbook = new Workbook();
@@ -344,7 +344,7 @@ namespace DataJuggler.Excelerate
             /// <summary>
             /// This method returns the Worksheet
             /// </summary>
-            public static Worksheet LoadWorksheet(ExcelWorkbook excelWorkbook, LoadWorksheetInfo loadWorksheetInfo)
+            public static Worksheet LoadWorksheet(ExcelWorkbook excelWorkbook, WorksheetInfo loadWorksheetInfo)
             {
                 // initial value
                 Worksheet worksheet = null;
@@ -538,7 +538,7 @@ namespace DataJuggler.Excelerate
             /// <summary>
             /// This method returns a single Worksheet
             /// </summary>
-            public static Worksheet LoadWorksheet(string path, LoadWorksheetInfo loadWorksheetInfo)
+            public static Worksheet LoadWorksheet(string path, WorksheetInfo loadWorksheetInfo)
             {
                 // initial value
                 Worksheet worksheet = null;
