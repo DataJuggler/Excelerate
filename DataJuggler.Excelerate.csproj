@@ -28,6 +28,22 @@ Rather than continue to write custom loaders, I really only need custom Exporter
 		The Best C# Excel Library In The Galaxy
 		https://youtu.be/uWXiz52cqlg
 
+		I also created a NuGet package for a WinForms project that includes all the needed
+		packages and has a progress bar wired up.
+
+		DataJuggler.ExcelerateWinApp
+
+		Install Instructions
+
+		To Install Via Nuget and DOT NET CLI, navigate to the folder you wish to create your project in
+
+		cd c:\Projects\ExcelerateWinApp
+		dotnet new install DataJuggler.ExcelerateWinApp
+		dotnet new DataJuggler.ExcelerateWinApp
+		or
+
+		Clone ExcelerateWinApp from GitHub https://github.com/DataJuggler/ExcelerateWinApp
+
 		7.22.2023: I have completed ExcelHelper.SaveWorksheet method. This is a major milestone
 		so I have updated the project to 7.4.0.
 
@@ -297,7 +313,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>7.4.1</Version>
+    <Version>7.4.2</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>

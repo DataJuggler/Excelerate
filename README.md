@@ -8,6 +8,28 @@ Code Generate C# Classes From Excel Header Rows
 
 # Updates
 
+7.24.2023: New Video
+
+The Best C# Excel Library In The Galaxy
+https://youtu.be/uWXiz52cqlg
+
+I also created a NuGet package for a WinForms project that includes all the needed
+packages and has a progress bar wired up.
+
+DataJuggler.ExcelerateWinApp
+
+Install Instructions
+
+To Install Via Nuget and DOT NET CLI, navigate to the folder you wish to create your project in
+
+cd c:\Projects\ExcelerateWinApp
+dotnet new install DataJuggler.ExcelerateWinApp
+dotnet new DataJuggler.ExcelerateWinApp
+or
+
+Clone ExcelerateWinApp from GitHub https://github.com/DataJuggler/ExcelerateWinApp
+
+
 7.22.2023: I have completed ExcelHelper.SaveWorksheet method. This is a major milestone
 so I have updated the project to 7.4.0.
 
