@@ -8,6 +8,8 @@ Code Generate C# Classes From Excel Header Rows
 
 # Updates
 
+8.13.2023: DataJuggler.UltimateHelper was updated.
+
 7.24.2023: New Video
 
 The Best C# Excel Library In The Galaxy
