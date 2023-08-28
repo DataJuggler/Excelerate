@@ -557,6 +557,27 @@ namespace DataJuggler.Excelerate
                 return worksheet;
             }
             #endregion
+
+            #region LoadWorksheet(string path, LoadWorksheetInfo loadWorksheetInfo)
+            /// <summary>
+            /// This method returns a single Worksheet. For this override worksheetInfo.Path must be set.
+            /// </summary>
+            public static Worksheet LoadWorksheet(WorksheetInfo worksheetInfo)
+            {
+                // initial value
+                Worksheet worksheet = null;
+
+                // If the worksheetInfo object exists
+                if (NullHelper.Exists(worksheetInfo))
+                {
+                    // call the override
+                    worksheet = LoadWorksheet(worksheetInfo.Path, worksheetInfo);
+                }
+                
+                // return value
+                return worksheet;
+            }
+            #endregion
             
         #endregion
         
