@@ -8,6 +8,8 @@ Code Generate C# Classes From Excel Header Rows
 
 # Updates
 
+11.14.2023: This project has been updated to .NET8.
+
 8.13.2023: DataJuggler.UltimateHelper was updated.
 
 7.24.2023: New Video

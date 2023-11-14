@@ -2,8 +2,8 @@
 
 #region using statements
 
+using DataJuggler.NET8;
 using System.Collections.Generic;
-using DataJuggler.Net7;
 
 #endregion
 
