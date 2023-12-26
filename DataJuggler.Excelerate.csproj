@@ -5,7 +5,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>DataJuggler</Authors>
-    <Description>Excelerate has been updated for .NET8. Use a 7.x version for .NET7, as 
+    <Description>Excelerate has been updated for .NET8. Use a 7.x version for .NET7, a 
 	6.x version for .NET6.
 
 Excelerate will change how you work with C# and Excel. Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it easy to load Workbooks or Worksheets. Excelerate now has a code generation feature, you can create a C# class from a header row.
@@ -355,8 +355,8 @@ This is the first release. I have just begun adding classes and helper methods t
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DataJuggler.Net8" Version="8.0.0" />
-    <PackageReference Include="DataJuggler.UltimateHelper" Version="8.0.0" />
+    <PackageReference Include="DataJuggler.Net8" Version="8.0.2" />
+    <PackageReference Include="DataJuggler.UltimateHelper" Version="8.0.5" />
     <PackageReference Include="EPPlus" Version="4.5.3.3" />
   </ItemGroup>
 
