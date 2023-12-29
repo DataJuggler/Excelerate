@@ -397,7 +397,6 @@ namespace DataJuggler.Excelerate
                 sb.Append("// Turn Loading On");
                 sb.Append(Environment.NewLine);
 
-
                 // Now add the indent3 (8 spaces extra)
                 sb.Append(indent3);
                 sb.Append("Loading = true;");
@@ -430,7 +429,7 @@ namespace DataJuggler.Excelerate
                         sb.Append(" = ");
 
                         // if Decimal, must cast as a double
-                        if (column.DataType == DataManager.DataTypeEnum.Decimal)
+                        if ((column.DataType == DataManager.DataTypeEnum.Decimal) || (column.DataType == DataManager.DataTypeEnum.Double))
                         {
                             // Cast as a double
                             sb.Append("(double) ");
@@ -454,6 +453,7 @@ namespace DataJuggler.Excelerate
                                 break;
 
                             case DataManager.DataTypeEnum.Decimal:
+                            case DataManager.DataTypeEnum.Double:
 
                                 // Set the value
                                 sb.Append("].DecimalValue;");
@@ -1190,34 +1190,31 @@ namespace DataJuggler.Excelerate
 
                         // Create a couple references
                         Reference reference = new Reference("DataJuggler.Excelerate", 1);
+                        Reference reference2 = new Reference("DataJuggler.Excelerate.Interfaces", 6);
                         
                         // Create the reference as .NET 8
-                        Reference reference2 = new Reference("DataJuggler.NET8", 2);
+                        Reference reference3 = new Reference("DataJuggler.NET8", 2);
                         
                         // Only .NET 6, .NET 7 and .NET8 are supported.
                         if (targetFramework == TargetFrameworkEnum.Net6)
                         {
                             // Set to .NET 6 version
-                            reference2.ReferenceName = "DataJuggler.Net6";
+                            reference3.ReferenceName = "DataJuggler.Net6";
                         }
                         else if (targetFramework == TargetFrameworkEnum.Net7)
                         {
                             // Set to .NET 6 version
-                            reference2.ReferenceName = "DataJuggler.Net7";
+                            reference3.ReferenceName = "DataJuggler.Net7";
                         }
 
-                        Reference reference3 = new Reference("DataJuggler.UltimateHelper", 3);
-                        Reference reference4 = new Reference("System", 4);
-                        Reference reference5 = new Reference("System.Collections.Generic", 5);
-                        Reference reference6 = new Reference("DataJuggler.Excelerate.Interfaces", 6);
+                        // Add a reference for UltimateHelper
+                        Reference reference4 = new Reference("DataJuggler.UltimateHelper", 3);                                                
 
                         // Add the references to the ReferencesSet
                         referencesSet.Add(reference);
                         referencesSet.Add(reference2);
                         referencesSet.Add(reference3);
-                        referencesSet.Add(reference4);
-                        referencesSet.Add(reference5);
-                        referencesSet.Add(reference6);
+                        referencesSet.Add(reference4);                        
 
                         // Set the references
                         dataManager.References = referencesSet;
