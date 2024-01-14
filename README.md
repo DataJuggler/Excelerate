@@ -1,5 +1,7 @@
 <img height=192 width=192 src=https://github.com/DataJuggler/Blazor.Excelerate/blob/main/wwwroot/Images/ExcelerateLogoSmallWhite.png>
 
+Update 1.14.2024: New Video - Import a Cities Database in Excel to SQL Server: https://youtu.be/6LsFP0puuyA
+
 Here is a short video:
 https://youtu.be/mj1h4_IRAQQ
 
