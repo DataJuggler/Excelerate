@@ -318,7 +318,7 @@ Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load 
 to a single worksheet.
 
 This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>8.0.4</Version>
+    <Version>8.0.5</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -355,8 +355,8 @@ This is the first release. I have just begun adding classes and helper methods t
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DataJuggler.Net8" Version="8.0.3" />
-    <PackageReference Include="DataJuggler.UltimateHelper" Version="8.0.5" />
+    <PackageReference Include="DataJuggler.Net8" Version="8.0.4" />
+    <PackageReference Include="DataJuggler.UltimateHelper" Version="8.0.6" />
     <PackageReference Include="EPPlus" Version="4.5.3.3" />
   </ItemGroup>
 
