@@ -11,7 +11,7 @@ Code Generate C# Classes From Excel Header Rows
 New Video:
 
 First Ever Opensource Saturday - Sunday Edition
-https://youtu.be/kohGlLIBMR0
+https://youtu.be/uxa1xR6xpzk
 
 # Updates
 
