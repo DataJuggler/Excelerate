@@ -355,7 +355,7 @@ This is the first release. I have just begun adding classes and helper methods t
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DataJuggler.Net8" Version="8.0.6" />
+    <PackageReference Include="DataJuggler.Net8" Version="8.0.7" />
     <PackageReference Include="DataJuggler.UltimateHelper" Version="8.0.8" />
     <PackageReference Include="EPPlus" Version="4.5.3.3" />
   </ItemGroup>
