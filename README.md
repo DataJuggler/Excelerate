@@ -6,6 +6,13 @@ Blazor.Excelerate
 https://excelerate.datajuggler.com 
 Code Generate C# Classes From Excel Header Rows
 
+# Update 5.18.2024
+
+New Video:
+
+First Ever Opensource Saturday - Sunday Edition
+https://youtu.be/kohGlLIBMR0
+
 # Updates
 
 12.29.2023: DataJuggler.Net8 was updated.
