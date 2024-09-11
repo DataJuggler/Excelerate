@@ -15,6 +15,10 @@ https://youtu.be/uxa1xR6xpzk
 
 # Updates
 
+9.11.2024: I updated NuGet package DataJuggler.UltimateHelper. I became aware this package is listed
+as having vulnerabilities, which I believe stem from using EPPPlus version 4.5.3.3 which is the last free
+version of EPPPlus. 
+
 12.29.2023: DataJuggler.Net8 was updated.
 
 12.26.2023: Updated DataJuggler.NET8 and this project to handle Target Framework of .NET8
