@@ -1,324 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>DataJuggler</Authors>
-    <Description>Excelerate has been updated for .NET8. Use a 7.x version for .NET7, a 
-	6.x version for .NET6.
+	<Description>
+		  Excelerate has been updated for .NET9. Use an 8.x version for .NET8, a
+		  7.x version for .NET7.
 
-Excelerate will change how you work with C# and Excel. Excelerate uses EPPPlus version 4.5.3.3 (last free version), and it makes it easy to load Workbooks or Worksheets. Excelerate now has a code generation feature, you can create a C# class from a header row.
-Excelerate also has helper classes to allow you load and save entire workbooks or worksheets without
-ever having referring to a cell. Use my free site https://excelerate.datajuggler.com to code generate C# classes from Excel header rows.
-ExcelDataLoader will load a workbook or worksheet by passing in a path and a WorksheetInfo object to specify what to load.
+		  Excelerate will change how you work with C# and Excel. Excelerate uses NPOI and it makes
+		  it easy to load Workbooks or Worksheets. Excelerate now has a code generation feature,
+		  you can create a C# class from a header row. Excelerate also has helper classes to allow
+		  you load and save entire workbooks or worksheets without ever having referring to a cell.
+		  Use my free site https://excelerate.datajuggler.com to code generate C# classes from Excel
+		  header rows. ExcelDataLoader will load a workbook by passing in a path or a Worksheet
+		  by passing in a a WorksheetInfo object to specify what to load.
 
-Background
-I have a couple of clients that I build programs that automate combining columns from multiple Worksheets to form reports.
-
-Rather than continue to write custom loaders, I really only need custom Exporters in most cases, so I created this project.</Description>
-    <Copyright>2023 - Use for whatever you want, give me credit if you like it.</Copyright>
+		  Background
+		  I have a couple of clients that I built programs that automate Excel processes. This 
+		  project streamlines Excel development.
+	</Description>
+    <Copyright>2024 - Use for whatever you want, give me credit if you like it.</Copyright>
     <PackageProjectUrl>https://github.com/DataJuggler/Excelerate</PackageProjectUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/DataJuggler/Excelerate.git</RepositoryUrl>
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
-    <PackageReleaseNotes>
-		11.14.2023: This project has been updated to .NET 8.
-		
-		8.13.2023: DataJuggler.UltimateHelper was updated.
-		
-		7.24.2023: New Video
-
-		The Best C# Excel Library In The Galaxy
-		https://youtu.be/uWXiz52cqlg
-
-		I also created a NuGet package for a WinForms project that includes all the needed
-		packages and has a progress bar wired up.
-
-		DataJuggler.ExcelerateWinApp
-
-		Install Instructions
-
-		To Install Via Nuget and DOT NET CLI, navigate to the folder you wish to create your project in
-
-		cd c:\Projects\ExcelerateWinApp
-		dotnet new install DataJuggler.ExcelerateWinApp
-		dotnet new DataJuggler.ExcelerateWinApp
-		or
-
-		Clone ExcelerateWinApp from GitHub https://github.com/DataJuggler/ExcelerateWinApp
-
-		7.22.2023: I have completed ExcelHelper.SaveWorksheet method. This is a major milestone
-		so I have updated the project to 7.4.0.
-
-		7.22.2023: I am in the process of redoing SaveRow for the code generated objects. Now each class
-		has two properties created. Loading, and ChangedColumns, which is a comma delimited string of
-		column indexes that have chagned. The next phase will be only saving columns that have changes.
-
-		7.21.2023: I added a property to the column object called HasChanges. In conjunection with this the class
-		ExcelHelper has an optional parameter to SaveBatch, SaveBatchItem and SaveRow to only save columns with
-		HasChanges = true. For now, you have to set this property on the column manually. I am investigating ways to
-		auto set this if the value changes from the time you loaded the object until you save it.
-
-		7.16.2023: DataJuggler.UltimateHelper, DataJuggler.Net7 was updated.
-
-		4.4.2023: I fixed the bug of DateTime columns not being set in Excel. I am setting all dates to Short
-		Date Format; you can switch it to show Time if needed in Excel by selecting Format Cells for the column.
-
-		4.2.2023: I am attempting to set Date columns as Dates in the CreateWorkbook method.
-		This feature is designed to work with DataJuggler.SQLSnapshot, when the fields' datatypes are set from
-		reading the database schema of a SQL Server database.
-
-		4.11.2023: I added a new delegate ProgressStatusCallback to DataJuggler.Net7 that can be passed into
-		the CreateWorkbook method to receive callbacks during long operations.
-
-		4.1.2023: Everyone who leaves a star on this project at https://github.com/DataJuggler/Excelerate
-		will be granted 3 wishes. Results may vary. Also, Package DataJuggler.Net7 was updated is why this
-		release is being published.
-
-		2.17.2023: I added a CreateWorkbook method. I am starting a new project called Excelerate.SQL and needed
-		this method.
-
-		12.16.2022 B: I removed Microsoft.Data.SqlClient.
-
-		12.16.2022: I started getting conflicts between versions of System.Text.Encoding.Pages
-		as the version installed from EPP Plus 4.5.x is &gt;= 4.7 and Microsoft.Data.SQLClient
-is &gt;= 5.0. My Blazor project started giving me conflicts. This is still being tested.
-
-
-12.11.2022: I added a property EditorClassName to the column object.
-Added another property for ZIndex. Used to set the EditorZIndex for the grid
-in DataJuggler.Blazor.Components.
-
-12.4.2022 C: I added EditMode property to the Column object.
-
-12.4.2022 B: I added a method FindColumnByNumber to the Row object.
-
-12.4.2022: I added a property EditText and another read only property EditorText to the Column object.
-If EditText is set, then EditorText returns EditText, else ColumnText is returned. There are times
-when the displayed text is part of a calculation and the user entered value is not the same
-as the column text. 
-
-11.15.2022: I added a TargetFrameworkEnum to the GenerateClassFromWorksheet method.
-Now you can generate for .NET 6 or .NET 7 (default).
-
-11.11.2202 C: I accidently named the property SetFocusOnFirstLoad, so I changed
-it to SetFocusOnFirstRender.
-
-11.15.2022: Attempting to pack the Read Me file with project.
-
-11.11.2022 B: I added a property SetFocusOnFirstRender to the Column object.
-
-11.11.2022: I added ExternalId and ExternalIdDescription properties to the
-Row object. This makes it easier for consumers to know what was just updated.
-
-11.10.2022 B:
-Added a Row property to a Column. Had RowNumber before, but Row gives you access to the parent.
-I added a read only property called ReadOnly if EditType == EditTypeEnum.ReadOnly.
-Also added a read only property 'IsEditable' which returns true if EditType is not ReadOnly.
-Makes it easier to determine if a column is read only or not.
-
-11.10.2022: I added an enumeration for EditorType, and now the column object has an Editortype.
-This is only for DataJuggler.Blazor.Components.Grid. 
-
-11.9.2022: I added a property EditMode bool for use in Blazor.
-
-11.8.2022: .NET7 is out of preview, so this version is now 7.0.4 (was 7.0.4-rc1).
-
-11.8.2022: I added ClassName property to the row object.
-
-11.7.2022: I added these properties for use with DataJuggler.Blazor.Components.Grid.
-Height
-Width
-Unit
-ClassName (used for styling classes using BlazorStyled).
-
-Also had two read only property WidthPlusUnit and HeightPlusUnit.
-
-
-
-10.31.2022
-v7.0.0-rc1: I updated this project to .NET 7. Use a 6.x version for .NET6.
-I will remove the -rc1 once .NET 7 is out of preview.
-
-9.28.2022: I fixed my earlier attempts at improving the data type. I wasn't removing $ signs,
-or taking them into account and I was getting strings for doubles. It isn't hard to switch if it
-generates wrong, but still I want this to do most of the work.
-
-9.28.2022: I improved the DataType scoring. Before I had a few hard coded items, but today
-I built a DataTypeScorer to look at 25 data rows for a column and attempt to determine the data type.
-
-4.1.2022: Version 6.0.1: I added ExcludedColumnIndexes. I have a project for a client and I need to skip two columns.
-This is brand new code, and not tested, so use with caution for now. April Fools, my code always works the 1st time!
-
-1.23.2022: This project was updated to .NET6.	
-	
-11.30.2021 (Take Four)
-Version 1.7.3: I fixed IsHeaderRow is set to true for the top row, for data that is loaded in LoadAllData which calls LoadWorksheet.
-Now the Load list method checks for the row is not a header row.
-		
-11.30.2021 (Take Three)
-Version 1.7.2: I changed an if statement to a compound if in CodeGenerator.cs (in the Load List override), and I forgot to 
-add an extra opening paren. Computers are so picky.
-		
-11.30.2021 (Take Two)
-Version 1.7.1: I realized the Load method for a list, needed row.Number &gt; 1 and row.HasColumns, because of the
-header row means you need to skeep the first row.
-		
-11.30.2021
-Version 1.7.0: I added a new feature to code generate a Load method override, that accepts a worksheet parameter,
-and will load a list of objects now. Saves writing a load method for each worksheet, now one line of code can take car of it.
-		
-11.10.2021 (Take Two)
-Version 1.5.1: .Net6.0 won't open the file. Testing with .Net 5.0.
-		
-11.10.2021 
-Version 1.5.0: Package now supports mullti-targeting net5.0 and net6.0.
-		
-11.8.2021 (Take Four)
-Version 1.4.2: My code generated NewRowMethod, used row.Columns.Add(column) instead of newRow.Columns.Add(column). I fixed this to use the variable name newRow.
-
-11.8.2021 (Take Four)
-Version 1.4.3: I fixed a stack overflow error (that I caused). 
-
-11.8.2021 (Take Three)
-Version 1.4.1: I realized I had to add a using statement reference for DataJuggler.Net5
-to the code generated classes.
-
-11.8.2021 (Take Two)
-Version 1.4.0: The Add New Method code generation appears to work. 
-I am updating Blazor Excelerate with this version and will continue to test.
-
-11.8.2021
-Version 1.3.14: First attempt at code generating the NewRow method.
-
-11.7.2021 (Take Two)
-Version 1.3.12: I added two new features:
-1. ColumnValue for a boolean column, can now be exported as 0 or 1 (instead of True / False).
-To use this, set ExportBooleanAsOneOrZero to true, and the DataType must be a DataManager.DataTypes.Boolean
-2. I added a FindColumn method to the row object, to make setting ExportBooleanAsOneOrZero easier.
-
-11.7.2021
-Version 1.3.10: BooleanHelper, part of DataJuggler.UltimateHelper had a bug in the ParseBoolean method.
-
-11.6.2021 (Take Four)
-Version 1.3.9: I set StringValue to an empty string if an error occurrs.
-
-11.6.2021 (Take Three)
-Version 1.3.8: Before 1.3.7 Nuget package email arrived that it was ready, I realized I needed to
-create the WorksheetInfo object in the constructor also.
-
-11.6.2021 (Take Two)
-Version 1.3.7: While working on Excelerate.WinForms.Deo, I realized I needed to create the Updates collection
-and I decided it saved two lines of code in my demo to do this in the constructor.
-
-11.6.2021
-Version 1.3.6: I created two new methods SaveBatch and SaveBatchItem.
-
-SaveBatch represents saving data from multple worksheets
-SaveBatchItem represents saving data from one worksheet.
-
-Both of these methods are untested, so at this time use with caution.
-
-11.4.2021 (Take Four)
-Version 1.3.5: I had forgotten to add saved = true to ExcelHelper.Save method at the end of the Save method.
-
-11.4.2021 (Take Three)
-Version 1.3.4: I discovered too late the ExcelHelper.Save method is not static. 
-
-11.4.2021 (Take Two)
-Version 1.3.3: My previous Save method had the return value in the wrong place.
-
-Hopefully this fixes it. I am too lazy to add the project and propertly debug it.
-
-11.4.2021
-Version 1.3.2: While working on Save I realized I needed to return the row from the code generated Save method
-so Excel can be updated. Save is still being tested, so use with caution.
-
-11.2.2021 (Take Two)
-Version 1.3.1: The previous version code generated the Save method incorrectly. This should fix it.
-
-11.2.2021
-Version 1.3.0: I now code generate a Save method, so the current Row.Column's ColumnValues are updated with the current value of this object.
-
-11.1.2021
-Version 1.2.8: I updated Worksheet.Columns is now set to first row.Columns when the Worksheet is loaded.
-I added a NewRow method, that returns a new row with the columns set.
-I updated AttemptToDetermineDataType to set ZipCode and PostalCode fields to a string, not an integer.
-
-Code Generating a Save method is next I think.
-
-10.31.2021 (Take Eight)
-This time, DataJuggler.UlimateHelper was updated. The ParseBoolean method got an upgrade.
-
-10.31.2021 (Take Seven)
-Version 1.2.6: I updated ParseBoolean to use DataJuggler.UltimateHelper.BooleanHelper.ParseBoolean. We will see if this converts a 1 to a true and a zero to a false. I think it does after 11 years.
-
-10.31.2021: (Take Six)
-Version 1.2.5: I fixed Active being a boolean, and discovered the LoadMethod was trying to set bool columns to a string value.
-
-10.31.2021: (Take Five)
-Version 1.2.4: I fixed the Active field = boolean. I need an else so the data type didn't get set to Int further in the AttemptToDetermineDataType method.
-
-10.31.2021: (Take Four)
-Version 1.2.3: Added a check for data type boolean. To make this work, convert Excel bool values to True False vs 0 and 1.
-
-10.31.2021 (Take Three)
-Version 1.2.2: Code generation is fixed with a reference to System is needed since Guid RowId has been added.
-
-10.31.2021 (Take Two)
-Version 1.2.1: I messed up the code generation in Version 1.2.0 because the RowId field wasn't getting a field name written. Should work now.
-
-10.31.2021: 
-Version 1.2.0: The code generation of the RowId seems to work, so the 1.2 version starts the Saving features.
-
-10.31.2021
-Version 1.1.10: I added RowNumber and Id (Guid) to class Row to help in saving, which I am just starting.
-
-10.16.2021
-Version 1.1.9: I added a new method LoadAllData, which returns a DataJuggler.Excelerate.Workbook, which contains all DataJuggler.Excelerate.Worksheets, which contain all DataJuggler.Excelerate.Rows of data.
-
-10.16.2021:
-Version 1.1.8: AppendPartialGuid is now an optional parameter, and only if true will the partial guid be appended to the filename.
-
-
-10.14.2021: 
-Version 1.1.7: CodeGenerator.GenerateClassFromWorksheet now returns an object of type CodeGenerationResponse. Previous version only returns a boolean, which wasn't very helpful for the caller.
-
-10.13.2021: New override for GetSheetNames takes a path argument.
-I am working on a new Blazor project called Blazor.Excelerate to demo this project.
-
-9.21.2021
-Version 1.1.5:
-I created an ExcelHelper class because I needed the GetColumnLetter feature of ExcelCellAddress.
-
-9.20.2021
-Version 1.1.4:
-I updated ExcelDataLoader to havea  LoadPackage method.
-
-9.20.2021:
-Version 1.1.3:
-I added an OriginalFileName property to class Column, so the exported column header can be the same as the original.
-
-9.17.2021
-Version 1.1.2:
-The Code Generator class is now finished, and a Load method has been updated to test for
-a null row or null row.Columns just to be safer.
-
-More updates may come in the future, but for now I have completed what I started this project for.
-For the amount of effort I put into this, I think the return on investment is quite satisfactory as
-now I can build Excel projects much faster. 
-
-9.17.2021
-Version 1.1.1: I now code generate a Load method with the Code Generator, so a Row can be used to load an instance of the class created. This is still being tested.
-
-9.15.2021
-Version 1.0.3: I added a LoadWorksheet override, so clients do not have to load a Workbook to get
-to a single worksheet.
-
-This is the first release. I have just begun adding classes and helper methods to this. It does work for now to load a worksheet and all the Rows / Columns. Each column is loaded as an object ColumnValue, than properties exist that cast the ColumnValue as a bool, datetime, Decimal or other types.</PackageReleaseNotes>
-    <Version>8.0.10</Version>
+    <PackageReleaseNotes>See Read Me</PackageReleaseNotes>
+    <Version>9.0.0</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -357,7 +67,7 @@ This is the first release. I have just begun adding classes and helper methods t
   <ItemGroup>
     <PackageReference Include="DataJuggler.Net8" Version="8.0.8" />
     <PackageReference Include="DataJuggler.UltimateHelper" Version="8.1.3" />
-    <PackageReference Include="EPPlus" Version="4.5.3.3" />
+    <PackageReference Include="NPOI" Version="2.7.2" />
   </ItemGroup>
 
   <ItemGroup>    

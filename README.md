@@ -6,6 +6,13 @@ Blazor.Excelerate
 https://excelerate.datajuggler.com 
 Code Generate C# Classes From Excel Header Rows
 
+# Major Update - EPPPlus has been removed and NPOI has replaced it.
+
+This was a pretty major switch, but EPPPlus had vulnerabilities in the last free version.
+I will be testing more in the near future, as I suspect there may be some issues switching from
+one based EPPPlus to 0 based in NPOI may not have been converted correctly.
+
+
 # Update 5.18.2024
 
 New Video:
@@ -15,9 +22,14 @@ https://youtu.be/uxa1xR6xpzk
 
 # Updates
 
-9.11.2024: I updated NuGet package DataJuggler.UltimateHelper. I became aware this package is listed
-as having vulnerabilities, which I believe stem from using EPPPlus version 4.5.3.3 which is the last free
+11.13.2024: EPPPlus was removed and NPOI has replaced it. This project was updated to .NET9.
+This version is still beiing tested. Use a version 8.x for now.
+
+9.11.2024: I updated NuGet package DataJuggler.UltimateHelper. I became aware this package 
+is listed as having vulnerabilities, which I believe stem from using EPPPlus version 4.5.3.3 which is the last free
 version of EPPPlus. 
+
+Edit 11.13.2024: NPOI has now replaced EPPPlus
 
 12.29.2023: DataJuggler.Net8 was updated.
 

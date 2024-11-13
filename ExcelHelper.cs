@@ -8,8 +8,8 @@ using DataJuggler.NET8;
 using DataJuggler.NET8.Delegates;
 using DataJuggler.UltimateHelper;
 using DataJuggler.UltimateHelper.Objects;
-using OfficeOpenXml;
-using OfficeOpenXml.Style;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -30,21 +30,21 @@ namespace DataJuggler.Excelerate
 
         #region Methods
 
-            #region CreateWorkbook(FileInfo worksheetInfo, List<LoadWorksheetInfo> worksheets, ProgressStatusCallback callback = null, string fontName = "Verdana", double fontSize = 11)
+            #region CreateWorkbook(FileInfo workbookFileInfo, List<LoadWorksheetInfo> worksheets, ProgressStatusCallback callback = null, string fontName = "Verdana", double fontSize = 11)
             /// <summary>
             /// Creates an Excel Workbook. When called by SQLSnapshot, the datarows and fields can be loaded and written out here.
             /// </summary>
-            public static void CreateWorkbook(FileInfo worksheetInfo, List<WorksheetInfo> worksheets, ProgressStatusCallback callback = null, string fontName = "Verdana", double fontSize = 11)
+            public static void CreateWorkbook(FileInfo workbookFileInfo, List<WorksheetInfo> worksheets, ProgressStatusCallback callback = null, string fontName = "Verdana", double fontSize = 11)
             {
-                // Create a new instance of an 'ExcelPackage' object.
-                ExcelPackage excel = new ExcelPackage();
-
                 // locals
                 int index = 0;
-                int rowNumber = 1;
+                int rowNumber = 0;
                 int startRowNumber = 1;
                 int progress = 0;
                 int subProgress = 0;
+
+                // Create a new workbook
+                XSSFWorkbook workbook = new XSSFWorkbook();
 
                 // If the worksheets collection exists and has one or more items
                 if (ListHelper.HasOneOrMoreItems(worksheets))
@@ -70,10 +70,42 @@ namespace DataJuggler.Excelerate
                             callback(worksheets.Count * 2, worksheets.Count + progress, "Exporting data rows", sheet.Rows.Count, 0, "Exporting sheet " + sheet.SheetName);
                         }
 
-                        // Create the sheet
-                        ExcelWorksheet worksheet = excel.Workbook.Worksheets.Add(sheet.SheetName);
+                        // Styles needed for formatting
+
+                        // Create a cell style for date formatting
+                        ICellStyle dateCellStyle = workbook.CreateCellStyle();
+                        short dateFormat = workbook.CreateDataFormat().GetFormat(DateTimeFormatInfo.CurrentInfo.ShortDatePattern);
+                        dateCellStyle.Alignment = HorizontalAlignment.Left;
+                        dateCellStyle.DataFormat = dateFormat;
+
+                        // Define the font and cell style
+                        IFont boldFont = workbook.CreateFont();
+                        boldFont.FontName = fontName;
+                        boldFont.FontHeightInPoints = fontSize;
+                        boldFont.IsBold = true;
+                        ICellStyle boldCellStyle = workbook.CreateCellStyle();
+                        // Center the Header Row
+                        boldCellStyle.Alignment = HorizontalAlignment.Center;
+                        boldCellStyle.SetFont(boldFont);
+
+                        // Create a cell style for font and alignment
+                        ICellStyle cellStyle = workbook.CreateCellStyle();
+
+                        // Set font settings
+                        IFont font = workbook.CreateFont();
+                        font.FontName = fontName;
+                        font.FontHeightInPoints = fontSize;
+                        font.IsBold = false;
+                        cellStyle.Alignment = HorizontalAlignment.Left;
+                        cellStyle.SetFont(font);
+
+                        // Create a new sheet in the workbook
+                        ISheet worksheet = workbook.CreateSheet(sheet.SheetName);
 
                         // Beging writing header row
+
+                        // Create a row in the sheet
+                        IRow headerRow = worksheet.CreateRow(0);
 
                         // if the Fields collection exists
                         if (sheet.HasFields)
@@ -87,15 +119,21 @@ namespace DataJuggler.Excelerate
                                 index++;
 
                                 // Set the fieldName
-                                worksheet.Cells[rowNumber, index].Value = field.FieldName;    
+                                ICell cell = headerRow.CreateCell(index);
+
+                                // Set the fieldName
+                                cell.SetCellValue(field.FieldName);
+
+                                // Set to bold
+                                cell.CellStyle = boldCellStyle;
                             }
 
-                            // Set the header to bold
-                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Name = fontName;
-                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Size = (float) fontSize;
-                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.Font.Bold = true;
-                            worksheet.Cells[rowNumber, 1, rowNumber, index].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                            worksheet.Cells[rowNumber, 1, rowNumber, index].AutoFitColumns();
+                            // Auto-fit the columns
+                            for (int i = 0; i <= index; i++)
+                            {
+                                // Auto fit the columns
+                                worksheet.AutoSizeColumn(i);
+                            }
 
                             // Increment the value for rowNumber
                             rowNumber++;
@@ -122,6 +160,9 @@ namespace DataJuggler.Excelerate
                                 // reset
                                 index = 0;
                                 subProgress = 0;
+
+                                // Create a row in the sheet
+                                IRow currentRow = worksheet.CreateRow(rowNumber);
                                 
                                 // if there are one or more fields
                                 if (ListHelper.HasOneOrMoreItems(row.Fields))
@@ -133,17 +174,21 @@ namespace DataJuggler.Excelerate
                                         index++;
 
                                         // Set the fieldName
-                                        worksheet.Cells[rowNumber, index].Value = field.FieldValue;
+                                        ICell cell = headerRow.CreateCell(index);
 
-                                        // if the first row
-                                        if (rowNumber == 2)
+                                        // Set the fieldName
+                                        cell.SetCellValue(field.FieldName);
+
+                                        // if this is a date
+                                        if (field.DataType == DataManager.DataTypeEnum.DateTime)
                                         {
-                                            // if this is a date
-                                            if (field.DataType == DataManager.DataTypeEnum.DateTime)
-                                            {
-                                                // Format the column as a date (testing this now)
-                                                worksheet.Column(index).Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                                            }
+                                            // Setup as a date
+                                            cell.CellStyle = dateCellStyle;
+                                        }
+                                        else
+                                        {
+                                            // Set up default font and size plus left alignment
+                                            cell.CellStyle = cellStyle;
                                         }
                                     }
                                 }
@@ -165,11 +210,6 @@ namespace DataJuggler.Excelerate
                                     }
                                 }
                             }
-
-                            // Format the data rows
-                            worksheet.Cells[startRowNumber, 1, rowNumber, index].Style.Font.Name = fontName;
-                            worksheet.Cells[startRowNumber, 1, rowNumber, index].Style.Font.Size = (float) fontSize;                
-                            worksheet.Cells[startRowNumber, 1, rowNumber, index].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;                            
                         }
 
                         // Increment the value for progress
@@ -184,22 +224,11 @@ namespace DataJuggler.Excelerate
                     }
                 }
 
-                // Save the file
-                excel.SaveAs(worksheetInfo);
-            }
-            #endregion
-            
-            #region GetColumnLetter(int column)
-            /// <summary>
-            /// returns the Column Letter for the column index (1 = A, 2 = B, 27 = AA, 78 = "ZZZ" I think)
-            /// </summary>
-            public static string GetColumnLetter(int column)
-            {
-                // initial value
-                string columnLetter = ExcelCellAddress.GetColumnLetter(column);
-                
-                // return value
-                return columnLetter;
+                // Now Save the workbook
+                using (var fileStream = new FileStream(workbookFileInfo.FullName, FileMode.Create, FileAccess.Write))
+                {
+                    workbook.Write(fileStream);
+                }
             }
             #endregion
             
@@ -257,13 +286,15 @@ namespace DataJuggler.Excelerate
                 // initial value
                 bool saved = false;
 
+                 // load the package
+                XSSFWorkbook workbook = null;
+
                 try
                 {   
                     // if the batch exists and the batch has BatchItems (represents a Worksheet) and the path to the Excel file exists on disk
                     if ((NullHelper.Exists(batch)) && (batch.HasBatchItems) && (FileHelper.Exists(path)))
                     {
-                        // load the package
-                        ExcelPackage package = ExcelDataLoader.LoadExcelPackage(path);
+                       workbook = ExcelDataLoader.LoadExcelWorkbook(path);
                         
                         // iterate the batchItems
                         foreach (BatchItem batchItem in batch.BatchItems)
@@ -272,29 +303,38 @@ namespace DataJuggler.Excelerate
                             if ((batchItem.HasUpdates) && (batchItem.HasWorksheetInfo))
                             {
                                 // Get the sheet
-                                ExcelWorksheet excelworksheet = package.Workbook.Worksheets.FirstOrDefault(x => x.Name == batchItem.WorksheetInfo.SheetName);
+                                ISheet excelworksheet = workbook.GetSheet(batchItem.WorksheetInfo.SheetName);
 
                                 // If the excelworksheet object exists
                                 if (NullHelper.Exists(excelworksheet))
                                 {
                                     // iterate the rows to update
                                     foreach (Row row in batchItem.Updates)
-                                    {  
+                                    {
+                                        // Get the row
+                                        IRow currentRow = excelworksheet.GetRow(row.Number);
+
                                         // If the value for the property rowNumber.HasColumns is true
                                         if (row.HasColumns)
                                         {
                                             // iterate the rows
                                             foreach (Column column in row.Columns)
                                             {
-                                                if ((onlyColumnsWithChanges) && (column.HasChanges))
+                                                // Get the cell
+                                                ICell cell = currentRow.GetCell(column.ColumnNumber);
+
+                                                if (NullHelper.Exists(cell))
                                                 {
-                                                    // Set the value
-                                                    excelworksheet.SetValue(column.RowNumber, column.ColumnNumber, column.ColumnValue);
-                                                }
-                                                else
-                                                {
-                                                    // Set the value
-                                                    excelworksheet.SetValue(column.RowNumber, column.ColumnNumber, column.ColumnValue);
+                                                    if ((onlyColumnsWithChanges) && (column.HasChanges))
+                                                    {
+                                                        // Set the value
+                                                        cell.SetCellValue(column.ColumnValue.ToString());
+                                                    }
+                                                    else
+                                                    {
+                                                        // Set the value
+                                                        cell.SetCellValue(column.ColumnValue.ToString());
+                                                    }
                                                 }
                                             }
                                         }
@@ -303,8 +343,12 @@ namespace DataJuggler.Excelerate
                             }
                         }
 
-                        // Save the package
-                        package.Save();
+                        // Save the workbook to a file
+                        using (var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write))
+                        {
+                            // write changes
+                            workbook.Write(fileStream);
+                        }
 
                         // all is good
                         saved = true;
@@ -335,41 +379,59 @@ namespace DataJuggler.Excelerate
                     // if the batchItem exists and the batchItem has Updates (rows to update) and the path to the Excel file exists on disk
                     if ((NullHelper.Exists(batchItem)) && (batchItem.HasUpdates) && (batchItem.HasWorksheetInfo) && (FileHelper.Exists(path)))
                     {
-                        // load the package
-                        ExcelPackage package = ExcelDataLoader.LoadExcelPackage(path);
+                        // Load the workbook
+                        XSSFWorkbook workbook = ExcelDataLoader.LoadExcelWorkbook(path);
 
-                        // Get the sheet
-                        ExcelWorksheet excelworksheet = package.Workbook.Worksheets.FirstOrDefault(x => x.Name == batchItem.WorksheetInfo.SheetName);
-
-                        // If the excelworksheet object exists
-                        if (NullHelper.Exists(excelworksheet))
+                        // If the workbook object exists
+                        if (NullHelper.Exists(workbook))
                         {
-                            // iterate the rows to update
-                            foreach (Row row in batchItem.Updates)
+                            // Get the sheet
+                            ISheet excelworksheet = workbook.GetSheet(batchItem.WorksheetInfo.SheetName);
+
+                            // If the excelworksheet object exists
+                            if (NullHelper.Exists(excelworksheet))
                             {
-                                // If the value for the property rowNumber.HasColumns is true
-                                if (row.HasColumns)
+                                // iterate the rows to update
+                                foreach (Row row in batchItem.Updates)
                                 {
-                                    // iterate the rows
-                                    foreach (Column column in row.Columns)
+                                    // If the value for the property rowNumber.HasColumns is true
+                                    if (row.HasColumns)
                                     {
-                                        if ((onlyColumnsWithChanges) && (column.HasChanges))
+                                        // Find this row
+                                        IRow currentRow = excelworksheet.GetRow(row.Number);
+
+                                        // iterate the rows
+                                        foreach (Column column in row.Columns)
                                         {
-                                            // Set the value
-                                            excelworksheet.SetValue(column.RowNumber, column.ColumnNumber, column.ColumnValue);
-                                        }
-                                        else
-                                        {
-                                            // Set the value
-                                            excelworksheet.SetValue(column.RowNumber, column.ColumnNumber, column.ColumnValue);
+                                            // Get the cell
+                                            ICell cell = currentRow.GetCell(column.ColumnNumber);
+
+                                            // If the cell object exists
+                                            if (NullHelper.Exists(cell))
+                                            {
+                                                if ((onlyColumnsWithChanges) && (column.HasChanges))
+                                                {
+                                                    // Set the value
+                                                    SetOptimizedCellValue(cell, column.ColumnValue);
+                                                }
+                                                else
+                                                {
+                                                    // Set the value
+                                                    SetOptimizedCellValue(cell, column.ColumnValue);
+                                                }
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
 
-                        // Save the package
-                        package.Save();
+                        // Save the workbook to a file
+                        using (var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write))
+                        {
+                            // write changes
+                            workbook.Write(fileStream);
+                        }
 
                         // all is good
                         saved = true;
@@ -395,38 +457,60 @@ namespace DataJuggler.Excelerate
                 // initial value
                 bool saved = false;
 
+                // Load the excel workbook
+                XSSFWorkbook excelWorkbook = null;
+
                 try
                 {   
                     // if the worksheet exists and the worksheet.WorksheetInfo exists and the path to the worksheet exists
                     if ((NullHelper.Exists(worksheet, row)) && (worksheet.HasWorksheetInfo) && (FileHelper.Exists(path)) && (row.HasColumns))
                     {
-                        // load the package
-                        ExcelPackage package = ExcelDataLoader.LoadExcelPackage(path);
+                        // Load the workbook
+                        excelWorkbook = ExcelDataLoader.LoadExcelWorkbook(path);
 
-                        // Get the sheet
-                        ExcelWorksheet excelworksheet = package.Workbook.Worksheets.FirstOrDefault(x => x.Name == worksheet.Name);
-
-                        // If the excelworksheet object exists
-                        if (NullHelper.Exists(excelworksheet))
+                        // if exists
+                        if (NullHelper.Exists(excelWorkbook))
                         {
-                            // iterate the rows
-                            foreach (Column column in row.Columns)
+                            // Get the sheet
+                            ISheet excelworksheet = excelWorkbook.GetSheet(worksheet.Name);
+
+                            // Find the currentRow
+                            IRow currentRow = excelworksheet.GetRow(row.Number);
+
+                            // If the excelworksheet object exists
+                            if (NullHelper.Exists(excelworksheet))
                             {
-                                if ((onlyColumnsWithChanges) && (column.HasChanges))
+                                // iterate the rows
+                                foreach (Column column in row.Columns)
                                 {
-                                    // Set the value
-                                    excelworksheet.SetValue(column.RowNumber, column.ColumnNumber, column.ColumnValue);
-                                }
-                                else
-                                {
-                                    // Set the value
-                                    excelworksheet.SetValue(column.RowNumber, column.ColumnNumber, column.ColumnValue);
+                                    // Find the Cell
+                                    ICell cell = currentRow.GetCell(column.ColumnNumber);
+
+                                    // If the cell object exists
+                                    if (NullHelper.Exists(cell))
+                                    {
+                                        // if only columns with changes and this column has changes
+                                        if ((onlyColumnsWithChanges) && (column.HasChanges))
+                                        {
+                                            // Set the value
+                                            SetOptimizedCellValue(cell, column.ColumnValue);
+                                        }
+                                        else
+                                        {
+                                            // Set the value
+                                            SetOptimizedCellValue(cell, column.ColumnValue);
+                                        }
+                                    }
                                 }
                             }
                         }
 
-                        // Save the package
-                        package.Save();
+                        // Save the workbook to a file
+                        using (var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write))
+                        {
+                            // write changes
+                            excelWorkbook.Write(fileStream);
+                        }
 
                         // all is good
                         saved = true;
@@ -518,6 +602,36 @@ namespace DataJuggler.Excelerate
                 
                 // return value
                 return response;
+            }
+            #endregion
+            
+            #region SetOptimizedCellValue(ICell cell, object value)
+            /// <summary>
+            /// method returns the Optimized Cell Value
+            /// </summary>
+            public static void SetOptimizedCellValue(ICell cell, object value)
+            {
+                if (value is bool boolValue)
+                {
+                    cell.SetCellValue(boolValue);
+                }
+                else if (value is double doubleValue)
+                {
+                    cell.SetCellValue(doubleValue);
+                }
+                else if (value is int intValue)
+                {
+                    cell.SetCellValue(intValue);
+                }
+                else if (value is string stringValue)
+                {
+                    cell.SetCellValue(stringValue);
+                }
+                // Add other types as needed
+                else
+                {
+                    cell.SetCellValue(value.ToString());
+                }
             }
             #endregion
             

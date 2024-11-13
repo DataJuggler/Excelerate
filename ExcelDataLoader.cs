@@ -3,11 +3,14 @@
 #region using statements
 
 using DataJuggler.UltimateHelper;
-using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using NPOI;
+using NPOI.Util;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 
 #endregion
 
@@ -23,24 +26,42 @@ namespace DataJuggler.Excelerate
         
         #region Methods
 
-            #region GetCellText(ExcelWorksheet sheet, int row, int col)
+           #region GetCellText(ISheet sheet, int row, int col)
             /// <summary>
             /// This method returns the Cell Text (what you see, including formatting)
             /// </summary>
-            public static string GetCellText(ExcelWorksheet sheet, int row, int col)
+            public static string GetCellText(ISheet sheet, int row, int col)
             {
                 // initial value
                 string cellText = "";
 
-                // If the sheet object exists
-                if (NullHelper.Exists(sheet))                
+                try
                 {
-                    // if the value of this cell exists
-                    if (NullHelper.Exists(sheet.Cells[row, col].Value))
-                    {
-                        // Setg retue
-                        cellText = sheet.Cells[row, col].Text;
+                    // if the row is in range
+                    if (row < sheet.LastRowNum)
+                    {  
+                        // Get the row
+                        IRow currentRow = sheet.GetRow(row);
+
+                        // if the cell is in range
+                        if (col < currentRow.LastCellNum)
+                        {
+                            // Get the cell
+                            ICell cell = currentRow.GetCell(col);
+
+                            // if the cell exists
+                            if ((NullHelper.Exists(cell)) && (TextHelper.Exists(cell.ToString())))
+                            {  
+                                // Setg retue
+                                cellText = cell.ToString();
+                            }
+                        }
                     }
+                }
+                catch (Exception error)
+                {   
+                    // Return Exception
+                    cellText = "Exception: " + error.ToString();
                 }
 
                 // return value
@@ -52,20 +73,65 @@ namespace DataJuggler.Excelerate
             /// <summary>
             /// This method returns the Cell Value
             /// </summary>
-            public static object GetCellValue(ExcelWorksheet sheet, int row, int col)
+            public static object GetCellValue(ISheet sheet, int row, int col)
             {
                 // initial value
                 object cellValue = "";
 
-                // If the sheet object exists
-                if (NullHelper.Exists(sheet))                
+                try
                 {
-                    // if the value of this cell exists
-                    if (NullHelper.Exists(sheet.Cells[row, col].Value))
-                    {
-                        // Setg retue
-                        cellValue = sheet.Cells[row, col].Value;
+                    // if the row is in range
+                    if (row < sheet.LastRowNum)
+                    {  
+                        // Get the row
+                        IRow currentRow = sheet.GetRow(row);
+
+                        // if the cell is in range
+                        if (col < currentRow.LastCellNum)
+                        {
+                            // Get the cell
+                            ICell cell = currentRow.GetCell(col);
+
+                            // if the cell exists
+                            if (NullHelper.Exists(cell))
+                            {
+                                switch (cell.CellType)
+                                {
+                                    case CellType.Boolean:
+                                        cellValue = cell.BooleanCellValue;
+                                        break;
+
+                                    case CellType.Numeric:
+                                        if (DateUtil.IsCellDateFormatted(cell))
+                                            cellValue = cell.DateCellValue;
+                                        else
+                                            cellValue = cell.NumericCellValue;
+                                        break;
+
+                                    case CellType.String:
+                                        cellValue = cell.StringCellValue;
+                                        break;
+
+                                    case CellType.Blank:
+                                        cellValue = null;
+                                        break;
+
+                                    case CellType.Formula:
+                                        cellValue = GetFormulaCellValue(cell);
+                                        break;
+
+                                    default:
+                                        cellValue = cell.ToString();
+                                        break;
+                                }
+                            }
+                        }
                     }
+                }
+                catch (Exception error)
+                {   
+                    // Return Exception
+                    cellValue = "Exception: " + error.ToString();
                 }
 
                 // return value
@@ -73,11 +139,11 @@ namespace DataJuggler.Excelerate
             }           
             #endregion
             
-            #region GetColumnIndex(ExcelWorksheet excelWorksheet, string columnName)
+            #region GetColumnIndex(ISheet excelWorksheet, string columnName)
             /// <summary>
             /// This method returns the Column Index
             /// </summary>
-            public static int GetColumnIndex(ExcelWorksheet excelWorksheet, string columnName)
+            public static int GetColumnIndex(ISheet excelWorksheet, string columnName)
             {
                 // initial value
                 int columnIndex = -1;
@@ -85,12 +151,82 @@ namespace DataJuggler.Excelerate
                 // If the columnName string exists
                 if ((TextHelper.Exists(columnName)) && (NullHelper.Exists(excelWorksheet)))
                 {
-                    // Set the return value
-                    columnIndex = excelWorksheet.Cells["1:1"].First(c => c.Value.ToString() == columnName).Start.Column;
+                    // Iterate through the first row (header row) to find the column name
+                    IRow headerRow = excelWorksheet.GetRow(0);
+
+                    for (int i = 0; i < headerRow.LastCellNum; i++)
+                    {
+                        ICell cell = headerRow.GetCell(i);
+                        if (cell != null && cell.CellType == CellType.String && cell.StringCellValue.Trim() == columnName)
+                        {
+                            columnIndex = i;
+                            break;
+                        }
+                    }
                 }
                 
                 // return value
                 return columnIndex;
+            }
+            #endregion
+            
+            #region GetFormulaCellValue(ICell cell)
+            /// <summary>
+            /// method returns the Formula Cell Value
+            /// </summary>
+            public static object GetFormulaCellValue(ICell cell)
+            {
+                // initial value
+                object cellValue;
+
+                switch (cell.CachedFormulaResultType)
+                {
+                    case CellType.Boolean:
+                        cellValue = cell.BooleanCellValue;
+
+                        // required                        
+                        break;
+                    
+                    case CellType.Numeric:
+                    
+                        if (DateUtil.IsCellDateFormatted(cell))
+                        {
+                            // set the return value
+                            cellValue = cell.DateCellValue;
+                        }
+                        else
+                        {
+                            // set the return value
+                            cellValue = cell.NumericCellValue;
+                        }
+
+                        // required
+                        break;
+                    
+                    case CellType.String:
+
+                        // set the return value
+                        cellValue = cell.StringCellValue;
+
+                    break;
+                    
+                    case CellType.Blank:
+
+                        // null
+                        cellValue = null;
+
+                        // required
+                        break;
+                    
+                    default:
+
+                        // Return as a string
+                        cellValue = cell.ToString();
+
+                        // required
+                        break;
+                }
+                return cellValue;
             }
             #endregion
             
@@ -103,16 +239,17 @@ namespace DataJuggler.Excelerate
                 // initial value
                 List<string> sheetNames = new List<string>();
 
-                // Load the excelWorkbook
-                ExcelWorkbook excelWorkbook = LoadExcelWorkbook(path);
-
-                // If the excelWorkbook object exists
-                if (NullHelper.Exists(excelWorkbook))
+                // verify the path exists
+                if ((TextHelper.Exists(path)) && (FileHelper.Exists(path)))
                 {
-                    for (int x = 0; x < excelWorkbook.Worksheets.Count; x++)
+                    // Open the Excel file
+                    using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read))
                     {
-                        // Add this name
-                        sheetNames.Add(excelWorkbook.Worksheets[x].Name);
+                        // Create the workbook
+                        IWorkbook workbook = WorkbookFactory.Create(fileStream);
+
+                        // Get the sheetNames from the override
+                        sheetNames = GetSheetNames(workbook);                    
                     }
                 }
 
@@ -121,22 +258,23 @@ namespace DataJuggler.Excelerate
             }
             #endregion
 
-            #region GetSheetNames(ExcelWorkbook excelWorkbook)
+            #region GetSheetNames(IWorkbook excelWorkbook)
             /// <summary>
             /// method returns the Sheet Names for the workbook given
             /// </summary>
-            public static List<string> GetSheetNames(ExcelWorkbook excelWorkbook)
+            public static List<string> GetSheetNames(IWorkbook workbook)
             {
                 // initial value
                 List<string> sheetNames = new List<string>();
 
-                // If the excelWorkbook object exists
-                if (NullHelper.Exists(excelWorkbook))
+                // If the workbook object exists
+                if (NullHelper.Exists(workbook))
                 {
-                    for (int x = 0; x < excelWorkbook.Worksheets.Count; x++)
+                    // Iterate through the sheets
+                    for (int i = 0; i < workbook.NumberOfSheets; i++)
                     {
-                        // Add this name
-                        sheetNames.Add(excelWorkbook.Worksheets[x].Name);
+                        // Add the sheet name to the list
+                        sheetNames.Add(workbook.GetSheetName(i));
                     }
                 }
 
@@ -155,7 +293,7 @@ namespace DataJuggler.Excelerate
                 Workbook workbook = null;
 
                 // load the workbook
-                ExcelWorkbook excelWorkbook = LoadExcelWorkbook(path);
+                XSSFWorkbook excelWorkbook = LoadExcelWorkbook(path);
                     
                 // If the excelWorkbook object exists
                 if (NullHelper.Exists(excelWorkbook))
@@ -199,50 +337,24 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
-            #region LoadExcelPackage(string path)
-            /// <summary>
-            /// returns the Excel Package
-            /// </summary>
-            public static ExcelPackage LoadExcelPackage(string path)
-            {
-                // initial value
-                ExcelPackage excelPackage = null;
-
-                 // If the path string exists
-                if (TextHelper.Exists(path))
-                {
-                    // Create a new instance of a 'FileInfo' object.
-                    FileInfo fileInfo = new FileInfo(path);
-
-                    // Create the package
-                    excelPackage = new ExcelPackage(fileInfo);
-                }
-                
-                // return value
-                return excelPackage;
-            }
-            #endregion
-            
             #region LoadExcelWorkbook(string path)
             /// <summary>
             /// This method returns the Excel Workbook
             /// </summary>
-            public static ExcelWorkbook LoadExcelWorkbook(string path)
+            public static XSSFWorkbook LoadExcelWorkbook(string path)
             {
                 // initial value
-                ExcelWorkbook excelWorkbook = null;
+                XSSFWorkbook excelWorkbook = null;
 
                 // If the path string exists
                 if (TextHelper.Exists(path))
                 {
-                    // Create a new instance of a 'FileInfo' object.
-                    FileInfo fileInfo = new FileInfo(path);
-
-                    // Create the package
-                    var package = new ExcelPackage(fileInfo);
-
-                    // get the workbook
-                    excelWorkbook = package.Workbook;                    
+                    // load the Workbook
+                    using (var stream = new FileStream(path, FileMode.Open))
+                    {
+                        stream.Position = 0;
+                        XSSFWorkbook xssWorkbook = new XSSFWorkbook(stream);
+                    }
                 }
                 
                 // return value
@@ -264,15 +376,9 @@ namespace DataJuggler.Excelerate
                 // If the path string exists and there is one or more sheetsToLoad
                 if (TextHelper.Exists(path) && (ListHelper.HasOneOrMoreItems(sheetsToLoad)))
                 {
-                    // Create a new instance of a 'FileInfo' object.
-                    FileInfo fileInfo = new FileInfo(path);
+                    // Load the workbook
+                    XSSFWorkbook excelWorkbook = LoadExcelWorkbook(path);
 
-                    // Create the package
-                    var package = new ExcelPackage(fileInfo);
-
-                    // get the workbook
-                    ExcelWorkbook excelWorkbook = package.Workbook;
-                
                     // If the excelWorkbook object exists
                     if (NullHelper.Exists(excelWorkbook))
                     {
@@ -314,11 +420,8 @@ namespace DataJuggler.Excelerate
                     // Create a new instance of a 'FileInfo' object.
                     FileInfo fileInfo = new FileInfo(path);
 
-                    // Create the package
-                    var package = new ExcelPackage(fileInfo);
-
-                    // get the workbook
-                    ExcelWorkbook excelWorkbook = package.Workbook;
+                    // Load the workbook
+                    XSSFWorkbook excelWorkbook = LoadExcelWorkbook(path);
 
                     // If the excelWorkbook object exists
                     if (NullHelper.Exists(excelWorkbook))
@@ -340,11 +443,11 @@ namespace DataJuggler.Excelerate
             }
             #endregion
 
-            #region LoadWorksheet(ExcelWorkbook excelWorkbook, LoadWorksheetInfo loadWorksheetInfo)
+            #region LoadWorksheet(XSSFWorkbook excelWorkbook, LoadWorksheetInfo loadWorksheetInfo)
             /// <summary>
             /// This method returns the Worksheet
             /// </summary>
-            public static Worksheet LoadWorksheet(ExcelWorkbook excelWorkbook, WorksheetInfo loadWorksheetInfo)
+            public static Worksheet LoadWorksheet(XSSFWorkbook excelWorkbook, WorksheetInfo loadWorksheetInfo)
             {
                 // initial value
                 Worksheet worksheet = null;
@@ -363,14 +466,15 @@ namespace DataJuggler.Excelerate
                     try
                     {
                         //reading Project Information
-                        ExcelWorksheet excelWorksheet = excelWorkbook.Worksheets[loadWorksheetInfo.SheetName];
+                        ISheet excelWorksheet = excelWorkbook.GetSheet(loadWorksheetInfo.SheetName);
 
                         // If the excelWorksheet object exists
                         if (NullHelper.Exists(excelWorksheet))
                         {
                             // set the rowCount and colCount
-                            int rowCount = excelWorksheet.Dimension.Rows;
-                            int colCount = excelWorksheet.Dimension.Columns;
+                            int rowCount = excelWorksheet.LastRowNum;
+                            IRow headerRow = excelWorksheet.GetRow(0);
+                            int colCount = headerRow.LastCellNum;
 
                             // if the MawRowsToLoad is set and the MaxRowsToLoad is less than RowCount
                             if ((loadWorksheetInfo.MaxRowsToLoad > 0) && (loadWorksheetInfo.MaxRowsToLoad < rowCount))
