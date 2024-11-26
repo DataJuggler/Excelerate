@@ -4,8 +4,8 @@
 
 using DataJuggler.Excelerate.Delegates;
 using DataJuggler.Excelerate.Interfaces;
-using DataJuggler.NET8;
-using DataJuggler.NET8.Delegates;
+using DataJuggler.NET9;
+using DataJuggler.NET9.Delegates;
 using DataJuggler.UltimateHelper;
 using DataJuggler.UltimateHelper.Objects;
 using NPOI.SS.UserModel;
