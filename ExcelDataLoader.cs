@@ -353,7 +353,7 @@ namespace DataJuggler.Excelerate
                     using (var stream = new FileStream(path, FileMode.Open))
                     {
                         stream.Position = 0;
-                        XSSFWorkbook xssWorkbook = new XSSFWorkbook(stream);
+                        excelWorkbook = new XSSFWorkbook(stream);
                     }
                 }
                 

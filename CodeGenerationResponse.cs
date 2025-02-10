@@ -24,9 +24,21 @@ namespace DataJuggler.Excelerate
         private bool success;
         private string fullPath;
         private string fileName;
+        private Exception exception;
         #endregion
         
         #region Properties
+            
+            #region Exception
+            /// <summary>
+            /// This property gets or sets the value for 'Exception'.
+            /// </summary>
+            public Exception Exception
+            {
+                get { return exception; }
+                set { exception = value; }
+            }
+            #endregion
             
             #region FileName
             /// <summary>
@@ -47,6 +59,23 @@ namespace DataJuggler.Excelerate
             {
                 get { return fullPath; }
                 set { fullPath = value; }
+            }
+            #endregion
+            
+            #region HasException
+            /// <summary>
+            /// This property returns true if this object has an 'Exception'.
+            /// </summary>
+            public bool HasException
+            {
+                get
+                {
+                    // initial value
+                    bool hasException = (Exception != null);
+
+                    // return value
+                    return hasException;
+                }
             }
             #endregion
             

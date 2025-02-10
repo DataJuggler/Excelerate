@@ -1193,7 +1193,7 @@ namespace DataJuggler.Excelerate
                         Reference reference2 = new Reference("DataJuggler.Excelerate.Interfaces", 6);
                         
                         // Create the reference as .NET 8
-                        Reference reference3 = new Reference("DataJuggler.NET8", 2);
+                        Reference reference3 = new Reference("DataJuggler.NET9", 2);
                         
                         // Only .NET 6, .NET 7 and .NET8 are supported.
                         if (targetFramework == TargetFrameworkEnum.Net6)
@@ -1205,6 +1205,11 @@ namespace DataJuggler.Excelerate
                         {
                             // Set to .NET 6 version
                             reference3.ReferenceName = "DataJuggler.Net7";
+                        }
+                        else if (targetFramework == TargetFrameworkEnum.Net8)
+                        {
+                            // Set to .NET 6 version
+                            reference3.ReferenceName = "DataJuggler.Net8";
                         }
 
                         // Add a reference for UltimateHelper
