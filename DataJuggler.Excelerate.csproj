@@ -28,7 +28,7 @@
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
     <PackageReleaseNotes>See Read Me</PackageReleaseNotes>
-    <Version>9.0.2</Version>
+    <Version>9.0.3</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -66,8 +66,8 @@
 
   <ItemGroup>
     <PackageReference Include="DataJuggler.Net9" Version="9.0.3" />
-    <PackageReference Include="DataJuggler.UltimateHelper" Version="9.0.16" />
-    <PackageReference Include="NPOI" Version="2.7.2" />
+    <PackageReference Include="DataJuggler.UltimateHelper" Version="9.1.0" />
+    <PackageReference Include="NPOI" Version="2.7.3" />
   </ItemGroup>
 
   <ItemGroup>    
