@@ -22,6 +22,9 @@ https://youtu.be/uxa1xR6xpzk
 
 # Updates
 
+4.29.2025: I fixed a major bug caused by moving from EPPPlus to NPOI where the first column wasn't
+being loaded. Oops.
+
 11.13.2024: EPPPlus was removed and NPOI has replaced it. This project was updated to .NET9.
 This version is still beiing tested. Use a version 8.x for now.
 

@@ -88,17 +88,32 @@ namespace DataJuggler.Excelerate
                 // Editors need to be in front
                 ZIndex = 100;
             }
-            #endregion
+        #endregion
 
+        #endregion
+
+        #region Methods
+
+            #region ToString()
+            /// <summary>
+            /// method returns the String
+            /// </summary>
+            public override string ToString()
+            {
+                // Return the column name when ToString is called
+                return ColumnName;
+            }
+            #endregion
+            
         #endregion
 
         #region Properties
 
-            #region BoolValue
-            /// <summary>
-            /// This property gets or sets the value for 'BoolValue'.
-            /// </summary>
-            public bool BoolValue
+        #region BoolValue
+        /// <summary>
+        /// This property gets or sets the value for 'BoolValue'.
+        /// </summary>
+        public bool BoolValue
             {
                 get 
                 {

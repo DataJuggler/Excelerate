@@ -566,6 +566,9 @@ namespace DataJuggler.Excelerate
                                                 column.RowNumber = rowNumber;
                                                 column.ColumnNumber = columnIndex; 
 
+                                                // Set the column name
+                                                column.ColumnName = columnName.Name;
+
                                                 // Get the ColumnValue
                                                 column.ColumnValue = GetCellValue(excelWorksheet, rowNumber, colNumber);
 
@@ -579,8 +582,9 @@ namespace DataJuggler.Excelerate
                                     }
                                     else
                                     {
+                                        // Update 4.29.2025 - NPOI is 0 based when EPP was 1 based for columns.
                                         // iterate the columns up to colCount
-                                        for (int x = 1; x <= colCount; x++)
+                                        for (int x = 0; x <  colCount; x++)
                                         {
                                             // reset
                                             skipColumn = false;
@@ -602,7 +606,16 @@ namespace DataJuggler.Excelerate
 
                                                 // Set the value
                                                 column.RowNumber = rowNumber;
-                                                column.ColumnNumber = x;
+
+                                                // Update 4.29.2025 - NPOI is 0 based when EPP was 1 based for columns.
+                                                column.ColumnNumber = x + 1;
+
+                                                // if the HeaderRow exists
+                                                if (NullHelper.Exists(headerRow))
+                                                {
+                                                    // Set the ColumnName
+                                                    column.ColumnName = headerRow.Cells[x].StringCellValue;
+                                                }
 
                                                 // Get the ColumnValue
                                                 column.ColumnValue = GetCellValue(excelWorksheet, rowNumber, x);
