@@ -21,14 +21,14 @@
 		  I have a couple of clients that I built programs that automate Excel processes. This 
 		  project streamlines Excel development.
 	</Description>
-    <Copyright>2024 - Use for whatever you want, give me credit if you like it.</Copyright>
+    <Copyright>2025 - Use for whatever you want, give me credit if you like it.</Copyright>
     <PackageProjectUrl>https://github.com/DataJuggler/Excelerate</PackageProjectUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/DataJuggler/Excelerate.git</RepositoryUrl>
     <RepositoryType>Git / Git Hub</RepositoryType>
-    <PackageTags>EPPPlus Excel C# Code Generation</PackageTags>
+    <PackageTags>NPOI Excel C# Code Generation</PackageTags>
     <PackageReleaseNotes>See Read Me</PackageReleaseNotes>
-    <Version>9.0.4</Version>
+    <Version>9.0.5</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>
