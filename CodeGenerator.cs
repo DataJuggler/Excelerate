@@ -1022,12 +1022,12 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
-            #region GenerateClassFromWorksheet(string namespaceName, TargetFrameworkEnum targetFramework = TargetFrameworkEnum.Net8, bool appendPartialGuidToFileName = true)
+            #region GenerateClassFromWorksheet(string namespaceName, TargetFrameworkEnum targetFramework = TargetFrameworkEnum.Net9, bool appendPartialGuidToFileName = true)
             /// <summary>
             /// This method returns a Class From the Worksheet supplied in the Constructor.
             /// The Worksheet must have a HeaderRow for the top row.
             /// </summary>
-            public CodeGenerationResponse GenerateClassFromWorksheet(string namespaceName, TargetFrameworkEnum targetFramework = TargetFrameworkEnum.Net8, bool appendPartialGuidToFileName = true)
+            public CodeGenerationResponse GenerateClassFromWorksheet(string namespaceName, TargetFrameworkEnum targetFramework = TargetFrameworkEnum.Net9, bool appendPartialGuidToFileName = true)
             {
                 // initial value
                 CodeGenerationResponse response = new CodeGenerationResponse();
@@ -1097,10 +1097,10 @@ namespace DataJuggler.Excelerate
                                 if (!TextHelper.IsEqual(column.ColumnName, RowId))
                                 {
                                     // Store the orininalName so it can be used during Export.
-                                    column.OriginalName = column.StringValue;
+                                    column.OriginalName = column.ColumnName;
 
                                     // Set the name, but replace out things that make it an illegal field name like spaces or dashes
-                                    field.FieldName = TextHelper.CapitalizeFirstChar(ReplaceInvalidCharacters(column.StringValue));
+                                    field.FieldName = TextHelper.CapitalizeFirstChar(ReplaceInvalidCharacters(column.ColumnName));
 
                                     // Set the ColumnName in the Column
                                     column.ColumnName = field.FieldName;
@@ -1192,7 +1192,7 @@ namespace DataJuggler.Excelerate
                         Reference reference = new Reference("DataJuggler.Excelerate", 1);
                         Reference reference2 = new Reference("DataJuggler.Excelerate.Interfaces", 6);
                         
-                        // Create the reference as .NET 8
+                        // Create the reference as .NET 9
                         Reference reference3 = new Reference("DataJuggler.NET9", 2);
                         
                         // Only .NET 6, .NET 7 and .NET8 are supported.
