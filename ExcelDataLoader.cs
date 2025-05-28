@@ -26,28 +26,25 @@ namespace DataJuggler.Excelerate
         
         #region Methods
 
-           #region GetCellText(ISheet sheet, int row, int col)
+           #region GetCellText(ISheet sheet, int col, IRow row)
             /// <summary>
             /// This method returns the Cell Text (what you see, including formatting)
             /// </summary>
-            public static string GetCellText(ISheet sheet, int row, int col)
+            public static string GetCellText(ISheet sheet, int col, IRow row)
             {
                 // initial value
                 string cellText = "";
 
                 try
                 {
-                    // if the row is in range
-                    if (row < sheet.LastRowNum)
-                    {  
-                        // Get the row
-                        IRow currentRow = sheet.GetRow(row);
-
+                    // If the row object exists
+                    if (NullHelper.Exists(row))
+                    {
                         // if the cell is in range
-                        if (col < currentRow.LastCellNum)
+                        if (col < row.LastCellNum)
                         {
                             // Get the cell
-                            ICell cell = currentRow.GetCell(col);
+                            ICell cell = row.GetCell(col);
 
                             // if the cell exists
                             if ((NullHelper.Exists(cell)) && (TextHelper.Exists(cell.ToString())))
@@ -69,23 +66,19 @@ namespace DataJuggler.Excelerate
             }           
             #endregion
 
-            #region GetCellValue()
+            #region GetCellValue(ISheet sheet, int col, IRow currentRow)
             /// <summary>
             /// This method returns the Cell Value
             /// </summary>
-            public static object GetCellValue(ISheet sheet, int row, int col)
+            public static object GetCellValue(ISheet sheet, int col, IRow currentRow)
             {
                 // initial value
                 object cellValue = "";
 
                 try
                 {
-                    // if the row is in range
-                    if (row < sheet.LastRowNum)
+                    if (NullHelper.Exists(currentRow))
                     {  
-                        // Get the row
-                        IRow currentRow = sheet.GetRow(row);
-
                         // if the cell is in range
                         if (col < currentRow.LastCellNum)
                         {
@@ -126,7 +119,7 @@ namespace DataJuggler.Excelerate
                                 }
                             }
                         }
-                    }
+                    }                    
                 }
                 catch (Exception error)
                 {   
@@ -409,13 +402,13 @@ namespace DataJuggler.Excelerate
             /// </summary>
             /// <param name="path"></param>
             /// <returns></returns>
-            public static Workbook LoadWorkbook(string path, WorksheetInfo loadWorksheetInfo)
+            public static Workbook LoadWorkbook(string path, WorksheetInfo worksheetInfo)
             {
                 // initial value
                 Workbook workbook = new Workbook();
 
                 // If the path string exists and the sheetToLoad exists
-                if (TextHelper.Exists(path) && (NullHelper.Exists(loadWorksheetInfo)))
+                if (TextHelper.Exists(path) && (NullHelper.Exists(worksheetInfo)))
                 {
                     // Create a new instance of a 'FileInfo' object.
                     FileInfo fileInfo = new FileInfo(path);
@@ -427,7 +420,7 @@ namespace DataJuggler.Excelerate
                     if (NullHelper.Exists(excelWorkbook))
                     {  
                         // Create a workSheet object
-                        Worksheet workSheet = LoadWorksheet(excelWorkbook, loadWorksheetInfo);
+                        Worksheet workSheet = LoadWorksheet(excelWorkbook, worksheetInfo);
 
                         // If the workSheet object exists
                         if (NullHelper.Exists(workSheet))
@@ -447,13 +440,13 @@ namespace DataJuggler.Excelerate
             /// <summary>
             /// This method returns the Worksheet
             /// </summary>
-            public static Worksheet LoadWorksheet(XSSFWorkbook excelWorkbook, WorksheetInfo loadWorksheetInfo)
+            public static Worksheet LoadWorksheet(XSSFWorkbook excelWorkbook, WorksheetInfo worksheetInfo)
             {
                 // initial value
                 Worksheet worksheet = null;
 
                 // locals
-                int rowNumber = 0;
+                int rowNumber = -1;
                 int colNumber = 1;                
                 Column column = null;
                 int columnIndex = -1;
@@ -461,12 +454,12 @@ namespace DataJuggler.Excelerate
                 int tempIndex = -1;
                 
                 // verify both objects exist
-                if (NullHelper.Exists(excelWorkbook, loadWorksheetInfo))
+                if (NullHelper.Exists(excelWorkbook, worksheetInfo))
                 {
                     try
                     {
                         //reading Project Information
-                        ISheet excelWorksheet = excelWorkbook.GetSheet(loadWorksheetInfo.SheetName);
+                        ISheet excelWorksheet = excelWorkbook.GetSheet(worksheetInfo.SheetName);
 
                         // If the excelWorksheet object exists
                         if (NullHelper.Exists(excelWorksheet))
@@ -477,20 +470,20 @@ namespace DataJuggler.Excelerate
                             int colCount = headerRow.LastCellNum;
 
                             // if the MawRowsToLoad is set and the MaxRowsToLoad is less than RowCount
-                            if ((loadWorksheetInfo.MaxRowsToLoad > 0) && (loadWorksheetInfo.MaxRowsToLoad < rowCount))
+                            if ((worksheetInfo.MaxRowsToLoad > 0) && (worksheetInfo.MaxRowsToLoad < rowCount))
                             {
                                 // Only load this many rows
-                                rowCount = loadWorksheetInfo.MaxRowsToLoad;
+                                rowCount = worksheetInfo.MaxRowsToLoad;
                             }
 
                             // if only a specified number of columns should be loaded
-                            if (loadWorksheetInfo.LoadColumnOptions == LoadColumnOptionsEnum.LoadFirstXColumns)
+                            if (worksheetInfo.LoadColumnOptions == LoadColumnOptionsEnum.LoadFirstXColumns)
                             {
                                 // if the ColumnsToLoad is set and the ColumsnToLoad is less than the number of columns
-                                if ((loadWorksheetInfo.ColumnsToLoad > 0) && (loadWorksheetInfo.ColumnsToLoad < colCount))
+                                if ((worksheetInfo.ColumnsToLoad > 0) && (worksheetInfo.ColumnsToLoad < colCount))
                                 {
                                     // Set the colCount
-                                    colCount = loadWorksheetInfo.ColumnsToLoad;
+                                    colCount = worksheetInfo.ColumnsToLoad;
                                 }
                             }
 
@@ -501,15 +494,18 @@ namespace DataJuggler.Excelerate
                                 worksheet = new Worksheet();
 
                                 // Store the loadWorksheetInfo, so saving is easier
-                                worksheet.WorksheetInfo = loadWorksheetInfo;
+                                worksheet.WorksheetInfo = worksheetInfo;
 
                                 // Set the sheetName
-                                worksheet.Name = loadWorksheetInfo.SheetName;
+                                worksheet.Name = worksheetInfo.SheetName;
 
                                 do
                                 {   
                                     // Increment the value for rowNumber
                                     rowNumber++;
+
+                                    // Get the current Row from the spreadsheet
+                                    IRow excelRow = excelWorksheet.GetRow(rowNumber);
 
                                     // Create a new instance of a 'Row' object.
                                     Row row = new Row();
@@ -518,7 +514,7 @@ namespace DataJuggler.Excelerate
                                     row.Number = rowNumber;
 
                                     // Set IsHeaderRow to true, since the header row has to be in the top row
-                                    row.IsHeaderRow = (rowNumber == 1);
+                                    row.IsHeaderRow = (rowNumber == 0);
 
                                     // Set the rowId
                                     row.Id = Guid.NewGuid();
@@ -526,10 +522,10 @@ namespace DataJuggler.Excelerate
                                     // now load the columns for this row
 
                                     // if load specified columns is true and there are one or more columns specified
-                                    if ((loadWorksheetInfo.LoadColumnOptions == LoadColumnOptionsEnum.LoadSpecifiedColumns) && (ListHelper.HasOneOrMoreItems(loadWorksheetInfo.SpecifiedColumnNames)))
+                                    if ((worksheetInfo.LoadColumnOptions == LoadColumnOptionsEnum.LoadSpecifiedColumns) && (ListHelper.HasOneOrMoreItems(worksheetInfo.SpecifiedColumnNames)))
                                     {
                                         // load the specified columns
-                                        foreach (SpecifiedColumnName columnName in loadWorksheetInfo.SpecifiedColumnNames)
+                                        foreach (SpecifiedColumnName columnName in worksheetInfo.SpecifiedColumnNames)
                                         {
                                             // if the Index is greater than zero
                                             if (columnName.HasIndex)
@@ -563,17 +559,17 @@ namespace DataJuggler.Excelerate
                                                 column.Index = columnIndex;
 
                                                 // Set the value
-                                                column.RowNumber = rowNumber;
+                                                column.RowNumber = rowNumber + 1;
                                                 column.ColumnNumber = columnIndex; 
 
                                                 // Set the column name
                                                 column.ColumnName = columnName.Name;
 
                                                 // Get the ColumnValue
-                                                column.ColumnValue = GetCellValue(excelWorksheet, rowNumber, colNumber);
+                                                column.ColumnValue = GetCellValue(excelWorksheet, colNumber, excelRow);
 
                                                 // Get the CellText
-                                                column.ColumnText = GetCellText(excelWorksheet, rowNumber, colNumber);
+                                                column.ColumnText = GetCellText(excelWorksheet, colNumber, excelRow);
 
                                                 // Add this column
                                                 row.Columns.Add(column);
@@ -584,15 +580,15 @@ namespace DataJuggler.Excelerate
                                     {
                                         // Update 4.29.2025 - NPOI is 0 based when EPP was 1 based for columns.
                                         // iterate the columns up to colCount
-                                        for (int x = 0; x <  colCount; x++)
+                                        for (int x = 0; x < colCount; x++)
                                         {
                                             // reset
                                             skipColumn = false;
                                             
-                                            if (ListHelper.HasOneOrMoreItems(loadWorksheetInfo.ExcludedColumnIndexes))
+                                            if (ListHelper.HasOneOrMoreItems(worksheetInfo.ExcludedColumnIndexes))
                                             {
                                                 // attempt to find this index
-                                                tempIndex = loadWorksheetInfo.ExcludedColumnIndexes.IndexOf(x);
+                                                tempIndex = worksheetInfo.ExcludedColumnIndexes.IndexOf(x);
 
                                                 // if this column index was found
                                                 skipColumn = (tempIndex >= 0);
@@ -605,7 +601,7 @@ namespace DataJuggler.Excelerate
                                                 column = new Column();
 
                                                 // Set the value
-                                                column.RowNumber = rowNumber;
+                                                column.RowNumber = rowNumber + 1;
 
                                                 // Update 4.29.2025 - NPOI is 0 based when EPP was 1 based for columns.
                                                 column.ColumnNumber = x + 1;
@@ -618,10 +614,10 @@ namespace DataJuggler.Excelerate
                                                 }
 
                                                 // Get the ColumnValue
-                                                column.ColumnValue = GetCellValue(excelWorksheet, rowNumber, x);
+                                                column.ColumnValue = GetCellValue(excelWorksheet, colNumber, excelRow);
 
                                                 // Get the CellText
-                                                column.ColumnText = GetCellText(excelWorksheet, rowNumber, x);
+                                                column.ColumnText = GetCellText(excelWorksheet, x, excelRow);
 
                                                 // Set the index
                                                 column.Index = x;
@@ -631,7 +627,7 @@ namespace DataJuggler.Excelerate
                                             }
                                         }
                                     }
-
+                                    
                                     // Add this row
                                     worksheet.Rows.Add(row);
 
@@ -655,19 +651,28 @@ namespace DataJuggler.Excelerate
             /// <summary>
             /// This method returns a single Worksheet
             /// </summary>
-            public static Worksheet LoadWorksheet(string path, WorksheetInfo loadWorksheetInfo)
+            public static Worksheet LoadWorksheet(string path, WorksheetInfo worksheetInfo)
             {
                 // initial value
                 Worksheet worksheet = null;
 
                 // load the workbook
-                Workbook workbook = LoadWorkbook(path, loadWorksheetInfo);
+                Workbook workbook = LoadWorkbook(path, worksheetInfo);
 
                 // if the workbook
                 if ((NullHelper.Exists(workbook)) && (ListHelper.HasOneOrMoreItems(workbook.Worksheets)))
                 {
-                    // set the return value
-                    worksheet = workbook.Worksheets[0];
+                    foreach (Worksheet sheet in workbook.Worksheets)
+                    {
+                        if (worksheetInfo.SheetName == sheet.Name)
+                        {
+                            // set the return value
+                            worksheet = sheet;
+
+                            // break out of loop
+                            break;
+                        }
+                    }
                 }
                 
                 // return value
