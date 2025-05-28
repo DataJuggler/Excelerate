@@ -28,7 +28,7 @@
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>NPOI Excel C# Code Generation</PackageTags>
     <PackageReleaseNotes>See Read Me</PackageReleaseNotes>
-    <Version>9.0.5</Version>
+    <Version>9.1.0</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>
