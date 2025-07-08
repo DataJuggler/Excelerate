@@ -614,7 +614,7 @@ namespace DataJuggler.Excelerate
                                                 }
 
                                                 // Get the ColumnValue
-                                                column.ColumnValue = GetCellValue(excelWorksheet, colNumber, excelRow);
+                                                column.ColumnValue = GetCellValue(excelWorksheet, x, excelRow);
 
                                                 // Get the CellText
                                                 column.ColumnText = GetCellText(excelWorksheet, x, excelRow);
