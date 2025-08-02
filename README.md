@@ -13,14 +13,9 @@ I will be testing more in the near future, as I suspect there may be some issues
 one based EPPPlus to 0 based in NPOI may not have been converted correctly.
 
 
-# Update 5.18.2024
-
-New Video:
-
-First Ever Opensource Saturday - Sunday Edition
-https://youtu.be/uxa1xR6xpzk
-
 # Updates
+
+8.2.2025: I updated a few packages including ImageSharp used by NPOI had a vulnerability.
 
 4.29.2025: I fixed a major bug caused by moving from EPPPlus to NPOI where the first column wasn't
 being loaded. Oops.
@@ -33,6 +28,13 @@ is listed as having vulnerabilities, which I believe stem from using EPPPlus ver
 version of EPPPlus. 
 
 Edit 11.13.2024: NPOI has now replaced EPPPlus
+
+# Update 5.18.2024
+
+New Video:
+
+First Ever Opensource Saturday - Sunday Edition
+https://youtu.be/uxa1xR6xpzk
 
 12.29.2023: DataJuggler.Net8 was updated.
 
