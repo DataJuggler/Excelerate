@@ -15,6 +15,8 @@ one based EPPPlus to 0 based in NPOI may not have been converted correctly.
 
 # Updates
 
+10.3.2025: I added a Clone method to the Column object.
+
 8.2.2025: I updated a few packages including ImageSharp used by NPOI had a vulnerability.
 
 4.29.2025: I fixed a major bug caused by moving from EPPPlus to NPOI where the first column wasn't

@@ -94,6 +94,43 @@ namespace DataJuggler.Excelerate
 
         #region Methods
 
+            #region Clone()
+            /// <summary>
+            /// Creates a deep copy of this Column (except Row and ColumnValue, which
+            /// should be set by the grid when creating rows).
+            /// </summary>
+            public Column Clone()
+            {
+                Column clone = new Column();
+
+                // core identity
+                clone.ColumnName = this.ColumnName;
+                clone.OriginalName = this.OriginalName;
+                clone.ColumnNumber = this.ColumnNumber;
+                clone.DataType = this.DataType;
+                clone.Width = this.Width;
+                clone.Height = this.Height;
+                clone.Unit = this.Unit;
+
+                // display / style
+                clone.Caption = this.Caption;
+                clone.ClassName = this.ClassName;
+                clone.EditorType = this.EditorType;
+                clone.EditorClassName = this.EditorClassName;
+                clone.ZIndex = this.ZIndex;
+                clone.Hidden = this.Hidden;
+                clone.SetFocusOnFirstRender = this.SetFocusOnFirstRender;
+                clone.EditMode = this.EditMode;
+                clone.IsImageButton = this.IsImageButton;
+                clone.ButtonClassName = this.ButtonClassName;
+                clone.ButtonUrl = this.ButtonUrl;
+                clone.ButtonNumber = this.ButtonNumber;
+
+                // Row and ColumnValue intentionally left null
+                return clone;
+            }
+            #endregion
+
             #region ToString()
             /// <summary>
             /// method returns the String
