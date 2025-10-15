@@ -6,6 +6,8 @@ using DataJuggler.Excelerate.Enumerations;
 using DataJuggler.NET9;
 using DataJuggler.UltimateHelper;
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 #endregion
 
@@ -51,6 +53,7 @@ namespace DataJuggler.Excelerate
         private string buttonClassName;
         private string buttonUrl;
         private int buttonNumber;
+        private string format;
         #endregion
 
         #region Constructors
@@ -468,6 +471,17 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region Format
+            /// <summary>
+            /// This property gets or sets the value for 'Format'.
+            /// </summary>
+            public string Format
+            {
+                get { return format; }
+                set { format = value; }
+            }
+            #endregion
+        
             #region GuidValue
             /// <summary>
             /// This property returns the value for 'GuidValue'.
