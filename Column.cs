@@ -40,6 +40,7 @@ namespace DataJuggler.Excelerate
         // Added for DataJuggler.Blazor.Components.Grid
         private double imageHeight;
         private double imageWidth;
+        private string imageUrl;
         private double width;
         private double height;
         private string unit;
@@ -723,6 +724,17 @@ namespace DataJuggler.Excelerate
             {
                 get { return imageHeight; }
                 set { imageHeight = value; }
+            }
+            #endregion
+            
+            #region ImageUrl
+            /// <summary>
+            /// This property gets or sets the value for 'ImageUrl'.
+            /// </summary>
+            public string ImageUrl
+            {
+                get { return imageUrl; }
+                set { imageUrl = value; }
             }
             #endregion
             

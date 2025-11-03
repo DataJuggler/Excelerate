@@ -16,7 +16,7 @@ one based EPPPlus to 0 based in NPOI may not have been converted correctly.
 # Updates
 
 11.3.2025: I added three properties to the Column object for DataJuggler.Blazor.Components.Grid
-IsImage, ImageHeight and ImageWidth
+IsImage, ImageHeight, ImageWidth and ImageUrl
 
 10.3.2025: I added a Clone method to the Column object.
 
