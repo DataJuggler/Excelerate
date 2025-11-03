@@ -38,6 +38,8 @@ namespace DataJuggler.Excelerate
         private bool hasChanges;
 
         // Added for DataJuggler.Blazor.Components.Grid
+        private double imageHeight;
+        private double imageWidth;
         private double width;
         private double height;
         private string unit;
@@ -50,6 +52,7 @@ namespace DataJuggler.Excelerate
         private bool setFocusOnFirstRender;
         private bool editMode;
         private bool isImageButton;
+        private bool isImage;
         private string buttonClassName;
         private string buttonUrl;
         private int buttonNumber;
@@ -149,11 +152,11 @@ namespace DataJuggler.Excelerate
 
         #region Properties
 
-        #region BoolValue
-        /// <summary>
-        /// This property gets or sets the value for 'BoolValue'.
-        /// </summary>
-        public bool BoolValue
+            #region BoolValue
+            /// <summary>
+            /// This property gets or sets the value for 'BoolValue'.
+            /// </summary>
+            public bool BoolValue
             {
                 get 
                 {
@@ -712,6 +715,28 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region ImageHeight
+            /// <summary>
+            /// This property gets or sets the value for 'ImageHeight'.
+            /// </summary>
+            public double ImageHeight
+            {
+                get { return imageHeight; }
+                set { imageHeight = value; }
+            }
+            #endregion
+            
+            #region ImageWidth
+            /// <summary>
+            /// This property gets or sets the value for 'ImageWidth'.
+            /// </summary>
+            public double ImageWidth
+            {
+                get { return imageWidth; }
+                set { imageWidth = value; }
+            }
+            #endregion
+            
             #region Index
             /// <summary>
             /// This property gets or sets the value for 'Index'.
@@ -776,6 +801,17 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region IsImage
+            /// <summary>
+            /// This property gets or sets the value for 'IsImage'.
+            /// </summary>
+            public bool IsImage
+            {
+                get { return isImage; }
+                set { isImage = value; }
+            }
+            #endregion
+        
             #region IsImageButton
             /// <summary>
             /// This property gets or sets the value for 'IsImageButton'.
