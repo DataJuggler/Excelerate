@@ -2,8 +2,8 @@
 
 #region using statements
 
-using DataJuggler.NET9;
-using DataJuggler.NET9.Enumerations;
+using DataJuggler.NET.Data;
+using DataJuggler.NET.Data.Enumerations;
 using DataJuggler.UltimateHelper;
 using DataJuggler.UltimateHelper.Objects;
 using System;

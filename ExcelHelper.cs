@@ -4,8 +4,8 @@
 
 using DataJuggler.Excelerate.Delegates;
 using DataJuggler.Excelerate.Interfaces;
-using DataJuggler.NET9;
-using DataJuggler.NET9.Delegates;
+using DataJuggler.NET.Data;
+using DataJuggler.NET.Data.Delegates;
 using DataJuggler.UltimateHelper;
 using DataJuggler.UltimateHelper.Objects;
 using NPOI.SS.UserModel;
@@ -113,7 +113,7 @@ namespace DataJuggler.Excelerate
                             // Write out the HeaderRow
 
                             // iterate the fields
-                            foreach (DataField field in sheet.Fields)
+                            foreach (DataField dataField in sheet.Fields)
                             {
                                 // increment the value for index
                                 index++;
@@ -122,7 +122,7 @@ namespace DataJuggler.Excelerate
                                 ICell cell = headerRow.CreateCell(index);
 
                                 // Set the fieldName
-                                cell.SetCellValue(field.FieldName);
+                                cell.SetCellValue(dataField.FieldName);
 
                                 // Set to bold
                                 cell.CellStyle = boldCellStyle;

@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>DataJuggler</Authors>
 	<Description>
-		  Excelerate has been updated for .NET9. Use an 8.x version for .NET8, a
-		  7.x version for .NET7.
+		  Excelerate has been updated for .NET10. Use a 9x version for .NET9, Use an 8.x version for .NET8, a
+		  7.x version for .NET7. All new development is on the .NET 10 version.
 
 		  Excelerate will change how you work with C# and Excel. Excelerate uses NPOI and it makes
 		  it easy to load Workbooks or Worksheets. Excelerate now has a code generation feature,
@@ -28,7 +28,7 @@
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>NPOI Excel C# Code Generation</PackageTags>
     <PackageReleaseNotes>See Read Me</PackageReleaseNotes>
-    <Version>9.1.8</Version>
+    <Version>10.0.0</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -65,10 +65,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DataJuggler.Net9" Version="9.0.4" />
-    <PackageReference Include="DataJuggler.UltimateHelper" Version="9.1.2" />
-    <PackageReference Include="NPOI" Version="2.7.4" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.11" />
+    <PackageReference Include="DataJuggler.NET.Data" Version="10.0.1" />
+    <PackageReference Include="DataJuggler.UltimateHelper" Version="10.0.1" />
+    <PackageReference Include="NPOI" Version="2.7.5" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
   </ItemGroup>
 
   <ItemGroup>    

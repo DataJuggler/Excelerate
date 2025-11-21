@@ -1,10 +1,8 @@
-<img height=192 width=192 src=https://github.com/DataJuggler/Blazor.Excelerate/blob/main/wwwroot/Images/ExcelerateLogoSmallWhite.png>
+# Blazor Excelerate Is Gone
 
-Live Demo
+Azure won't let me manage billing on my own Virtual Machine, so I deleted it. I will start looking for a replacement.
 
-Blazor.Excelerate
-https://excelerate.datajuggler.com 
-Code Generate C# Classes From Excel Header Rows
+I deleted my VM and all my sites are currently gone. I save $60 a month, so I will get over it. 
 
 # Major Update - EPPPlus has been removed and NPOI has replaced it.
 
@@ -14,6 +12,8 @@ one based EPPPlus to 0 based in NPOI may not have been converted correctly.
 
 
 # Updates
+
+11.21.2025: This project was updated to .NET 10.
 
 11.3.2025: I added three properties to the Column object for DataJuggler.Blazor.Components.Grid
 IsImage, ImageHeight, ImageWidth and ImageUrl
