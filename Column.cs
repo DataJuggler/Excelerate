@@ -38,6 +38,7 @@ namespace DataJuggler.Excelerate
         private bool hasChanges;
 
         // Added for DataJuggler.Blazor.Components.Grid
+        private double borderWidth;
         private double imageHeight;
         private double imageWidth;
         private string imageUrl;
@@ -182,6 +183,17 @@ namespace DataJuggler.Excelerate
                     // initial value
                     return boolValue;
                 }
+            }
+            #endregion
+            
+            #region BorderWidth
+            /// <summary>
+            /// This property gets or sets the value for 'BorderWidth'.
+            /// </summary>
+            public double BorderWidth
+            {
+                get { return borderWidth; }
+                set { borderWidth = value; }
             }
             #endregion
             
