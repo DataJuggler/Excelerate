@@ -197,6 +197,24 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region BorderWidthStyle
+            /// <summary>
+            /// This read only property returns the value of BorderWidth + "px";
+            /// </summary>
+            public string BorderWidthStyle
+            {
+
+                get
+                {
+                    // initial value
+                    string borderWidthStyle = BorderWidth + "px";
+                    
+                    // return value
+                    return borderWidthStyle;
+                }
+            }
+            #endregion
+
             #region ButtonClassName
             /// <summary>
             /// This property gets or sets the value for 'ButtonClassName'.
