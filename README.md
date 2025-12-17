@@ -15,7 +15,7 @@ one based EPPPlus to 0 based in NPOI may not have been converted correctly.
 
 12.17.2025: I added a property PrimaryKey. This is used by DataJuggler.Blazor.Components.
 At some point, I am planning on switching to a Row and Column object in DataJuggler.Blazor.Components,
-but not today.
+but not today. Also the Clone method was updated.
 
 12.11.2025: I added BorderWidth to the Column object. This is used by DataJuggler.Blazor.Components.
 

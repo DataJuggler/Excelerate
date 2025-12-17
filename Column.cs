@@ -107,35 +107,45 @@ namespace DataJuggler.Excelerate
             /// <summary>
             /// Creates a deep copy of this Column (except Row and ColumnValue, which
             /// should be set by the grid when creating rows).
-            /// </summary>
+            /// </summary>            
             public Column Clone()
             {
+                // initial value
                 Column clone = new Column();
 
                 // core identity
+                clone.BorderWidth = this.BorderWidth;
                 clone.ColumnName = this.ColumnName;
                 clone.OriginalName = this.OriginalName;
                 clone.ColumnNumber = this.ColumnNumber;
                 clone.DataType = this.DataType;
                 clone.Width = this.Width;
                 clone.Height = this.Height;
-                clone.Unit = this.Unit;
 
-                // display / style
+                // grid / rendering
                 clone.Caption = this.Caption;
                 clone.ClassName = this.ClassName;
+                clone.Format = this.Format;
+                clone.PrimaryKey = this.PrimaryKey;
+                clone.Hidden = this.Hidden;
+                clone.Index = this.Index;
+
+                // editor / interaction (kept from original Clone)
                 clone.EditorType = this.EditorType;
                 clone.EditorClassName = this.EditorClassName;
                 clone.ZIndex = this.ZIndex;
-                clone.Hidden = this.Hidden;
                 clone.SetFocusOnFirstRender = this.SetFocusOnFirstRender;
                 clone.EditMode = this.EditMode;
+
+                // button / image-button support
                 clone.IsImageButton = this.IsImageButton;
                 clone.ButtonClassName = this.ButtonClassName;
                 clone.ButtonUrl = this.ButtonUrl;
                 clone.ButtonNumber = this.ButtonNumber;
 
                 // Row and ColumnValue intentionally left null
+
+                // return value
                 return clone;
             }
             #endregion
