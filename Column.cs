@@ -52,6 +52,7 @@ namespace DataJuggler.Excelerate
         private int zIndex;
         private bool hidden;
         private bool setFocusOnFirstRender;
+        private bool primaryKey;
         private bool editMode;
         private bool isImageButton;
         private bool isImage;
@@ -877,6 +878,17 @@ namespace DataJuggler.Excelerate
             {
                 get { return originalName; }
                 set { originalName = value; }
+            }
+            #endregion
+            
+            #region PrimaryKey
+            /// <summary>
+            /// This property gets or sets the value for 'PrimaryKey'.
+            /// </summary>
+            public bool PrimaryKey
+            {
+                get { return primaryKey; }
+                set { primaryKey = value; }
             }
             #endregion
             

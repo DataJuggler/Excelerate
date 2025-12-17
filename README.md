@@ -13,6 +13,10 @@ one based EPPPlus to 0 based in NPOI may not have been converted correctly.
 
 # Updates
 
+12.17.2025: I added a property PrimaryKey. This is used by DataJuggler.Blazor.Components.
+At some point, I am planning on switching to a Row and Column object in DataJuggler.Blazor.Components,
+but not today.
+
 12.11.2025: I added BorderWidth to the Column object. This is used by DataJuggler.Blazor.Components.
 
 11.21.2025: This project was updated to .NET 10.
