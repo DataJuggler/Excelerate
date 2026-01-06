@@ -39,9 +39,9 @@ namespace DataJuggler.Excelerate
 
         // Added for DataJuggler.Blazor.Components.Grid
         private double borderWidth;
-        private double imageHeight;
-        private double imageWidth;
-        private string imageUrl;
+        private int buttonNumber;
+        private string buttonClassName;
+        private string buttonUrl;        
         private double width;
         private double height;
         private string unit;
@@ -49,17 +49,18 @@ namespace DataJuggler.Excelerate
         private string className;
         private EditorTypeEnum editorType;
         private string editorClassName;
-        private int zIndex;
-        private bool hidden;
-        private bool setFocusOnFirstRender;
-        private bool primaryKey;
         private bool editMode;
-        private bool isImageButton;
-        private bool isImage;
-        private string buttonClassName;
-        private string buttonUrl;
-        private int buttonNumber;
+        private string fieldName;
         private string format;
+        private bool hidden;
+        private bool isImageButton;
+        private bool isImage;        
+        private bool setFocusOnFirstRender;
+        private bool primaryKey;        
+        private double imageHeight;
+        private double imageWidth;
+        private string imageUrl;
+        private int zIndex;
         #endregion
 
         #region Constructors
@@ -516,6 +517,17 @@ namespace DataJuggler.Excelerate
             }
             #endregion
             
+            #region FieldName
+            /// <summary>
+            /// This property gets or sets the value for 'FieldName'.
+            /// </summary>
+            public string FieldName
+            {
+                get { return fieldName; }
+                set { fieldName = value; }
+            }
+            #endregion
+            
             #region Format
             /// <summary>
             /// This property gets or sets the value for 'Format'.
@@ -634,6 +646,23 @@ namespace DataJuggler.Excelerate
                     
                     // return value
                     return hasDecimalValue;
+                }
+            }
+            #endregion
+            
+            #region HasFieldName
+            /// <summary>
+            /// This property returns true if the 'FieldName' exists.
+            /// </summary>
+            public bool HasFieldName
+            {
+                get
+                {
+                    // initial value
+                    bool hasFieldName = (!String.IsNullOrEmpty(FieldName));
+
+                    // return value
+                    return hasFieldName;
                 }
             }
             #endregion
