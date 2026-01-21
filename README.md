@@ -13,7 +13,9 @@ one based EPPPlus to 0 based in NPOI may not have been converted correctly.
 
 # Updates
 
-1.5.2025: DataTier.NET.Data was updated to version 10.0.3
+1.21.2026: DataTier.NET.Data was updated to version 10.0.4
+
+1.5.2026: DataTier.NET.Data was updated to version 10.0.3
 
 12.17.2025: I added a property PrimaryKey. This is used by DataJuggler.Blazor.Components.
 At some point, I am planning on switching to a Row and Column object in DataJuggler.Blazor.Components,
