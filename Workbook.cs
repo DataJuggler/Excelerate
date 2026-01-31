@@ -74,6 +74,30 @@ namespace DataJuggler.Excelerate
                 return worksheetIndex;
             }
             #endregion
+
+            #region GetWorksheet(string worksheetName)
+            /// <summary>
+            /// This method returns the Worksheet
+            /// </summary>
+            public Worksheet GetWorksheet(string worksheetName)
+            {
+                // initial value
+                Worksheet worksheet = null;
+
+                // local
+                int worksheetIndex = GetWorksheetIndex(worksheetName);
+
+                // if the worksheet index was found
+                if (worksheetIndex >= 0)
+                {
+                    // set the return value
+                    worksheet = Worksheets[worksheetIndex];
+                }
+
+                // return value
+                return worksheet;
+            }
+            #endregion
             
         #endregion
 
