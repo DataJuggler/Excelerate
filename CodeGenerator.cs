@@ -1192,10 +1192,10 @@ namespace DataJuggler.Excelerate
                         Reference reference = new Reference("DataJuggler.Excelerate", 1);
                         Reference reference2 = new Reference("DataJuggler.Excelerate.Interfaces", 6);
                         
-                        // Create the reference as .NET 9
-                        Reference reference3 = new Reference("DataJuggler.NET9", 2);
+                        // Create the reference as .NET 10
+                        Reference reference3 = new Reference("DataJuggler.NET.Data", 2);
                         
-                        // Only .NET 6, .NET 7 and .NET8 are supported.
+                        // Only .NET 6, .NET 7 and .NET8, 9 & 10  are supported.
                         if (targetFramework == TargetFrameworkEnum.Net6)
                         {
                             // Set to .NET 6 version
@@ -1203,14 +1203,20 @@ namespace DataJuggler.Excelerate
                         }
                         else if (targetFramework == TargetFrameworkEnum.Net7)
                         {
-                            // Set to .NET 6 version
+                            // Set to .NET 7 version
                             reference3.ReferenceName = "DataJuggler.Net7";
                         }
                         else if (targetFramework == TargetFrameworkEnum.Net8)
                         {
-                            // Set to .NET 6 version
+                            // Set to .NET 8 version
                             reference3.ReferenceName = "DataJuggler.Net8";
                         }
+                        else if (targetFramework == TargetFrameworkEnum.Net9)
+                        {
+                            // Set to .NET 8 version
+                            reference3.ReferenceName = "DataJuggler.Net9";
+                        }
+
 
                         // Add a reference for UltimateHelper
                         Reference reference4 = new Reference("DataJuggler.UltimateHelper", 3);                                                

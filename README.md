@@ -13,6 +13,8 @@ one based EPPPlus to 0 based in NPOI may not have been converted correctly.
 
 # Updates
 
+2.3.2026: I fixed a bug .NET 10 references was not being code generated.
+
 1.31.2026: I added a method GetWorksheet to the Workbook class.
 
 1.21.2026: DataTier.NET.Data was updated to version 10.0.4
