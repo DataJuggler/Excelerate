@@ -61,7 +61,7 @@ namespace DataJuggler.Excelerate
                     {
                         // reset
                         index = 0;
-                        rowNumber = 1;
+                        rowNumber = 0;
 
                         // If the callback object exists
                         if (NullHelper.Exists(callback, sheet.Rows))
@@ -174,10 +174,58 @@ namespace DataJuggler.Excelerate
                                         index++;
 
                                         // Set the fieldName
-                                        ICell cell = headerRow.CreateCell(index);
+                                        ICell cell = currentRow.CreateCell(index);
 
-                                        // Set the fieldName
-                                        cell.SetCellValue(field.FieldName);
+                                        if (NullHelper.Exists(field.FieldValue))
+                                        {
+                                            switch (field.DataType)
+                                            {
+                                                // required
+                                                case DataManager.DataTypeEnum.Autonumber:
+                                                case DataManager.DataTypeEnum.Integer:
+                                                
+                                                    // Set the fieldName
+                                                    cell.SetCellValue((int) field.FieldValue);
+
+                                                    // required
+                                                    break;
+
+                                                case DataManager.DataTypeEnum.Currency:
+                                                case DataManager.DataTypeEnum.Double:
+                                                case DataManager.DataTypeEnum.Decimal:
+
+                                                    // Set the fieldName
+                                                    cell.SetCellValue(Convert.ToDouble(field.FieldValue));
+
+                                                    // required
+                                                    break;
+
+                                                case DataManager.DataTypeEnum.DateTime:
+
+                                                    // Set the fieldName
+                                                    cell.SetCellValue((DateTime) field.FieldValue);
+
+                                                    // required
+                                                    break;
+
+                                                case DataManager.DataTypeEnum.Guid:
+                                                case DataManager.DataTypeEnum.String:
+
+                                                    // Set the fieldName
+                                                    cell.SetCellValue(field.FieldValue.ToString());
+
+                                                    // required
+                                                    break;
+
+                                                default:
+
+                                                    // Set the fieldName
+                                                    cell.SetCellValue(field.FieldValue.ToString());
+
+                                                    // required
+                                                    break;
+                                            }
+                                        }
 
                                         // if this is a date
                                         if (field.DataType == DataManager.DataTypeEnum.DateTime)
