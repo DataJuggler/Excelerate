@@ -28,7 +28,7 @@
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>NPOI Excel C# Code Generation</PackageTags>
     <PackageReleaseNotes>See Read Me</PackageReleaseNotes>
-    <Version>10.0.12</Version>
+    <Version>10.0.15</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -65,10 +65,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DataJuggler.NET.Data" Version="10.0.4" />
-    <PackageReference Include="DataJuggler.UltimateHelper" Version="10.0.1" />
-    <PackageReference Include="NPOI" Version="2.7.5" />
+    <PackageReference Include="DataJuggler.NET.Data" Version="10.0.6" />
+    <PackageReference Include="DataJuggler.UltimateHelper" Version="10.0.4" />
+    <PackageReference Include="NPOI" Version="2.8.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.6" />
   </ItemGroup>
 
   <ItemGroup>    
