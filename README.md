@@ -13,6 +13,8 @@ one based EPPPlus to 0 based in NPOI may not have been converted correctly.
 
 # Updates
 
+6.17.2026: I updated some NuGet packages.
+
 2.21.2026: I fixed a bug in .NET 10 where SQLSnapshot was not exporting. I hadn't fixed this since I removed EPPPlus. 
                    SQLSnapshot should not work. 
 
