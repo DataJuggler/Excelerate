@@ -13,7 +13,10 @@ one based EPPPlus to 0 based in NPOI may not have been converted correctly.
 
 # Updates
 
-6.17.2026: I updated some NuGet packages.
+9.13.2026: Microsoft.Build.Tasks.Git, referenced by NPOI is listed as vulnerable. 
+
+6.17.2026: I updated some NuGet packages. Don't update Six Labors.ImageSharp, they want a license
+if you update.
 
 2.21.2026: I fixed a bug in .NET 10 where SQLSnapshot was not exporting. I hadn't fixed this since I removed EPPPlus. 
                    SQLSnapshot should not work. 
