@@ -13,6 +13,8 @@ one based EPPPlus to 0 based in NPOI may not have been converted correctly.
 
 # Updates
 
+9.22.2026: NPOI was updated to version 2.8.1 to fix a Microsoft.Build. Tasks.Git vulnerability. 
+
 9.13.2026: Microsoft.Build.Tasks.Git, referenced by NPOI is listed as vulnerable. 
 
 6.17.2026: I updated some NuGet packages. Don't update Six Labors.ImageSharp, they want a license

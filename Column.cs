@@ -73,6 +73,9 @@ namespace DataJuggler.Excelerate
             {
                 // Create
                 Id = Guid.NewGuid();
+
+                // Editors need to be in front
+                ZIndex = 100;
             }
             #endregion
 
