@@ -13,6 +13,8 @@ one based EPPPlus to 0 based in NPOI may not have been converted correctly.
 
 # Updates
 
+11.13.2026: This project has been updated to .NET 11, as well as a few packages were updated. 
+
 9.22.2026: NPOI was updated to version 2.8.1 to fix a Microsoft.Build. Tasks.Git vulnerability. 
 
 9.13.2026: Microsoft.Build.Tasks.Git, referenced by NPOI is listed as vulnerable. 
