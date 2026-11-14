@@ -13,6 +13,22 @@ one based EPPPlus to 0 based in NPOI may not have been converted correctly.
 
 # Updates
 
+11.14.2026: DataTier.NET.Data was updated and removed NPOI.
+
+Excelerate no longer uses NPOI. Starting with version 2.8.0, the official NPOI packages require a
+maintenance fee from anyone earning over $10,000 a year who uses them commercially. Excelerate now
+uses DataJuggler.Excelerate.Office, my free build of NPOI's Apache 2.0 source without the fee EULA.
+It's Excel only (.xlsx and .xls), targets .NET 11, and is free for everyone, commercial or not.
+
+If your own code uses NPOI types directly, change your using statements from NPOI. to
+DataJuggler.Excelerate.Office. For example, NPOI.XSSF.UserModel becomes
+DataJuggler.Excelerate.Office.XSSF.UserModel. Class names are unchanged.
+
+https://github.com/DataJuggler/DataJuggler.Excelerate.Office
+
+
+11.14.2026: DataTier.NET.Data was updated and ??
+
 11.13.2026: This project has been updated to .NET 11, as well as a few packages were updated. 
 
 9.22.2026: NPOI was updated to version 2.8.1 to fix a Microsoft.Build. Tasks.Git vulnerability. 
@@ -109,7 +125,7 @@ ExcelHelper has an optional parameter to SaveBatch, SaveBatchItem and SaveRow to
 HasChanges = true. For now, you have to set this property on the column manually. I am investigating ways to
 auto set this if the value changes from the time you loaded the object until you save it.\
 
-7.16.2023: DataJuggler.UltimateHelper, DataJuggler.Net7 was updated.
+7.16.2023: DataJuggler.UltimateHelper, DataJuggler.NET7 was updated.
 
 # Update 4.4.2023
 

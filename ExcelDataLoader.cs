@@ -7,10 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using NPOI;
-using NPOI.Util;
-using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
+using DataJuggler.Excelerate.Office;
+using DataJuggler.Excelerate.Office.Util;
+using DataJuggler.Excelerate.Office.SS.UserModel;
+using DataJuggler.Excelerate.Office.XSSF.UserModel;
 
 #endregion
 

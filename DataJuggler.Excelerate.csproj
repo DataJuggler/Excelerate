@@ -28,7 +28,7 @@
     <RepositoryType>Git / Git Hub</RepositoryType>
     <PackageTags>NPOI Excel C# Code Generation</PackageTags>
     <PackageReleaseNotes>See Read Me</PackageReleaseNotes>
-    <Version>11.0.0</Version>
+    <Version>11.0.2</Version>
     <ErrorReport>none</ErrorReport>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -39,11 +39,11 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <WarningLevel>5</WarningLevel>
-    <NoWarn>1701;1702;IDE0090;IDE0059;IDE0017;</NoWarn>
+    <NoWarn>1701;1702;CA1834;IDE0059;IDE0017;IDE0090;IDE0060;IDE0028;IDE0063;IDE0300;</NoWarn>
   </PropertyGroup>
 	
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;CA1834;IDE0059;IDE0017;IDE0090;</NoWarn>
+    <NoWarn>1701;1702;CA1834;IDE0059;IDE0017;IDE0090;IDE0060;IDE0028;IDE0063;IDE0300;</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
@@ -65,13 +65,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DataJuggler.NET.Data" Version="11.0.1" />
+    <PackageReference Include="DataJuggler.Excelerate.Office" Version="11.0.1" />
+    <PackageReference Include="DataJuggler.NET.Data" Version="11.0.2" />
     <PackageReference Include="DataJuggler.UltimateHelper" Version="11.0.0" />
     <PackageReference Include="Microsoft.Build.Tasks.Git" Version="11.0.100">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="NPOI" Version="2.8.1" />
     <PackageReference Include="System.Security.Cryptography.Xml" Version="11.0.0" />
   </ItemGroup>
 

@@ -23,14 +23,14 @@ namespace DataJuggler.Excelerate
     /// </summary>
     public class CodeGenerator : CSharpClassWriter
     {
-        
+
         #region Private Variables
         private Worksheet worksheet;
         private string outputFolder;
         private string className;
         private const string RowId = "RowId";
         #endregion
-        
+
         #region Constructor
         /// <summary>
         /// Create a new instance of a CodeGenerator object
@@ -55,16 +55,16 @@ namespace DataJuggler.Excelerate
             #region AddLoadListMethod(ref StringBuilder sb)
             /// <summary>
             /// This method writes out a Load method that loads a list of objects
-            /// </summary>            
+            /// </summary>
             public void AddLoadMethod(ref StringBuilder sb)
             {
-                 // locals                
+                 // locals
                 string indent = TextHelper.Indent(12);
                 string indent2 = TextHelper.Indent(16);
                 string indent3 = TextHelper.Indent(20);
                 string indent4 = TextHelper.Indent(24);
                 string indent5 = TextHelper.Indent(28);
-                
+
                  // Add a blank line
                 sb.Append(Environment.NewLine);
 
@@ -167,7 +167,7 @@ namespace DataJuggler.Excelerate
                 sb.Append(indent3);
                 sb.Append("// Iterate the worksheet.Rows collection");
                 sb.Append(Environment.NewLine);
-               
+
                 // now iterate
                 sb.Append(indent3);
                 sb.Append("foreach (Row row in worksheet.Rows)");
@@ -175,7 +175,7 @@ namespace DataJuggler.Excelerate
 
                 // add the open paren
                 sb.Append(indent3);
-                sb.Append("{");
+                sb.Append('{');
                 sb.Append(Environment.NewLine);
 
                 // add comment for is not header row and the column's collection exists
@@ -192,7 +192,7 @@ namespace DataJuggler.Excelerate
 
                 // add the open paren
                 sb.Append(indent4);
-                sb.Append("{");
+                sb.Append('{');
                 sb.Append(Environment.NewLine);
 
                 // now the load
@@ -218,7 +218,7 @@ namespace DataJuggler.Excelerate
                 // now instatiate the new object
                 sb.Append(indent5);
                 sb.Append(ClassName);
-                sb.Append(" ");
+                sb.Append(' ');
                 sb.Append(variableName);
                 sb.Append(" = new ");
                 sb.Append(ClassName);
@@ -259,12 +259,12 @@ namespace DataJuggler.Excelerate
 
                 // add the close paren
                 sb.Append(indent4);
-                sb.Append("}");
+                sb.Append('}');
                 sb.Append(Environment.NewLine);
 
                 // add the close paren
                 sb.Append(indent3);
-                sb.Append("}");
+                sb.Append('}');
                 sb.Append(Environment.NewLine);
 
                 // Add a closing bracket
@@ -285,7 +285,7 @@ namespace DataJuggler.Excelerate
                 sb.Append(indent2);
                 sb.Append("return ");
                 sb.Append(listName);
-                sb.Append(";");
+                sb.Append(';');
                 sb.Append(Environment.NewLine);
 
                 // Add indent
@@ -307,7 +307,7 @@ namespace DataJuggler.Excelerate
             #region AddLoadMethod(Row row, ref StringBuilder sb)
             /// <summary>
             /// This method Add Load Method
-            /// </summary>            
+            /// </summary>
             public void AddLoadMethod(Row row, ref StringBuilder sb)
             {
                  // locals
@@ -315,7 +315,7 @@ namespace DataJuggler.Excelerate
                 string indent = TextHelper.Indent(12);
                 string indent2 = TextHelper.Indent(16);
                 string indent3 = TextHelper.Indent(20);
-                
+
                  // Add a blank line
                 sb.Append(Environment.NewLine);
 
@@ -409,7 +409,7 @@ namespace DataJuggler.Excelerate
                 sb.Append(indent3);
                 sb.Append("// set values");
                 sb.Append(Environment.NewLine);
-               
+
                 // Create DataFields for each column
                 foreach (Column column in row.Columns)
                 {
@@ -437,7 +437,7 @@ namespace DataJuggler.Excelerate
 
                         // add the start of this column
                         sb.Append("row.Columns[");
-                                                        
+
                         // add the index
                         sb.Append(columnIndex);
 
@@ -557,13 +557,13 @@ namespace DataJuggler.Excelerate
             #region AddNewRowMethod(Row row, ref StringBuilder sb)
             /// <summary>
             /// This method Adds a NewRow method, so that new records can be inserted.
-            /// </summary>            
+            /// </summary>
             public void AddNewRowMethod(Row row, ref StringBuilder sb)
             {
-                 // locals                
+                 // locals
                 string indent = "            ";
                 string indent2 = "                ";
-                
+
                  // Add a blank line
                 sb.Append(Environment.NewLine);
 
@@ -720,7 +720,7 @@ namespace DataJuggler.Excelerate
             #region AddSaveMethod(Row row, ref StringBuilder sb)
             /// <summary>
             /// This method Adds a Save Method
-            /// </summary>            
+            /// </summary>
             public void AddSaveMethod(Row row, ref StringBuilder sb)
             {
                  // locals
@@ -728,7 +728,7 @@ namespace DataJuggler.Excelerate
                 string indent = "            ";
                 string indent2 = "                ";
                 string indent3 = "                    ";
-                
+
                  // Add a blank line
                 sb.Append(Environment.NewLine);
 
@@ -815,7 +815,7 @@ namespace DataJuggler.Excelerate
 
                 // now a blank line
                 sb.Append(Environment.NewLine);
-                
+
                 // Create DataFields for each column
                 foreach (Column column in row.Columns)
                 {
@@ -830,7 +830,7 @@ namespace DataJuggler.Excelerate
 
                         // Set the columnValue
                         sb.Append("row.Columns[");
-                        
+
                         // add the columnIndex
                         sb.Append(columnIndex);
 
@@ -841,23 +841,23 @@ namespace DataJuggler.Excelerate
                         sb.Append(column.ColumnName);
 
                         // Append closing semicolon
-                        sb.Append(";");
+                        sb.Append(';');
 
                         // Add a new line
                         sb.Append(Environment.NewLine);
 
-                        // now adding the line to determine if this column has changes                        
+                        // now adding the line to determine if this column has changes
                         sb.Append(indent3);
 
                         // Set the columnValue
                         sb.Append("row.Columns[");
-                        
+
                         // add the columnIndex
                         sb.Append(columnIndex);
 
                         // Append '].HasChanges = changedColumnIndexes.Contains("
                         sb.Append("].HasChanges = changedColumnIndexes.Contains(");
-                        
+
                         // add the columnIndex
                         sb.Append(columnIndex);
 
@@ -902,7 +902,7 @@ namespace DataJuggler.Excelerate
                 sb.Append(Environment.NewLine);
             }
             #endregion
-            
+
             #region AttemptToDetermineDataType(int columnIndex)
             /// <summary>
             /// This method returns the To Determine Data Type
@@ -929,7 +929,7 @@ namespace DataJuggler.Excelerate
 
                 // Create a new instance of a 'DataTypeScorer' object.
                 DataTypeScorer scorer = new DataTypeScorer();
-                
+
                 // If the worksheet object exists
                 if ((NullHelper.Exists(worksheet)) && (ListHelper.HasOneOrMoreItems(worksheet.Rows)) && (TextHelper.Exists(fieldName)))
                 {
@@ -949,12 +949,12 @@ namespace DataJuggler.Excelerate
                             tempInt = worksheet.Rows[x].Columns[columnIndex].IntValue;
                             tempDecimal = worksheet.Rows[x].Columns[columnIndex].DecimalValue;
                             tempGuid = worksheet.Rows[x].Columns[columnIndex].GuidValue;
-    
+
                             // If the temp string exists, and this is not a 0, 0's are hard to tell anything from
                             if ((temp != "0") && (temp != "0.00") && (temp != "$0.00"))
-                            {  
+                            {
                                 tempDate = worksheet.Rows[x].Columns[columnIndex].DateValue;
-                            
+
                                 // if true or false
                                 if ((temp.ToLower() == "true") || (temp.ToLower() == "false"))
                                 {
@@ -962,7 +962,7 @@ namespace DataJuggler.Excelerate
                                     scorer.BoolCount++;
                                 }
                                 else
-                                { 
+                                {
                                     if ((tempDate.HasValue) && (tempDate.Value.Year > 1900))
                                     {
                                         // Use Date
@@ -973,7 +973,7 @@ namespace DataJuggler.Excelerate
                                         // Use Guid
                                         scorer.GuidCount++;
                                     }
-                                    else if ((tempDecimal != 0) && (temp.ToString().Contains(".")))
+                                    else if ((tempDecimal != 0) && (temp.ToString().Contains('.')))
                                     {
                                         // Use double
                                         scorer.DecimalCount++;
@@ -990,7 +990,7 @@ namespace DataJuggler.Excelerate
                                     }
                                 }
                             }
-                            else if (temp.ToString().Contains("."))
+                            else if (temp.ToString().Contains('.'))
                             {
                                 // 0.00 Use double
                                 scorer.DecimalCount++;
@@ -1016,18 +1016,18 @@ namespace DataJuggler.Excelerate
                     // Set the return value
                     dataType = scorer.TopDataType;
                 }
-                
+
                 // return value
                 return dataType;
             }
             #endregion
-            
-            #region GenerateClassFromWorksheet(string namespaceName, TargetFrameworkEnum targetFramework = TargetFrameworkEnum.Net9, bool appendPartialGuidToFileName = true)
+
+            #region GenerateClassFromWorksheet(string namespaceName, TargetFrameworkEnum targetFramework = TargetFrameworkEnum.NET11, bool appendPartialGuidToFileName = true)
             /// <summary>
             /// This method returns a Class From the Worksheet supplied in the Constructor.
             /// The Worksheet must have a HeaderRow for the top row.
             /// </summary>
-            public CodeGenerationResponse GenerateClassFromWorksheet(string namespaceName, TargetFrameworkEnum targetFramework = TargetFrameworkEnum.Net9, bool appendPartialGuidToFileName = true)
+            public CodeGenerationResponse GenerateClassFromWorksheet(string namespaceName, TargetFrameworkEnum targetFramework = TargetFrameworkEnum.NET11, bool appendPartialGuidToFileName = true)
             {
                 // initial value
                 CodeGenerationResponse response = new CodeGenerationResponse();
@@ -1035,7 +1035,7 @@ namespace DataJuggler.Excelerate
                 // locals
                 int columnIndex = -1;
                 int lineNumber = 0;
-                
+
                 // if the value for IsValid is true (means there is a worksheet and it has at least one row)
                 if (IsValid)
                 {
@@ -1060,7 +1060,7 @@ namespace DataJuggler.Excelerate
                         // Add this rowIdColumn
                         row.Columns.Add(rowIdColumn);
 
-                        // Create a DataTable to create the 
+                        // Create a DataTable to create the
                         DataManager dataManager = new DataManager(outputFolder, this.ClassName, DataManager.ClassOutputLanguage.CSharp);
 
                         // add the Namespace
@@ -1110,11 +1110,11 @@ namespace DataJuggler.Excelerate
                                     // Store
                                     field.FieldName = column.ColumnName;
 
-                                    // Set the OriginalName (not sure if this is needed anymore 
+                                    // Set the OriginalName (not sure if this is needed anymore
                                     column.OriginalName = field.FieldName;
                                 }
 
-                                // add if (!Loading) HasChanges = true; 
+                                // add if (!Loading) HasChanges = true;
                                 field.AddColumnToChangesIfNotLoading = true;
 
                                 // if this is the RowId
@@ -1191,41 +1191,45 @@ namespace DataJuggler.Excelerate
                         // Create a couple references
                         Reference reference = new Reference("DataJuggler.Excelerate", 1);
                         Reference reference2 = new Reference("DataJuggler.Excelerate.Interfaces", 6);
-                        
+
                         // Create the reference as .NET 10
                         Reference reference3 = new Reference("DataJuggler.NET.Data", 2);
-                        
+
                         // Only .NET 6, .NET 7 and .NET8, 9 & 10  are supported.
-                        if (targetFramework == TargetFrameworkEnum.Net6)
+                        if (targetFramework == TargetFrameworkEnum.NET6)
                         {
                             // Set to .NET 6 version
                             reference3.ReferenceName = "DataJuggler.Net6";
                         }
-                        else if (targetFramework == TargetFrameworkEnum.Net7)
+                        else if (targetFramework == TargetFrameworkEnum.NET7)
                         {
                             // Set to .NET 7 version
                             reference3.ReferenceName = "DataJuggler.Net7";
                         }
-                        else if (targetFramework == TargetFrameworkEnum.Net8)
+                        else if (targetFramework == TargetFrameworkEnum.NET8)
                         {
                             // Set to .NET 8 version
                             reference3.ReferenceName = "DataJuggler.Net8";
                         }
-                        else if (targetFramework == TargetFrameworkEnum.Net9)
+                        else if (targetFramework == TargetFrameworkEnum.NET9)
                         {
-                            // Set to .NET 8 version
+                            // Set to .NET 9 version
                             reference3.ReferenceName = "DataJuggler.Net9";
                         }
-
+                        else if (TargetFramework == TargetFrameworkEnum.NET10 || TargetFramework == TargetFrameworkEnum.NET11)
+                        {
+                            // Set to DataTier.NET.Data
+                            reference3.ReferenceName = "DataTier.NET.Data";
+                        }
 
                         // Add a reference for UltimateHelper
-                        Reference reference4 = new Reference("DataJuggler.UltimateHelper", 3);                                                
+                        Reference reference4 = new Reference("DataJuggler.UltimateHelper", 3);
 
                         // Add the references to the ReferencesSet
                         referencesSet.Add(reference);
                         referencesSet.Add(reference2);
                         referencesSet.Add(reference3);
-                        referencesSet.Add(reference4);                        
+                        referencesSet.Add(reference4);
 
                         // Set the references
                         dataManager.References = referencesSet;
@@ -1260,7 +1264,7 @@ namespace DataJuggler.Excelerate
                                         // need to skip one line after the method is created
                                         bool skipNextLine = false;
                                         bool skipNextLineIfBlank = false;
-    
+
                                         // Iterate the collection of TextLine objects
                                         foreach (TextLine line in lines)
                                         {
@@ -1359,7 +1363,7 @@ namespace DataJuggler.Excelerate
                                         // Create a FileInfo
                                         FileInfo fileInfo = new FileInfo(filePath);
 
-                                        // Set the FileName                                        
+                                        // Set the FileName
                                         response.FileName = fileInfo.Name;
 
                                         // Set the fullPath
@@ -1370,12 +1374,12 @@ namespace DataJuggler.Excelerate
                         }
                     }
                 }
-                
+
                 // return value
                 return response;
             }
             #endregion
-            
+
             #region ReplaceInvalidCharacters(string fieldName)
             /// <summary>
             /// This method returns the Invalid Characters
@@ -1391,12 +1395,12 @@ namespace DataJuggler.Excelerate
                     // Percents are handled differently
                     fieldName = fieldName.Replace("%", "Percent");
                 }
-                
+
                 // return value
                 return fieldName;
             }
             #endregion
-            
+
         #endregion
 
         #region Properties
@@ -1411,7 +1415,7 @@ namespace DataJuggler.Excelerate
                 set { className = value; }
             }
             #endregion
-            
+
             #region HasClassName
             /// <summary>
             /// This property returns true if the 'ClassName' exists.
@@ -1422,13 +1426,13 @@ namespace DataJuggler.Excelerate
                 {
                     // initial value
                     bool hasClassName = (!String.IsNullOrEmpty(this.ClassName));
-                    
+
                     // return value
                     return hasClassName;
                 }
             }
             #endregion
-            
+
             #region HasOutputFolder
             /// <summary>
             /// This property returns true if the 'OutputFolder' exists.
@@ -1439,13 +1443,13 @@ namespace DataJuggler.Excelerate
                 {
                     // initial value
                     bool hasOutputFolder = (!String.IsNullOrEmpty(this.OutputFolder));
-                    
+
                     // return value
                     return hasOutputFolder;
                 }
             }
             #endregion
-            
+
             #region HasWorksheet
             /// <summary>
             /// This property returns true if this object has a 'Worksheet'.
@@ -1456,13 +1460,13 @@ namespace DataJuggler.Excelerate
                 {
                     // initial value
                     bool hasWorksheet = (this.Worksheet != null);
-                    
+
                     // return value
                     return hasWorksheet;
                 }
             }
             #endregion
-            
+
             #region IsValid
             /// <summary>
             /// This read only property returns the value for 'IsValid'.
@@ -1483,7 +1487,7 @@ namespace DataJuggler.Excelerate
                         // If the value for the property worksheet.HasRows is true
                         if (worksheet.HasRows)
                         {
-                            // valid if there are one or more rows (the top row is used for the header)                            
+                            // valid if there are one or more rows (the top row is used for the header)
                             isValid = ListHelper.HasOneOrMoreItems(worksheet.Rows);
                         }
                     }
@@ -1493,7 +1497,7 @@ namespace DataJuggler.Excelerate
                 }
             }
             #endregion
-            
+
             #region OutputFolder
             /// <summary>
             /// This property gets or sets the value for 'OutputFolder'.
@@ -1504,7 +1508,7 @@ namespace DataJuggler.Excelerate
                 set { outputFolder = value; }
             }
             #endregion
-            
+
             #region Worksheet
             /// <summary>
             /// This property gets or sets the value for 'Worksheet'.
@@ -1515,9 +1519,9 @@ namespace DataJuggler.Excelerate
                 set { worksheet = value; }
             }
             #endregion
-            
+
         #endregion
-        
+
     }
     #endregion
 
