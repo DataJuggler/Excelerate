@@ -4,7 +4,12 @@ Azure won't let me manage billing on my own Virtual Machine, so I deleted it. I 
 
 I deleted my VM and all my sites are currently gone. I save $60 a month, so I will get over it. 
 
-# Major Update - EPPPlus has been removed and NPOI has replaced it.
+# 11.14.2026 Major Update - NPOI has been removed. They went into license fee mode
+
+I removed NPOI and cloned their code (Free Code Shall Prevail - say it like a viking). My version only handles Excel.
+
+
+# 2023 Major Update - EPPPlus has been removed and NPOI has replaced it.
 
 This was a pretty major switch, but EPPPlus had vulnerabilities in the last free version.
 I will be testing more in the near future, as I suspect there may be some issues switching from
